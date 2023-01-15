@@ -19,7 +19,7 @@ return new class extends Migration
             $table->string('login_service_id')->nullable()->unique();
             $table->string('login_service_token')->nullable();
             $table->string('login_service_refresh_token')->nullable();
-            $table->string('email')->unique();
+            $table->string('email')->nullable()->unique();
             $table->string('password')->nullable();
             $table->string('avatar')->nullable();
             $table->string('avatar_original')->nullable();

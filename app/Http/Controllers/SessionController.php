@@ -43,11 +43,14 @@ class SessionController extends Controller
                     $user->google_account = $serviceUser->id;
                     $user->save();
                 } else {
-                    $user = User::insert([
+                    User::insert([
                         'name' => $serviceUser->name,
                         'email' => $serviceUser->email,
                         'google_account' => $serviceUser->id,
-                    ])->save();
+                    ]);
+
+                    $user = User::where('google_account', $serviceUser->id)->first();
+                    $user->save();
                 }
                 break;
             case 'github':
@@ -59,11 +62,14 @@ class SessionController extends Controller
                     $user->github_account = $serviceUser->id;
                     $user->save();
                 } else {
-                    $user = User::insert([
+                    User::insert([
                         'name' => $serviceUser->name,
                         'email' => $serviceUser->email,
                         'github_account' => $serviceUser->id,
-                    ])->save();
+                    ]);
+
+                    $user = User::where('github_account', $serviceUser->id)->first();
+                    $user->save();
                 }
                 break;
             case 'facebook':
@@ -75,11 +81,14 @@ class SessionController extends Controller
                     $user->facebook_account = $serviceUser->id;
                     $user->save();
                 } else {
-                    $user = User::insert([
+                    User::insert([
                         'name' => $serviceUser->name,
                         'email' => $serviceUser->email,
                         'facebook_account' => $serviceUser->id,
-                    ])->save();
+                    ]);
+
+                    $user = User::where('facebook_account', $serviceUser->id)->first();
+                    $user->save();
                 }
                 break;
             case 'twitter':
@@ -91,11 +100,14 @@ class SessionController extends Controller
                     $user->twitter_account = $serviceUser->id;
                     $user->save();
                 } else {
-                    $user = User::insert([
+                    User::insert([
                         'name' => $serviceUser->name,
                         'email' => $serviceUser->email,
                         'twitter_account' => $serviceUser->id,
-                    ])->save();
+                    ]);
+
+                    $user = User::where('twitter_account', $serviceUser->id)->first();
+                    $user->save();
                 }
                 break;
         }
