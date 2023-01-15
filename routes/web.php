@@ -1,6 +1,8 @@
 <?php
 
+use App\Http\Controllers\SessionController;
 use App\Models\User;
+use App\View\Components\Modal;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
@@ -20,32 +22,7 @@ use Laravel\Socialite\Facades\Socialite;
 Route::get('/', function () {
     return view('welcome');
 });
-Route::get('/login', function () {
-    return view('components.modal.modal');
-});
-Route::get('/auth/redirect', function () {
-    return Socialite::driver('google')->redirect();
-});
-Route::get('/auth/callback', function () {
-    $googleUser = Socialite::driver('google')->user();
-
-    $user = User::updateOrCreate([
-        'google_id' => $googleUser->id,
-        'email' => $googleUser->email,
-    ], [
-        'name' => $googleUser->name,
-        'google_token' => $googleUser->token,
-        'google_refresh_token' => $googleUser->refreshToken,
-        'avatar' => $googleUser->avatar,
-    ]);
-
-    Auth::login($user);
-
-    return redirect('/');
-});
-Route::get('/logout', function (Request $request) {
-    Auth::logout();
-    $request->session()->invalidate();
-    $request->session()->regenerateToken();
-    return redirect('/');
-});
+Route::get('/login', [SessionController::class, 'show']);
+Route::get('/auth/redirect/{service}', [SessionController::class, 'create']);
+Route::get('/auth/callback/{service}', [SessionController::class, 'store']);
+Route::get('/logout', [SessionController::class, 'destroy']);

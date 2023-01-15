@@ -22,8 +22,13 @@
     justify-content: space-between;
     position: relative;
 }
-.modal .header > button.close {
+.modal button {
+    border-radius: 50px;
     margin: 0.5rem;
+    padding: 0.5rem;
+    cursor: pointer;
+}
+.modal .header > button.close {
     position: absolute;
     top: 0;
     right: 0;
@@ -31,7 +36,6 @@
     border: none;
     font-size: 1.5rem;
     padding: 0.5rem;
-    cursor: pointer;
 }
 .modal .content {
     padding: 1rem;
@@ -49,13 +53,17 @@
     justify-content: flex-end;
 }
 .modal .footer > button.close {
-    margin: 0.5rem;
     background-color: transparent;
-    border-radius: 5px;
     border: 1px solid #ccc;
-    padding: 0.5rem;
-    cursor: pointer;
 }
 .modal .footer > button.close:hover {
     background-color: #ccc;
+}
+
+.modal .footer > button.submit {
+    background-color: #6eb95f;
+    border: 1px solid #ccc;
+}
+.modal .footer > button.submit:hover {
+    background-color: #aaa;
 }

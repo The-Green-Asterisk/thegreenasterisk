@@ -1,4 +1,3 @@
-<script onload="outsideClick()"></script>
 <div class="modal" id="modal" onclick="outsideClick(event)">
     <div class="body">
         <div class="header">
@@ -10,13 +9,19 @@
             </button>
         </div>
         <div class="content">
-            <a href="{{ url('/auth/redirect') }}">Sign In with Google</a>
-            {{ $content ?? 'here is the content' }}
+            {!! $content ?? 'here is the content' !!}
         </div>
         <div class="footer">
-            <button class="close" id="closeModal" onclick="closeModal()">
-                Close
-            </button>
+            @if ($showCloseButton)
+                <button class="close" id="closeModal" onclick="closeModal()">
+                    {{ $closeButtonText ?? 'Close' }}
+                </button>
+            @endif
+            @if ($showSubmitButton)
+                <button class="submit" id="submitModal" onclick="submitModal()">
+                    {{ $submitButtonText ?? 'Submit' }}
+                </button>
+            @endif
         </div>
     </div>
 </div>

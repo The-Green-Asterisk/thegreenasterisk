@@ -16,9 +16,9 @@ return new class extends Migration
         Schema::create('users', function (Blueprint $table) {
             $table->increments('id');
             $table->string('name');
-            $table->string('google_id')->nullable()->unique();
-            $table->string('google_token')->nullable();
-            $table->string('google_refresh_token')->nullable();
+            $table->string('login_service_id')->nullable()->unique();
+            $table->string('login_service_token')->nullable();
+            $table->string('login_service_refresh_token')->nullable();
             $table->string('email')->unique();
             $table->string('password')->nullable();
             $table->string('avatar')->nullable();

@@ -5,8 +5,8 @@
         <li><a href="/contact">Contact</a></li>
         @auth
             <li>
-                <img src="{{ Auth::user()->avatar }}" width="60px" />
                 <a href="/logout">Log Out</a>
+                <img src="{{ Auth::user()->avatar }}" width="60px" />
             </li>
         @endauth
         @guest
