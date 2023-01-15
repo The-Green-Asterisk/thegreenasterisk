@@ -1,5 +1,5 @@
 import './bootstrap';
-import * as el from '@/views/constants/elements.js';
+import * as el from '@/js/constants/elements.js';
 import '@/views/components/navbar/navbar.js';
 import '@/views/components/modal/modal.js';
 
@@ -13,4 +13,9 @@ window.fetch = async (url, options = {}) => {
     const response = await originalFetch(url, options);
     el.loader.style.display = 'none';
     return response;
+};
+window.onload = () => {
+    setTimeout(() => {
+        el.loader.style.display = 'none';
+    });
 };

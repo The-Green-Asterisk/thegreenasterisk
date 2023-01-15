@@ -25,7 +25,11 @@ class User extends Authenticatable
         'login_service_token',
         'login_service_refresh_token',
         'avatar',
-        'avatar_original'
+        'avatar_original',
+        'google_account',
+        'github_account',
+        'facebook_account',
+        'twitter_account'
     ];
 
     /**

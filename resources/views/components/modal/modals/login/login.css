@@ -1,0 +1,22 @@
+span.google {
+    color: red;
+}
+span.github {
+    color: black;
+}
+span.twitter {
+    color: cyan;
+}
+span.facebook {
+    color: blue;
+}
+.modal a.login {
+    display: inline-block;
+    text-shadow: 0 0 2px black;
+    color: inherit;
+}
+.modal a.login:hover {
+    -webkit-transform: scale(1.1); /* Chrome, Safari, Opera */
+    transform: scale(1.1);
+    color: inherit;
+}

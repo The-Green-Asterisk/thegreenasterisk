@@ -1,3 +1,5 @@
+@import "./modals/modals.css";
+
 .modal {
     position: fixed;
     top: 0;
@@ -61,7 +63,7 @@
 }
 
 .modal .footer > button.submit {
-    background-color: #6eb95f;
+    background-color: var(--ui-color);
     border: 1px solid #ccc;
 }
 .modal .footer > button.submit:hover {

@@ -14,7 +14,7 @@ class SessionController extends Controller
     {
         $modal = new Modal(
             'Login',
-            view('components.modals.login'),
+            view('components.modal.modals.login.login'),
             false,
             false
         );
@@ -40,6 +40,21 @@ class SessionController extends Controller
             'login_service_refresh_token' => $serviceUser->refreshToken,
             'avatar' => $serviceUser->avatar,
         ]);
+
+        switch ($service) {
+            case 'google':
+                $user->google_account = $serviceUser->email;
+                break;
+            case 'github':
+                $user->github_account = "https://github.com/$serviceUser->nickname";
+                break;
+            case 'facebook':
+                $user->facebook_account = "https://facebook.com/$serviceUser->id";
+                break;
+            case 'twitter':
+                $user->twitter_account = "https://twitter.com/$serviceUser->nickname";
+                break;
+        }
 
         Auth::login($user);
 

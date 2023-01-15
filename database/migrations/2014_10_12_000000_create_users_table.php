@@ -23,6 +23,10 @@ return new class extends Migration
             $table->string('password')->nullable();
             $table->string('avatar')->nullable();
             $table->string('avatar_original')->nullable();
+            $table->string('google_account')->nullable();
+            $table->string('github_account')->nullable();
+            $table->string('facebook_account')->nullable();
+            $table->string('twitter_account')->nullable();
             $table->rememberToken();
             $table->timestamps();
         });
