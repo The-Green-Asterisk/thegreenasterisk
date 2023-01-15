@@ -31,7 +31,7 @@ class SessionController extends Controller
     {
         $serviceUser = Socialite::driver($service)->user();
 
-        $user = new User();
+        $user = null;
 
         switch ($service) {
             case 'google':
@@ -40,18 +40,18 @@ class SessionController extends Controller
                     break;
                 } else if (User::where('email', $serviceUser->email)->first()) {
                     $user = User::where('email', $serviceUser->email)->first();
+                    $user->login_service_id = $serviceUser->id;
                     $user->google_account = $serviceUser->id;
                     $user->avatar = $serviceUser->avatar;
                     $user->save();
                 } else {
-                    User::insert([
+                    $user = new User([
                         'name' => $serviceUser->name,
                         'email' => $serviceUser->email,
                         'google_account' => $serviceUser->id,
+                        'login_service_id' => $serviceUser->id,
                         'avatar' => $serviceUser->avatar
                     ]);
-
-                    $user = User::where('google_account', $serviceUser->id)->first();
                     $user->save();
                 }
                 break;
@@ -65,14 +65,14 @@ class SessionController extends Controller
                     $user->avatar = $serviceUser->avatar;
                     $user->save();
                 } else {
-                    User::insert([
+                    $user = new User([
                         'name' => $serviceUser->name,
                         'email' => $serviceUser->email,
                         'github_account' => $serviceUser->id,
+                        'login_service_id' => $serviceUser->id,
                         'avatar' => $serviceUser->avatar,
                     ]);
 
-                    $user = User::where('github_account', $serviceUser->id)->first();
                     $user->save();
                 }
                 break;
@@ -83,38 +83,40 @@ class SessionController extends Controller
                 } else if (User::where('email', $serviceUser->email)->first()) {
                     $user = User::where('email', $serviceUser->email)->first();
                     $user->facebook_account = $serviceUser->id;
+                    $user->login_service_id = $serviceUser->id;
                     $user->avatar = $serviceUser->avatar;
                     $user->save();
                 } else {
-                    User::insert([
+                    $user = new User([
                         'name' => $serviceUser->name,
                         'email' => $serviceUser->email,
                         'facebook_account' => $serviceUser->id,
+                        'login_service_id' => $serviceUser->id,
                         'avatar' => $serviceUser->avatar
                     ]);
 
-                    $user = User::where('facebook_account', $serviceUser->id)->first();
                     $user->save();
                 }
                 break;
-            case 'twitter':
+            case 'twitter-oauth-2':
                 $user = User::where('twitter_account', $serviceUser->id)->first();
                 if ($user) {
                     break;
                 } else if (User::where('email', $serviceUser->email)->first()) {
                     $user = User::where('email', $serviceUser->email)->first();
                     $user->twitter_account = $serviceUser->id;
+                    $user->login_service_id = $serviceUser->id;
                     $user->avatar = $serviceUser->avatar;
                     $user->save();
                 } else {
-                    User::insert([
+                    $user = new User([
                         'name' => $serviceUser->name,
                         'email' => $serviceUser->email,
                         'twitter_account' => $serviceUser->id,
+                        'login_service_id' => $serviceUser->id,
                         'avatar' => $serviceUser->avatar
                     ]);
 
-                    $user = User::where('twitter_account', $serviceUser->id)->first();
                     $user->save();
                 }
                 break;
