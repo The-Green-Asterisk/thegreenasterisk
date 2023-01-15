@@ -20,6 +20,11 @@ use Laravel\Socialite\Facades\Socialite;
 */
 
 Route::get('/', function () {
+    if (env('APP_ENV') === 'production') {
+        return redirect('https://thegreenasterisk.netlify.app/');
+    } else {
+        return view('welcome');
+    }
     return view('welcome');
 });
 Route::get('/privacy', function () {
