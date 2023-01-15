@@ -41,12 +41,14 @@ class SessionController extends Controller
                 } else if (User::where('email', $serviceUser->email)->first()) {
                     $user = User::where('email', $serviceUser->email)->first();
                     $user->google_account = $serviceUser->id;
+                    $user->avatar = $serviceUser->avatar;
                     $user->save();
                 } else {
                     User::insert([
                         'name' => $serviceUser->name,
                         'email' => $serviceUser->email,
                         'google_account' => $serviceUser->id,
+                        'avatar' => $serviceUser->avatar
                     ]);
 
                     $user = User::where('google_account', $serviceUser->id)->first();
@@ -60,12 +62,14 @@ class SessionController extends Controller
                 } else if (User::where('email', $serviceUser->email)->first()) {
                     $user = User::where('email', $serviceUser->email)->first();
                     $user->github_account = $serviceUser->id;
+                    $user->avatar = $serviceUser->avatar;
                     $user->save();
                 } else {
                     User::insert([
                         'name' => $serviceUser->name,
                         'email' => $serviceUser->email,
                         'github_account' => $serviceUser->id,
+                        'avatar' => $serviceUser->avatar,
                     ]);
 
                     $user = User::where('github_account', $serviceUser->id)->first();
@@ -79,12 +83,14 @@ class SessionController extends Controller
                 } else if (User::where('email', $serviceUser->email)->first()) {
                     $user = User::where('email', $serviceUser->email)->first();
                     $user->facebook_account = $serviceUser->id;
+                    $user->avatar = $serviceUser->avatar;
                     $user->save();
                 } else {
                     User::insert([
                         'name' => $serviceUser->name,
                         'email' => $serviceUser->email,
                         'facebook_account' => $serviceUser->id,
+                        'avatar' => $serviceUser->avatar
                     ]);
 
                     $user = User::where('facebook_account', $serviceUser->id)->first();
@@ -98,12 +104,14 @@ class SessionController extends Controller
                 } else if (User::where('email', $serviceUser->email)->first()) {
                     $user = User::where('email', $serviceUser->email)->first();
                     $user->twitter_account = $serviceUser->id;
+                    $user->avatar = $serviceUser->avatar;
                     $user->save();
                 } else {
                     User::insert([
                         'name' => $serviceUser->name,
                         'email' => $serviceUser->email,
                         'twitter_account' => $serviceUser->id,
+                        'avatar' => $serviceUser->avatar
                     ]);
 
                     $user = User::where('twitter_account', $serviceUser->id)->first();
