@@ -30,7 +30,6 @@ class SessionController extends Controller
     public function store($service)
     {
         $serviceUser = Socialite::driver($service)->user();
-        dd($serviceUser);
 
         $user = new User();
 
