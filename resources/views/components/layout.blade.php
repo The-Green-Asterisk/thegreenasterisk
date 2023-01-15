@@ -11,6 +11,7 @@
 </head>
 
 <body>
+    <x-loader />
     @if ($showNavbar === true)
         <x-navbar />
     @endif
