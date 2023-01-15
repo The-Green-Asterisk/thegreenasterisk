@@ -32,28 +32,72 @@ class SessionController extends Controller
         $serviceUser = Socialite::driver($service)->user();
         dd($serviceUser);
 
-        $user = User::updateOrCreate([
-            'email' => $serviceUser->email,
-        ], [
-            'name' => $serviceUser->name,
-            'login_service_id' => $serviceUser->id,
-            'login_service_token' => $serviceUser->token,
-            'login_service_refresh_token' => $serviceUser->refreshToken,
-            'avatar' => $serviceUser->avatar,
-        ]);
+        $user = new User();
 
         switch ($service) {
             case 'google':
-                $user->google_account = $serviceUser->email;
+                $user = User::where('google_account', $serviceUser->id)->first();
+                if ($user) {
+                    break;
+                } else if (User::where('email', $serviceUser->email)->first()) {
+                    $user = User::where('email', $serviceUser->email)->first();
+                    $user->google_account = $serviceUser->id;
+                    $user->save();
+                } else {
+                    $user = User::insert([
+                        'name' => $serviceUser->name,
+                        'email' => $serviceUser->email,
+                        'google_account' => $serviceUser->id,
+                    ])->save();
+                }
                 break;
             case 'github':
-                $user->github_account = "https://github.com/$serviceUser->nickname";
+                $user = User::where('github_account', $serviceUser->id)->first();
+                if ($user) {
+                    break;
+                } else if (User::where('email', $serviceUser->email)->first()) {
+                    $user = User::where('email', $serviceUser->email)->first();
+                    $user->github_account = $serviceUser->id;
+                    $user->save();
+                } else {
+                    $user = User::insert([
+                        'name' => $serviceUser->name,
+                        'email' => $serviceUser->email,
+                        'github_account' => $serviceUser->id,
+                    ])->save();
+                }
                 break;
             case 'facebook':
-                $user->facebook_account = "https://facebook.com/$serviceUser->id";
+                $user = User::where('facebook_account', $serviceUser->id)->first();
+                if ($user) {
+                    break;
+                } else if (User::where('email', $serviceUser->email)->first()) {
+                    $user = User::where('email', $serviceUser->email)->first();
+                    $user->facebook_account = $serviceUser->id;
+                    $user->save();
+                } else {
+                    $user = User::insert([
+                        'name' => $serviceUser->name,
+                        'email' => $serviceUser->email,
+                        'facebook_account' => $serviceUser->id,
+                    ])->save();
+                }
                 break;
             case 'twitter':
-                $user->twitter_account = "https://twitter.com/$serviceUser->nickname";
+                $user = User::where('twitter_account', $serviceUser->id)->first();
+                if ($user) {
+                    break;
+                } else if (User::where('email', $serviceUser->email)->first()) {
+                    $user = User::where('email', $serviceUser->email)->first();
+                    $user->twitter_account = $serviceUser->id;
+                    $user->save();
+                } else {
+                    $user = User::insert([
+                        'name' => $serviceUser->name,
+                        'email' => $serviceUser->email,
+                        'twitter_account' => $serviceUser->id,
+                    ])->save();
+                }
                 break;
         }
 
