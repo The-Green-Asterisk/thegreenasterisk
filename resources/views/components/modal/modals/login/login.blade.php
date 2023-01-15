@@ -9,7 +9,7 @@
     </a>
 </span>
 <span class="twitter">
-    <a href="{{ url('/auth/redirect/twitter') }}" class="login">
+    <a href="{{ url('/auth/redirect/twitter-oauth-2') }}" class="login">
         Log In with Twitter
     </a>
 </span>

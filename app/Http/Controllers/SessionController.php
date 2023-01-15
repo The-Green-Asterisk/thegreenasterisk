@@ -30,12 +30,13 @@ class SessionController extends Controller
     public function store($service)
     {
         $serviceUser = Socialite::driver($service)->user();
+        dd($serviceUser);
 
         $user = User::updateOrCreate([
-            'login_service_id' => $serviceUser->id,
             'email' => $serviceUser->email,
         ], [
             'name' => $serviceUser->name,
+            'login_service_id' => $serviceUser->id,
             'login_service_token' => $serviceUser->token,
             'login_service_refresh_token' => $serviceUser->refreshToken,
             'avatar' => $serviceUser->avatar,

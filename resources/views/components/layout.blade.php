@@ -18,7 +18,9 @@
     @if ($showNavbar === true)
         <x-navbar />
     @endif
-    {{ $slot }}
+    <div style="padding: 1rem;margin-top:{{ $showNavbar ? '3rem' : '' }}">
+        {{ $slot }}
+    </div>
 </body>
 
 </html>

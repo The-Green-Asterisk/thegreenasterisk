@@ -22,6 +22,15 @@ use Laravel\Socialite\Facades\Socialite;
 Route::get('/', function () {
     return view('welcome');
 });
+Route::get('/privacy', function () {
+    return view('privacy');
+});
+Route::get('/tos', function () {
+    return view('tos');
+});
+Route::get('delete-fb-data', function () {
+    return view('delete-fb-data');
+});
 Route::get('/login', [SessionController::class, 'show']);
 Route::get('/auth/redirect/{service}', [SessionController::class, 'create']);
 Route::get('/auth/callback/{service}', [SessionController::class, 'store']);

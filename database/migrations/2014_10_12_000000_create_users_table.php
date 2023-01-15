@@ -27,6 +27,7 @@ return new class extends Migration
             $table->string('github_account')->nullable();
             $table->string('facebook_account')->nullable();
             $table->string('twitter_account')->nullable();
+            $table->boolean('is_admin')->default(false);
             $table->rememberToken();
             $table->timestamps();
         });
