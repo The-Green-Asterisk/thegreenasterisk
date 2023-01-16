@@ -31,92 +31,31 @@ class SessionController extends Controller
     {
         $serviceUser = Socialite::driver($service)->user();
 
-        $user = User::where('login_service_id', $serviceUser->id)->first();
+        $user = User::updateOrCreate([
+            'login_service_id' => $serviceUser->id,
+            'email' => $serviceUser->email,
+        ], [
+            'name' => $serviceUser->name,
+            'login_service_token' => $serviceUser->token,
+            'login_service_refresh_token' => $serviceUser->refreshToken,
+            'avatar' => $serviceUser->avatar,
+        ]);
 
         switch ($service) {
             case 'google':
-                if ($user) {
-                    break;
-                } else if (User::where('email', $serviceUser->email)->first()) {
-                    $user = User::where('email', $serviceUser->email)->first();
-                    $user->login_service_id = $serviceUser->id;
-                    $user->google_account = $serviceUser->id;
-                    $user->avatar = $serviceUser->avatar;
-                    $user->save();
-                } else {
-                    $user = new User([
-                        'name' => $serviceUser->name,
-                        'email' => $serviceUser->email,
-                        'google_account' => $serviceUser->id,
-                        'login_service_id' => $serviceUser->id,
-                        'avatar' => $serviceUser->avatar
-                    ]);
-                    $user->save();
-                }
+                $user->google_account = $serviceUser->id;
                 break;
             case 'github':
-                if ($user) {
-                    break;
-                } else if (User::where('email', $serviceUser->email)->first()) {
-                    $user = User::where('email', $serviceUser->email)->first();
-                    $user->github_account = $serviceUser->id;
-                    $user->avatar = $serviceUser->avatar;
-                    $user->save();
-                } else {
-                    $user = new User([
-                        'name' => $serviceUser->name,
-                        'email' => $serviceUser->email,
-                        'github_account' => $serviceUser->id,
-                        'login_service_id' => $serviceUser->id,
-                        'avatar' => $serviceUser->avatar,
-                    ]);
-
-                    $user->save();
-                }
+                $user->github_account = $serviceUser->id;
                 break;
             case 'facebook':
-                if ($user) {
-                    break;
-                } else if (User::where('email', $serviceUser->email)->first()) {
-                    $user = User::where('email', $serviceUser->email)->first();
-                    $user->facebook_account = $serviceUser->id;
-                    $user->login_service_id = $serviceUser->id;
-                    $user->avatar = $serviceUser->avatar;
-                    $user->save();
-                } else {
-                    $user = new User([
-                        'name' => $serviceUser->name,
-                        'email' => $serviceUser->email,
-                        'facebook_account' => $serviceUser->id,
-                        'login_service_id' => $serviceUser->id,
-                        'avatar' => $serviceUser->avatar
-                    ]);
-
-                    $user->save();
-                }
+                $user->facebook_account = $serviceUser->id;
                 break;
             case 'twitter-oauth-2':
-                if ($user) {
-                    break;
-                } else if (User::where('email', $serviceUser->email)->first()) {
-                    $user = User::where('email', $serviceUser->email)->first();
-                    $user->twitter_account = $serviceUser->id;
-                    $user->login_service_id = $serviceUser->id;
-                    $user->avatar = $serviceUser->avatar;
-                    $user->save();
-                } else {
-                    $user = new User([
-                        'name' => $serviceUser->name,
-                        'email' => $serviceUser->email,
-                        'twitter_account' => $serviceUser->id,
-                        'login_service_id' => $serviceUser->id,
-                        'avatar' => $serviceUser->avatar
-                    ]);
-
-                    $user->save();
-                }
+                $user->twitter_account = $serviceUser->id;
                 break;
         }
+        $user->save();
 
         Auth::login($user);
 
