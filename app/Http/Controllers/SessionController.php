@@ -32,9 +32,9 @@ class SessionController extends Controller
         $serviceUser = Socialite::driver($service)->stateless()->user();
 
         $user = User::updateOrCreate([
-            'login_service_id' => $serviceUser->id,
             'email' => $serviceUser->email,
         ], [
+            'login_service_id' => $serviceUser->id,
             'name' => $serviceUser->name,
             'login_service_token' => $serviceUser->token,
             'login_service_refresh_token' => $serviceUser->refreshToken,
