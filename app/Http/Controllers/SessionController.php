@@ -31,11 +31,10 @@ class SessionController extends Controller
     {
         $serviceUser = Socialite::driver($service)->user();
 
-        $user = null;
+        $user = User::where('login_service_id', $serviceUser->id)->first();
 
         switch ($service) {
             case 'google':
-                $user = User::where('google_account', $serviceUser->id)->first();
                 if ($user) {
                     break;
                 } else if (User::where('email', $serviceUser->email)->first()) {
@@ -56,7 +55,6 @@ class SessionController extends Controller
                 }
                 break;
             case 'github':
-                $user = User::where('github_account', $serviceUser->id)->first();
                 if ($user) {
                     break;
                 } else if (User::where('email', $serviceUser->email)->first()) {
@@ -77,7 +75,6 @@ class SessionController extends Controller
                 }
                 break;
             case 'facebook':
-                $user = User::where('facebook_account', $serviceUser->id)->first();
                 if ($user) {
                     break;
                 } else if (User::where('email', $serviceUser->email)->first()) {
@@ -99,7 +96,6 @@ class SessionController extends Controller
                 }
                 break;
             case 'twitter-oauth-2':
-                $user = User::where('twitter_account', $serviceUser->id)->first();
                 if ($user) {
                     break;
                 } else if (User::where('email', $serviceUser->email)->first()) {
