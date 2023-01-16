@@ -36,7 +36,7 @@ class SessionController extends Controller
         switch ($service) {
             case 'google':
                 if ($user) {
-                    break;
+                    continue;
                 } else if (User::where('email', $serviceUser->email)->first()) {
                     $user = User::where('email', $serviceUser->email)->first();
                     $user->login_service_id = $serviceUser->id;
@@ -56,7 +56,7 @@ class SessionController extends Controller
                 break;
             case 'github':
                 if ($user) {
-                    break;
+                    continue;
                 } else if (User::where('email', $serviceUser->email)->first()) {
                     $user = User::where('email', $serviceUser->email)->first();
                     $user->github_account = $serviceUser->id;
@@ -76,7 +76,7 @@ class SessionController extends Controller
                 break;
             case 'facebook':
                 if ($user) {
-                    break;
+                    continue;
                 } else if (User::where('email', $serviceUser->email)->first()) {
                     $user = User::where('email', $serviceUser->email)->first();
                     $user->facebook_account = $serviceUser->id;
@@ -97,7 +97,7 @@ class SessionController extends Controller
                 break;
             case 'twitter-oauth-2':
                 if ($user) {
-                    break;
+                    continue;
                 } else if (User::where('email', $serviceUser->email)->first()) {
                     $user = User::where('email', $serviceUser->email)->first();
                     $user->twitter_account = $serviceUser->id;
