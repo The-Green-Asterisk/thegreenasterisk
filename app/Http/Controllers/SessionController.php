@@ -29,7 +29,7 @@ class SessionController extends Controller
 
     public function store($service)
     {
-        $serviceUser = Socialite::driver($service)->user();
+        $serviceUser = Socialite::driver($service)->stateless()->user();
 
         $user = User::where('login_service_id', $serviceUser->id)->first();
 
