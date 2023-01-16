@@ -24,12 +24,12 @@ class SessionController extends Controller
 
     public function create($service)
     {
-        return Socialite::driver($service)->redirect();
+        return Socialite::driver($service)->stateless()->redirect();
     }
 
     public function store($service)
     {
-        $serviceUser = Socialite::driver($service)->user();
+        $serviceUser = Socialite::driver($service)->stateless()->user();
 
         $user = User::updateOrCreate([
             'login_service_id' => $serviceUser->id,
