@@ -15,7 +15,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    if (env('APP_ENV') === 'production' && ! auth()->user()->isAdmin()) {
+    if (env('APP_ENV') === 'production' && ! Auth::user()->isAdmin()) {
         return redirect('https://thegreenasterisk.netlify.app/');
     } else {
         return view('welcome');
