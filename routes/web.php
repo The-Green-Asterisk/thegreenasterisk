@@ -1,12 +1,7 @@
 <?php
 
 use App\Http\Controllers\SessionController;
-use App\Models\User;
-use App\View\Components\Modal;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
-use Laravel\Socialite\Facades\Socialite;
 
 /*
 |--------------------------------------------------------------------------
@@ -20,11 +15,12 @@ use Laravel\Socialite\Facades\Socialite;
 */
 
 Route::get('/', function () {
-    if (env('APP_ENV') === 'production') {
+    if (env('APP_ENV') === 'production' && ! auth()->user()->isAdmin()) {
         return redirect('https://thegreenasterisk.netlify.app/');
     } else {
         return view('welcome');
     }
+
     return view('welcome');
 });
 Route::get('/privacy', function () {
