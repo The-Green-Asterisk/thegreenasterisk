@@ -24,12 +24,6 @@
     justify-content: space-between;
     position: relative;
 }
-.modal button {
-    border-radius: 50px;
-    margin: 0.5rem;
-    padding: 0.5rem;
-    cursor: pointer;
-}
 .modal .header > button.close {
     position: absolute;
     top: 0;
@@ -48,24 +42,6 @@
     align-items: center;
     justify-content: center;
 }
-.modal .footer {
-    width: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: flex-end;
-}
-.modal .footer > button.close {
-    background-color: transparent;
-    border: 1px solid #ccc;
-}
-.modal .footer > button.close:hover {
-    background-color: #ccc;
-}
-
-.modal .footer > button.submit {
-    background-color: var(--ui-color);
-    border: 1px solid #ccc;
-}
-.modal .footer > button.submit:hover {
-    background-color: #aaa;
+.modal .btn {
+    margin: 1rem;
 }

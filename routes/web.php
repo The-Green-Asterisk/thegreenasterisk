@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ContactController;
 use App\Http\Controllers\SessionController;
 use Illuminate\Support\Facades\Route;
 
@@ -36,3 +37,6 @@ Route::get('/login', [SessionController::class, 'show']);
 Route::get('/auth/redirect/{service}', [SessionController::class, 'create']);
 Route::get('/auth/callback/{service}', [SessionController::class, 'store']);
 Route::get('/logout', [SessionController::class, 'destroy']);
+
+Route::get('/contact', [ContactController::class, 'index'])->name('contact');
+Route::post('/contact', [ContactController::class, 'store'])->name('contact.store');
