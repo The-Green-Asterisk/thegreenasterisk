@@ -12,12 +12,12 @@
             {!! $content ?? 'I put this content together for you.' !!}
         </div>
         <div class="button-row">
-            @if (!$showCloseButton)
+            @if ($showCloseButton)
                 <button class="btn btn-secondary" id="closeModal" onclick="closeModal()">
                     {{ $closeButtonText ?? 'Close' }}
                 </button>
             @endif
-            @if (!$showSubmitButton)
+            @if ($showSubmitButton)
                 <button class="btn btn-primary" id="submitModal" onclick="submitModal()">
                     {{ $submitButtonText ?? 'Submit' }}
                 </button>

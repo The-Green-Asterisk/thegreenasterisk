@@ -12,6 +12,59 @@
 
 namespace App\Models{
 /**
+ * App\Models\BlogPost
+ *
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Comment[] $comments
+ * @property-read int|null $comments_count
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Tag[] $tags
+ * @property-read int|null $tags_count
+ * @property-read \App\Models\User|null $user
+ * @method static \Illuminate\Database\Eloquent\Builder|BlogPost filter($filters)
+ * @method static \Illuminate\Database\Eloquent\Builder|BlogPost latestFirst()
+ * @method static \Illuminate\Database\Eloquent\Builder|BlogPost newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|BlogPost newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|BlogPost query()
+ */
+	class BlogPost extends \Eloquent {}
+}
+
+namespace App\Models{
+/**
+ * App\Models\Comment
+ *
+ * @property-read \App\Models\BlogPost|null $blogPost
+ * @property-read mixed $created_at
+ * @property-read mixed $updated_at
+ * @property-read \App\Models\User|null $user
+ * @method static \Illuminate\Database\Eloquent\Builder|Comment filter($filters)
+ * @method static \Illuminate\Database\Eloquent\Builder|Comment newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|Comment newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|Comment query()
+ */
+	class Comment extends \Eloquent {}
+}
+
+namespace App\Models{
+/**
+ * App\Models\Tag
+ *
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\BlogPost[] $blogPosts
+ * @property-read int|null $blog_posts_count
+ * @property-read mixed $created_at
+ * @property-read mixed $updated_at
+ * @method static \Illuminate\Database\Eloquent\Builder|Tag filter($filters)
+ * @method static \Illuminate\Database\Eloquent\Builder|Tag latestFirst()
+ * @method static \Illuminate\Database\Eloquent\Builder|Tag mostUsed()
+ * @method static \Illuminate\Database\Eloquent\Builder|Tag newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|Tag newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|Tag query()
+ * @method static \Illuminate\Database\Eloquent\Builder|Tag withBlogPostCount()
+ */
+	class Tag extends \Eloquent {}
+}
+
+namespace App\Models{
+/**
  * App\Models\User
  *
  * @property int $id
@@ -27,7 +80,6 @@ namespace App\Models{
  * @property string|null $github_account
  * @property string|null $facebook_account
  * @property string|null $twitter_account
- * @property int $is_admin
  * @property string|null $remember_token
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
@@ -47,7 +99,6 @@ namespace App\Models{
  * @method static \Illuminate\Database\Eloquent\Builder|User whereGithubAccount($value)
  * @method static \Illuminate\Database\Eloquent\Builder|User whereGoogleAccount($value)
  * @method static \Illuminate\Database\Eloquent\Builder|User whereId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|User whereIsAdmin($value)
  * @method static \Illuminate\Database\Eloquent\Builder|User whereLoginServiceId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|User whereLoginServiceRefreshToken($value)
  * @method static \Illuminate\Database\Eloquent\Builder|User whereLoginServiceToken($value)

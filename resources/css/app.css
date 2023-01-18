@@ -22,6 +22,11 @@ html {
     background-color: white;
 }
 body {
+    background-image: url("/public/bg.jpg");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
     margin: 0;
     min-height: 100vh;
     display: flex;
@@ -44,11 +49,20 @@ a:hover {
 textarea {
     font-family: inherit;
 }
-.content {
+.main-content {
+    background-color: rgba(255, 255, 255, 0.9);
+    border-radius: 0.5rem;
     padding: 1rem;
-    margin: 0 auto;
+    margin: 1rem auto;
     width: calc(100% - 2rem);
     max-width: 60rem;
+    filter: drop-shadow(0 0 0.5rem black);
+}
+.heroImg {
+    border-radius: 0.5rem;
+    width: calc(100% + 2rem);
+    margin: -1rem;
+    filter: drop-shadow(0 0 0.5rem black);
 }
 .form-group {
     width: 100%;
@@ -197,4 +211,24 @@ textarea {
 
 h1 {
     text-align: center;
+}
+
+.section-wrapper {
+    display: flex;
+    flex-wrap: wrap;
+}
+section {
+    flex: 1;
+    min-width: 15rem;
+    margin: 1rem;
+    padding: 1rem;
+    background-color: rgba(255, 255, 255, 0.9);
+    border-radius: 0.5rem;
+    filter: drop-shadow(0 0 0.1rem gray);
+}
+section .section-header {
+    text-align: center;
+    background-color: #e2e2e2;
+    border-radius: 0.5rem;
+    padding: 0.5rem;
 }

@@ -8,7 +8,7 @@
     <title>The Green Asterisk</title>
 
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    <link rel="icon" href="{{ asset('favicon.ico') }}" type="image/x-icon" />
+    <link rel="icon" href="{{ asset('asterisk.png') }}" type="image/x-icon" />
 
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
@@ -18,9 +18,12 @@
     @if ($showNavbar === true)
         <x-navbar />
     @endif
-    <div class="content" style="margin-top:{{ $showNavbar ? '3rem' : '0' }};">
+    <div class="main-content" style="margin-top:{{ $showNavbar ? '4rem' : '1rem' }};">
         {{ $slot }}
     </div>
+    @if ($showFooter === true)
+        <x-footer />
+    @endif
 </body>
 
 </html>

@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\ContactController;
+use App\Http\Controllers\IndexController;
 use App\Http\Controllers\SessionController;
 use Illuminate\Support\Facades\Route;
 
@@ -15,28 +16,15 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    if (env('APP_ENV') === 'production' && ! auth()->user()->isAdmin()) {
-        return redirect('https://thegreenasterisk.netlify.app/');
-    } else {
-        return view('welcome');
-    }
+Route::get('/', [IndexController::class, 'home'])->name('home');
+Route::get('/privacy', [IndexController::class, 'privacy'])->name('privacy');
+Route::get('/tos', [IndexController::class, 'tos'])->name('tos');
+Route::get('/delete-fb-data', [IndexController::class, 'deleteFbData'])->name('delete-fb-data');
 
-    return view('welcome');
-});
-Route::get('/privacy', function () {
-    return view('privacy');
-});
-Route::get('/tos', function () {
-    return view('tos');
-});
-Route::get('delete-fb-data', function () {
-    return view('delete-fb-data');
-});
+Route::get('/contact', [ContactController::class, 'index'])->name('contact');
+Route::post('/contact', [ContactController::class, 'store'])->name('contact.store');
+
 Route::get('/login', [SessionController::class, 'show']);
 Route::get('/auth/redirect/{service}', [SessionController::class, 'create']);
 Route::get('/auth/callback/{service}', [SessionController::class, 'store']);
 Route::get('/logout', [SessionController::class, 'destroy']);
-
-Route::get('/contact', [ContactController::class, 'index'])->name('contact');
-Route::post('/contact', [ContactController::class, 'store'])->name('contact.store');

@@ -1,5 +1,5 @@
 nav {
-    background-color: white;
+    background-color: rgba(255, 255, 255, 0.9);
     box-shadow: var(--shadow);
     position: fixed;
     top: 0;
@@ -19,7 +19,7 @@ nav ul li {
     align-items: center;
     list-style: none;
 }
-nav ul li img {
+nav ul li img.avatar {
     width: 2rem;
     height: 2rem;
     margin: 0 0.5rem;
