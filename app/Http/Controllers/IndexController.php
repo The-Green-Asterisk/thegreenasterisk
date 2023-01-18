@@ -8,7 +8,7 @@ class IndexController extends Controller
 {
     public function home()
     {
-        if (env('APP_ENV') === 'production' && ! auth()->user()->isAdmin()) {
+        if (env('APP_ENV') === 'production' && auth() && ! auth()->user()->isAdmin()) {
             return redirect('https://thegreenasterisk.netlify.app/');
         } else {
             return view('welcome');
