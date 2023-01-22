@@ -9,7 +9,7 @@
         <div>
             <label for="image">Header Image:</label>
             <input type="file" name="image" id="image" class="btn btn-info" onchange="imagePreview(this)">
-            <img id="image-preview" class="headerImg" src="/storage/images/placeholder.png" />
+            <img id="image-preview" class="headerImg" src="/placeholder.png" />
         </div>
 
         <div>
