@@ -18,11 +18,6 @@ class Tag extends Model
         return $this->belongsToMany(BlogPost::class);
     }
 
-    public function getRouteKeyName()
-    {
-        return 'name';
-    }
-
     public function getBlogPostCount()
     {
         return $this->blogPosts->count();
@@ -36,7 +31,7 @@ class Tag extends Model
     public function getBlogPostListWithLinks()
     {
         return $this->blogPosts->map(function ($blogPost) {
-            return '<a href="' . route('blog-posts.show', ['blogPost' => $blogPost->id]) . '">' . $blogPost->title . '</a>';
+            return '<a href="'.route('blog-posts.show', ['blogPost' => $blogPost->id]).'">'.$blogPost->title.'</a>';
         });
     }
 
@@ -63,7 +58,7 @@ class Tag extends Model
     public function scopeFilter($query, $filters)
     {
         if ($filters['search'] ?? false) {
-            $query->where('name', 'like', '%' . request('search') . '%');
+            $query->where('name', 'like', '%'.request('search').'%');
         }
     }
 

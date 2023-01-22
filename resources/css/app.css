@@ -2,6 +2,7 @@
 @import "@fortawesome/fontawesome-free/css/all.css";
 
 @import "/resources/views/components/components.css";
+@import "/resources/views/blog/blog.css";
 
 :root {
     --sm-shadow: 0 1px 2px 0 rgb(0 0 0 / 0.05);
@@ -54,7 +55,7 @@ textarea {
     border-radius: 0.5rem;
     padding: 1rem;
     margin: 1rem auto;
-    width: calc(100% - 2rem);
+    width: calc(100% - 4rem);
     max-width: 60rem;
     filter: drop-shadow(0 0 0.5rem black);
 }
@@ -74,6 +75,7 @@ textarea {
     justify-content: flex-end;
 }
 .btn {
+    margin: 1rem;
     width: 100%;
     max-width: 10rem;
     padding: 1rem;
@@ -83,6 +85,7 @@ textarea {
     font-weight: 400;
     outline: none;
     cursor: pointer;
+    white-space: nowrap;
 }
 .btn:hover {
     background-color: #5a9e4f;
@@ -197,6 +200,12 @@ textarea {
 .btn-link:active {
     background-color: transparent;
 }
+input::file-selector-button {
+    background: none;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+}
 .form-control {
     width: calc(100% - 2rem);
     padding: 1rem;
@@ -207,6 +216,9 @@ textarea {
     color: #333;
     outline: none;
     transition: all 0.35s;
+}
+.error {
+    color: red;
 }
 
 h1 {
@@ -219,7 +231,7 @@ h1 {
 }
 section {
     flex: 1;
-    min-width: 15rem;
+    min-width: 12rem;
     margin: 1rem;
     padding: 1rem;
     background-color: rgba(255, 255, 255, 0.9);
@@ -231,4 +243,15 @@ section .section-header {
     background-color: #e2e2e2;
     border-radius: 0.5rem;
     padding: 0.5rem;
+}
+section .section-img {
+    width: 10rem;
+    height: 10rem;
+    object-fit: cover;
+    margin: 0.5rem;
+    float: left;
+    border-radius: 5px;
+}
+section .end-section {
+    clear: both;
 }

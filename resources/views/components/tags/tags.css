@@ -1,0 +1,34 @@
+.tag-section {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+.tag-section .tag-box {
+    flex: 1;
+    min-width: 12rem;
+    margin: 1rem;
+    background-color: rgba(255, 255, 255, 0.9);
+    border-radius: 0.5rem;
+    box-shadow: var(--inner-shadow);
+    overflow: auto;
+    white-space: normal;
+    outline: none;
+    height: 3rem;
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+}
+.tag-section .tag-box::-webkit-scrollbar {
+    display: none;
+}
+.tag-section .tag-box option {
+    display: inline-block;
+    margin: 0.5rem;
+    padding: 0 0.5rem;
+    border: 1px solid #ccc;
+    border-radius: 50px;
+}
+.tag-section label {
+    align-items: center;
+    flex: 1;
+    display: flex;
+}

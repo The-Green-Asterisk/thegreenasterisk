@@ -1,0 +1,44 @@
+.headerImg {
+    width: 100%;
+    height: 25rem;
+    object-fit: cover;
+    box-shadow: var(--inner-shadow);
+    border: 1px solid #ccc;
+}
+input {
+    width: calc(100% - 2rem);
+    padding: 1rem;
+    border: 1px solid #ccc;
+    border-radius: 0.5rem;
+    font-size: 1.2rem;
+    font-weight: 400;
+    outline: none;
+    cursor: pointer;
+}
+.tox {
+    border-radius: 0.5rem !important;
+}
+.tag {
+    display: inline-block;
+    margin: 0 0.5rem;
+    padding: 0 0.5rem;
+    border: 1px solid #ccc;
+    border-radius: 50px;
+}
+.tag:hover {
+    background-color: #5351ff;
+    text-decoration: none;
+}
+.dateline {
+    font-size: 0.8rem;
+    color: #999;
+    margin-top: -1rem;
+}
+.comment-avatar {
+    width: 3rem !important;
+    height: 3rem !important;
+    object-fit: cover;
+    border-radius: 100% !important;
+    border: 1px solid black;
+    filter: drop-shadow(0 0 0.2rem gray);
+}

@@ -10,9 +10,13 @@ class BlogPost extends Model
     use HasFactory;
 
     protected $fillable = [
+        'id',
+        'slug',
+        'image',
         'title',
         'content',
         'user_id',
+        'is_draft',
     ];
 
     public function user()
@@ -32,25 +36,20 @@ class BlogPost extends Model
 
     public function scopeLatestFirst($query)
     {
-        return $query->orderBy('created_at', 'desc');
+        return $query->orderBy('published_at' ?? 'created_at', 'desc');
     }
 
     public function scopeFilter($query, $filters)
     {
         if ($filters['search'] ?? false) {
-            $query->where('title', 'like', '%' . request('search') . '%')
-                ->orWhere('content', 'like', '%' . request('search') . '%');
+            $query->where('title', 'like', '%'.request('search').'%')
+                ->orWhere('content', 'like', '%'.request('search').'%');
         }
-    }
-
-    public function getRouteKeyName()
-    {
-        return 'slug';
     }
 
     public function getExcerpt()
     {
-        return substr($this->content, 0, 100) . '...';
+        return substr($this->content, 0, 300).'...';
     }
 
     public function getTagList()
@@ -58,8 +57,20 @@ class BlogPost extends Model
         return $this->tags->pluck('name');
     }
 
+    public static function getAllByTag($tag)
+    {
+        return BlogPost::whereHas('tags', function ($query) use ($tag) {
+            $query->where('name', $tag);
+        })->latestFirst()->get();
+    }
+
     public function getCommentCount()
     {
         return $this->comments->count();
+    }
+
+    public function getPublishedAtAttribute($value)
+    {
+        return \Carbon\Carbon::parse($value)->diffForHumans();
     }
 }

@@ -17,9 +17,9 @@ return new class extends Migration
             $table->id();
             $table->timestamps();
             $table->unsignedBigInteger('blog_post_id');
-            $table->foreign('blog_post_id')->references('id')->on('blog_post');
+            $table->foreign('blog_post_id')->references('id')->on('blog_posts');
             $table->unsignedBigInteger('tag_id');
-            $table->foreign('tag_id')->references('id')->on('tag');
+            $table->foreign('tag_id')->references('id')->on('tags');
         });
     }
 

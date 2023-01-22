@@ -6,34 +6,30 @@
     @endadmin
     <section>
         <div class="section-header">
-            <h2>Recent Blog Posts</h2>
+            <a href="/blog">
+                <h2>Recent Blog Posts</h2>
+            </a>
         </div>
-        <div class="section-content">
-            <div class="post">
-                <div class="post-header">
-                    <h3>Post 1</h3>
-                </div>
-                <div class="post-content">
-                    <p>Post 1 content.</p>
-                </div>
-            </div>
-            <div class="post">
-                <div class="post-header">
-                    <h3>Post 2</h3>
-                </div>
-                <div class="post-content">
-                    <p>Post 2 content.</p>
-                </div>
-            </div>
-            <div class="post">
-                <div class="post-header">
-                    <h3>Post 3</h3>
-                </div>
-                <div class="post-content">
-                    <p>Post 3 content.</p>
-                </div>
-            </div>
-        </div>
+        <div class="section-wrapper">
+            @foreach ($posts as $post)
+                <section>
+                    <h3 class="section-header">
+                        <a href="{{ route('blog.show', $post->id) }}">
+                            {{ $post->title }}
+                        </a>
+                    </h3>
+                    <a href="{{ route('blog.show', $post->id) }}">
+                        <img class="headerImg" src="{{ asset($post->image) }}" alt="{{ $post->title }}"
+                            style="{{ !$loop->first ? ' height: 10rem;' : '' }}">
+                    </a>
+                    <div class="post-content">
+                        <p>
+                            {!! $post->getexcerpt() !!}
+                        </p>
+                    </div>
+                </section>
+                {!! $loop->first ? '<hr style="width: 100%">' : '' !!}
+            @endforeach
     </section>
     <div class="section-wrapper">
         <section>
