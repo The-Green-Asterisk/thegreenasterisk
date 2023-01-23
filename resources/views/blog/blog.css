@@ -18,6 +18,9 @@ input {
 .tox {
     border-radius: 0.5rem !important;
 }
+#content + .tox {
+    height: 50rem !important;
+}
 .tag {
     display: inline-block;
     margin: 0 0.5rem;
