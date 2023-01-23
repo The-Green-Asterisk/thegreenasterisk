@@ -30,7 +30,7 @@
                 <div class="form-group">
                     <input type="hidden" name="blog_post_id" value="{{ $blogPost->id }}" />
                     <label for="content" hidden>Comment</label>
-                    <textarea id="content" name="content" rows="3"></textarea>
+                    <textarea id="comment_content" name="comment_content" rows="3"></textarea>
                 </div>
                 <button type="submit" class="btn btn-primary">Submit</button>
             </form>
