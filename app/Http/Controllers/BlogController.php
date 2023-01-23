@@ -2,12 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\CommentMail;
 use App\Models\BlogPost;
 use App\Models\Comment;
 use App\Models\Tag;
 use App\View\Components\Modal;
 use Auth;
 use Illuminate\Http\Request;
+use Mail;
 use Storage;
 use Str;
 
@@ -168,7 +170,14 @@ class BlogController extends Controller
             'user_id' => auth()->id(),
         ]);
 
-        return redirect()->back();
+        $data = [
+            'comment' => $request->comment_content,
+            'post' => $blogPost,
+        ];
+
+        Mail::to(config('mail.from.address'))->send(new CommentMail($data));
+
+        return redirect()->route('blog.show', $blogPost);
     }
 
     public function commentDelete(Comment $comment)
