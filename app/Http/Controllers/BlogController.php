@@ -119,13 +119,15 @@ class BlogController extends Controller
             'tags' => 'array|min:1',
         ]);
 
+        $newPublish = $blogPost->is_draft && ! $draft;
+
         $blogPost->title = $request->title;
         $blogPost->content = $request->content;
         if ($request->image) {
             $blogPost->image = 'storage/'.$request->file('image')->store('images');
         }
         $blogPost->is_draft = $draft;
-        $blogPost->published_at = $draft ? null : now();
+        $blogPost->published_at = $newPublish ? now() : null;
         $blogPost->save();
 
         $blogPost->tags()->sync($request->tags);
