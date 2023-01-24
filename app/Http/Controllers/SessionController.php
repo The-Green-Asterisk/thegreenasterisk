@@ -7,6 +7,7 @@ use App\View\Components\Modal;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Laravel\Socialite\Facades\Socialite;
+use Storage;
 
 class SessionController extends Controller
 {
@@ -30,13 +31,11 @@ class SessionController extends Controller
     public function store($service)
     {
         $serviceUser = Socialite::driver($service)->stateless()->user();
-
-        $avatar = file_get_contents($serviceUser->avatar);
-        $avatarName = $serviceUser->id.'.jpg';
-        $avatarPath = public_path('images/avatars/'.$avatarName);
-        file_put_contents($avatarPath, $avatar);
-
-        $serviceUser->avatar = $avatarName;
+        if (empty($serviceUser->avatar)) {
+            $serviceUser->avatar = 'https://www.gravatar.com/avatar/'.md5(strtolower(trim($serviceUser->email))).'?d=mp';
+        }
+        Storage::put('images/avatars/'.$serviceUser->id.'.jpg', file_get_contents($serviceUser->avatar));
+        $serviceUser->avatar = Storage::url('images/avatars/'.$serviceUser->id.'.jpg');
 
         $user = User::updateOrCreate([
             'email' => $serviceUser->email,

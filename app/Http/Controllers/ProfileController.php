@@ -9,7 +9,7 @@ class ProfileController extends Controller
 {
     public function index()
     {
-        return view('profile')->with('user', Auth::user());
+        return view('profile.index')->with('user', Auth::user());
     }
 
     public function update(Request $request)
@@ -19,6 +19,6 @@ class ProfileController extends Controller
         $user->email = $request->email;
         $user->save();
 
-        return redirect()->route('profile');
+        return redirect()->route('profile.index');
     }
 }

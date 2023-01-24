@@ -1,5 +1,6 @@
 <x-layout>
-    <img class="avatar" src="{{ $user->avatar }}" alt="Avatar is determined by your login service">
+    <img class="avatar" src="{{ $user->avatar }}"
+        title="Avatar is determined by your login service. Log out and in again to refresh.">
     <form action="{{ route('profile.update', Auth::user()) }}" method="POST">
         @method('PUT')
         @csrf
