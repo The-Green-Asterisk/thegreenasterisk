@@ -10,7 +10,6 @@ class ImageController extends Controller
     {
         if ($request->hasFile('file') && $request->file('file')->isValid()) {
             $file = $request->file('file');
-            // Perform image validation and storage
             $path = '/storage/'.$file->store('images');
 
             return response()->json(['location' => asset($path), 'success' => true], 200);

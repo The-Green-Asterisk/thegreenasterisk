@@ -31,6 +31,13 @@ class SessionController extends Controller
     {
         $serviceUser = Socialite::driver($service)->stateless()->user();
 
+        $avatar = file_get_contents($serviceUser->avatar);
+        $avatarName = $serviceUser->id.'.jpg';
+        $avatarPath = public_path('images/avatars/'.$avatarName);
+        file_put_contents($avatarPath, $avatar);
+
+        $serviceUser->avatar = $avatarName;
+
         $user = User::updateOrCreate([
             'email' => $serviceUser->email,
         ], [

@@ -4,6 +4,7 @@ use App\Http\Controllers\BlogController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\ImageController;
 use App\Http\Controllers\IndexController;
+use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\SessionController;
 use App\Http\Controllers\TagController;
 use Illuminate\Support\Facades\Route;
@@ -23,14 +24,15 @@ Route::get('/', [IndexController::class, 'home'])->name('home');
 Route::get('/privacy', [IndexController::class, 'privacy'])->name('privacy');
 Route::get('/tos', [IndexController::class, 'tos'])->name('tos');
 Route::get('/delete-fb-data', [IndexController::class, 'deleteFbData'])->name('delete-fb-data');
+Route::get('/about', [IndexController::class, 'about'])->name('about');
 
-Route::get('/contact', [ContactController::class, 'index'])->name('contact');
+Route::get('/contact', [ContactController::class, 'index'])->name('contact.index');
 Route::post('/contact', [ContactController::class, 'store'])->name('contact.store');
 
-Route::get('/login', [SessionController::class, 'show']);
+Route::get('/login', [SessionController::class, 'show'])->name('login');
 Route::get('/auth/redirect/{service}', [SessionController::class, 'create']);
 Route::get('/auth/callback/{service}', [SessionController::class, 'store']);
-Route::get('/logout', [SessionController::class, 'destroy']);
+Route::get('/logout', [SessionController::class, 'destroy'])->name('logout');
 
 Route::resource('blog', BlogController::class)->parameter('blog', 'blogPost');
 Route::get('/blog/{id}/delete-confirm', [BlogController::class, 'deleteConfirm'])->name('blog.delete-confirm')->middleware('auth');
@@ -40,5 +42,6 @@ Route::get('/blog/comment/{comment}/delete-confirm', [BlogController::class, 'co
 Route::delete('/blog/comment/{comment}', [BlogController::class, 'commentDelete'])->name('blog.delete-comment')->middleware('auth');
 
 Route::resource('tag', TagController::class);
+Route::resource('profile', ProfileController::class)->middleware('auth');
 
 Route::post('/image-upload', [ImageController::class, 'store'])->name('image.upload')->middleware('auth');

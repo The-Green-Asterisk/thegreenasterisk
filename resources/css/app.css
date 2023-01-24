@@ -50,6 +50,14 @@ a:hover {
 textarea {
     font-family: inherit;
 }
+.avatar {
+    width: 2rem;
+    height: 2rem;
+    margin: 0 0.5rem;
+    border-radius: 100%;
+    border: 1px solid black;
+    box-shadow: var(--shadow);
+}
 .main-content {
     background-color: rgba(255, 255, 255, 0.9);
     border-radius: 0.5rem;

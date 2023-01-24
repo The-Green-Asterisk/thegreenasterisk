@@ -22,8 +22,4 @@ nav ul li {
 nav ul li img.avatar {
     width: 2rem;
     height: 2rem;
-    margin: 0 0.5rem;
-    border-radius: 100%;
-    border: 1px solid black;
-    box-shadow: var(--shadow);
 }
