@@ -79,7 +79,7 @@ class BlogController extends Controller
         // Get a random image from the random folder
         $backupImg = $imgs[array_rand($imgs)];
 
-        $imgUrl = $request->file('image')->store('images');
+        $imgUrl = $request->file('image')?->store('images');
 
         $post = new BlogPost();
         $post->title = $request->title;
