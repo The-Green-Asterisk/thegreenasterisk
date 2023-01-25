@@ -63,7 +63,7 @@ class SessionController extends Controller
         }
         $user->save();
 
-        Auth::login($user);
+        Auth::login($user, true);
 
         return redirect('/');
     }
