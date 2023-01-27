@@ -86,3 +86,21 @@ setTimeout(() => {
 
     localStorage.clear();
 }, 1000);
+
+if (document.querySelector('section#blog-pane')) {
+    let page = 1;
+    let loading = false;
+    document.querySelector('section#blog-pane').onscroll = function () {
+        if ((this.scrollTop + this.clientHeight >= this.scrollHeight - 100) && !loading) {
+            loading = true;
+            fetch('/infinite-scroll?page=' + page)
+                .then(response => response.text())
+                .then(html => {
+                    if (html === '') return;
+                    this.innerHTML += html;
+                    page++;
+                    loading = false;
+                });
+        }
+    }
+}

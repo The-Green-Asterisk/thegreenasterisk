@@ -15,22 +15,18 @@ use Str;
 
 class BlogController extends Controller
 {
-    public function __construct()
-    {
-        $this->middleware('auth', ['only' => ['store', 'create', 'update', 'destroy']]);
-    }
-
-    public function index(Request $request)
+    private function infiniteScroll(Request $request)
     {
         $tag = $request->query('tag');
         $drafts = $request->query('drafts') ?? false;
         $all = $request->query('all') ?? false;
+        $page = $request->query('page') ?? 0;
 
         $posts = collect();
 
         $tag
-            ? $posts = BlogPost::getAllByTag($tag)
-            : $posts = BlogPost::latestFirst()->get();
+            ? $posts = BlogPost::getAllByTag($tag)->skip($page * 10)->take(10)
+            : $posts = BlogPost::latestFirst()->skip($page * 10)->take(10)->get();
 
         if (auth()->check() && Auth::user()->isAdmin()) {
             if (! $all) {
@@ -42,15 +38,43 @@ class BlogController extends Controller
 
         $imgs = Storage::disk('public')->files('images/random');
         $backupImg = $imgs[array_rand($imgs)];
-        $posts = $posts->count() ? $posts : collect([new BlogPost([
+        $nullPost = new BlogPost([
             'id' => 0,
             'image' => 'storage/'.$backupImg,
             'title' => 'No blog posts',
             'content' => 'Nothing to see here',
             'user_id' => 1,
-        ])]);
+        ]);
+        $posts = $posts->count() ? $posts : collect([$nullPost]);
+
+        if ($posts[$posts->count() - 1]->id == 0 && $page > 1) {
+            return null;
+        } else {
+            return $posts;
+        }
+    }
+
+    public function __construct()
+    {
+        $this->middleware('auth', ['only' => ['store', 'create', 'update', 'destroy']]);
+    }
+
+    public function index(Request $request)
+    {
+        $posts = $this->infiniteScroll($request);
 
         return view('blog.index', compact('posts'));
+    }
+
+    public function infiniteScrollView(Request $request)
+    {
+        $posts = $this->infiniteScroll($request);
+
+        if ($posts) {
+            return view('components.blog-post-view', compact('posts'))->render();
+        } else {
+            return null;
+        }
     }
 
     public function show(BlogPost $blogPost)

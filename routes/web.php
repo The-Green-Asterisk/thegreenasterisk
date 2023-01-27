@@ -35,6 +35,7 @@ Route::get('/auth/callback/{service}', [SessionController::class, 'store']);
 Route::get('/logout', [SessionController::class, 'destroy'])->name('logout');
 
 Route::resource('blog', BlogController::class)->parameter('blog', 'blogPost');
+Route::get('/infinite-scroll', [BlogController::class, 'infiniteScrollView'])->name('blog.infinite-scroll');
 Route::get('/blog/{id}/delete-confirm', [BlogController::class, 'deleteConfirm'])->name('blog.delete-confirm')->middleware('auth');
 Route::put('/blog-draft', [BlogController::class, 'draft'])->name('blog.draft')->middleware('auth');
 Route::post('/blog/{id}/comment', [BlogController::class, 'comment'])->name('blog.comment')->middleware('auth');
