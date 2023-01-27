@@ -14,8 +14,8 @@
     <script>
         tinymce.init({
             selector: 'textarea',
-            plugins: 'image',
-            toolbar: 'undo redo | styles | bold italic | alignleft aligncenter alignright alignjustify alignnone | indent outdent | cut copy paste | image | removeformat',
+            plugins: 'image link',
+            toolbar: 'undo redo | styles | bold italic | alignleft aligncenter alignright alignjustify alignnone | indent outdent | cut copy paste | image | link unlink openlink removeformat',
             images_upload_url: '/image-upload',
             image_file_types: 'image/jpeg,image/png,image/gif',
             images_upload_handler: function(blobInfo, success, failure) {
