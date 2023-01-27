@@ -47,7 +47,7 @@ class BlogController extends Controller
         ]);
         $posts = $posts->count() ? $posts : collect([$nullPost]);
 
-        if ($posts[$posts->count() - 1]->id == 0 && $page > 1) {
+        if ($posts[$posts->count() - 1]->id == 0 && $page > 0) {
             return null;
         } else {
             return $posts;
