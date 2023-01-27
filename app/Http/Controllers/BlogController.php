@@ -22,18 +22,29 @@ class BlogController extends Controller
         $all = $request->query('all') ?? false;
         $page = $request->query('page') ?? 0;
 
-        $posts = collect();
-
-        $tag
-            ? $posts = BlogPost::getAllByTag($tag)->skip($page * 10)->take(10)
-            : $posts = BlogPost::latestFirst()->skip($page * 10)->take(10)->get();
-
-        if (auth()->check() && Auth::user()->isAdmin()) {
-            if (! $all) {
-                $posts = $posts->where('is_draft', $drafts);
-            }
+        if ($all) {
+            $posts = BlogPost::getAll()
+                ->skip($page * 10)
+                ->take(10)
+                ->get();
         } else {
-            $posts = $posts->where('is_draft', false);
+            $tag
+            ? $posts = BlogPost::whereHas('tags', function ($query) use ($tag) {
+                $query->where('name', $tag);
+            })->where('is_draft',
+                (auth()->check() && Auth::user()->isAdmin())
+                    ? $drafts
+                    : false)
+                ->latestFirst()
+                ->skip($page * 10)
+                ->take(10)->get()
+            : $posts = BlogPost::where('is_draft',
+                (auth()->check() && Auth::user()->isAdmin())
+                    ? $drafts
+                    : false)
+                ->latestFirst()
+                ->skip($page * 10)
+                ->take(10)->get();
         }
 
         $imgs = Storage::disk('public')->files('images/random');

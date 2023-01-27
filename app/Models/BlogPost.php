@@ -64,6 +64,11 @@ class BlogPost extends Model
         })->latestFirst()->get();
     }
 
+    public static function getAll()
+    {
+        return BlogPost::orderBy('is_draft', 'desc')->latestFirst();
+    }
+
     public function getCommentCount()
     {
         return $this->comments->count();

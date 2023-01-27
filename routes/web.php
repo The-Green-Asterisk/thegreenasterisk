@@ -38,6 +38,7 @@ Route::resource('blog', BlogController::class)->parameter('blog', 'blogPost');
 Route::get('/infinite-scroll', [BlogController::class, 'infiniteScrollView'])->name('blog.infinite-scroll');
 Route::get('/blog/{id}/delete-confirm', [BlogController::class, 'deleteConfirm'])->name('blog.delete-confirm')->middleware('auth');
 Route::post('/blog-draft', [BlogController::class, 'draft'])->name('blog.draft')->middleware('auth');
+Route::put('/blog-draft', [BlogController::class, 'draft'])->name('blog.edit.draft')->middleware('auth');
 Route::post('/blog/{id}/comment', [BlogController::class, 'comment'])->name('blog.comment')->middleware('auth');
 Route::get('/blog/comment/{comment}/delete-confirm', [BlogController::class, 'commentDeleteConfirm'])->name('blog.delete-comment-confirm')->middleware('auth');
 Route::delete('/blog/comment/{comment}', [BlogController::class, 'commentDelete'])->name('blog.delete-comment')->middleware('auth');

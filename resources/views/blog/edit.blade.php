@@ -34,7 +34,7 @@
                     Draft</button>
                 <button class="btn btn-primary" type="submit">Publish</button>
             @else
-                <button class="btn btn-info" type="submit" formaction="{{ route('blog.draft') }}">Revert to
+                <button class="btn btn-info" type="submit" formaction="{{ route('blog.edit.draft') }}">Revert to
                     Draft</button>
                 <button class="btn btn-primary" type="submit">Update Post</button>
             @endif
