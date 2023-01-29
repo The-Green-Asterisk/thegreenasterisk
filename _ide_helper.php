@@ -17834,6 +17834,326 @@
      
 }
 
+    namespace Atymic\Twitter\Facade { 
+            /**
+     * 
+     *
+     * @codeCoverageIgnore 
+     */ 
+        class Twitter {
+                    /**
+         * 
+         *
+         * @static 
+         */ 
+        public static function getQuerier()
+        {
+                        /** @var \Atymic\Twitter\Service\Accessor $instance */
+                        return $instance->getQuerier();
+        }
+                    /**
+         * 
+         *
+         * @throws ClientException
+         * @see https://developer.twitter.com/en/docs/twitter-api/tweets/lookup/api-reference/get-tweets-id
+         * @static 
+         */ 
+        public static function getTweet($tweetId, $queryParameters)
+        {
+                        /** @var \Atymic\Twitter\Service\Accessor $instance */
+                        return $instance->getTweet($tweetId, $queryParameters);
+        }
+                    /**
+         * 
+         *
+         * @throws ClientException
+         * @see https://developer.twitter.com/en/docs/twitter-api/tweets/lookup/api-reference/get-tweets
+         * @static 
+         */ 
+        public static function getTweets($tweetIds, $additionalParameters)
+        {
+                        /** @var \Atymic\Twitter\Service\Accessor $instance */
+                        return $instance->getTweets($tweetIds, $additionalParameters);
+        }
+                    /**
+         * 
+         *
+         * @throws ClientException
+         * @see https://developer.twitter.com/en/docs/twitter-api/tweets/search/api-reference/get-tweets-search-recent
+         * @static 
+         */ 
+        public static function searchRecent($query, $additionalParameters)
+        {
+                        /** @var \Atymic\Twitter\Service\Accessor $instance */
+                        return $instance->searchRecent($query, $additionalParameters);
+        }
+                    /**
+         * 
+         *
+         * @throws ClientException
+         * @see https://developer.twitter.com/en/docs/twitter-api/tweets/search/api-reference/get-tweets-search-all
+         * @static 
+         */ 
+        public static function searchAll($query, $additionalParameters)
+        {
+                        /** @var \Atymic\Twitter\Service\Accessor $instance */
+                        return $instance->searchAll($query, $additionalParameters);
+        }
+                    /**
+         * 
+         *
+         * @throws ClientException
+         * @see https://developer.twitter.com/en/docs/twitter-api/tweets/timelines/api-reference/get-users-id-tweets
+         * @static 
+         */ 
+        public static function userTweets($userId, $queryParameters)
+        {
+                        /** @var \Atymic\Twitter\Service\Accessor $instance */
+                        return $instance->userTweets($userId, $queryParameters);
+        }
+                    /**
+         * 
+         *
+         * @throws ClientException
+         * @see https://developer.twitter.com/en/docs/twitter-api/tweets/timelines/api-reference/get-users-id-mentions
+         * @static 
+         */ 
+        public static function userMentions($userId, $queryParameters)
+        {
+                        /** @var \Atymic\Twitter\Service\Accessor $instance */
+                        return $instance->userMentions($userId, $queryParameters);
+        }
+                    /**
+         * 
+         *
+         * @throws ClientException
+         * @see Querier::getStream()
+         * @see https://developer.twitter.com/en/docs/twitter-api/tweets/filtered-stream/api-reference/get-tweets-search-stream
+         * @static 
+         */ 
+        public static function getStream($onTweet, $parameters = [])
+        {
+                        /** @var \Atymic\Twitter\Service\Accessor $instance */
+                        return $instance->getStream($onTweet, $parameters);
+        }
+                    /**
+         * 
+         *
+         * @throws ClientException
+         * @see https://developer.twitter.com/en/docs/twitter-api/tweets/filtered-stream/api-reference/get-tweets-search-stream-rules
+         * @static 
+         */ 
+        public static function getStreamRules($queryParameters)
+        {
+                        /** @var \Atymic\Twitter\Service\Accessor $instance */
+                        return $instance->getStreamRules($queryParameters);
+        }
+                    /**
+         * 
+         *
+         * @throws ClientException
+         * @see https://developer.twitter.com/en/docs/twitter-api/tweets/filtered-stream/api-reference/post-tweets-search-stream-rules
+         * @static 
+         */ 
+        public static function postStreamRules($parameters)
+        {
+                        /** @var \Atymic\Twitter\Service\Accessor $instance */
+                        return $instance->postStreamRules($parameters);
+        }
+                    /**
+         * 
+         *
+         * @throws ClientException
+         * @see Querier::getStream()
+         * @see https://developer.twitter.com/en/docs/twitter-api/tweets/sampled-stream/api-reference/get-tweets-sample-stream
+         * @static 
+         */ 
+        public static function getSampledStream($onTweet, $parameters = [])
+        {
+                        /** @var \Atymic\Twitter\Service\Accessor $instance */
+                        return $instance->getSampledStream($onTweet, $parameters);
+        }
+                    /**
+         * 
+         *
+         * @throws ClientException
+         * @see https://developer.twitter.com/en/docs/twitter-api/users/lookup/api-reference/get-users-id
+         * @static 
+         */ 
+        public static function getUser($userId, $queryParameters)
+        {
+                        /** @var \Atymic\Twitter\Service\Accessor $instance */
+                        return $instance->getUser($userId, $queryParameters);
+        }
+                    /**
+         * 
+         *
+         * @throws ClientException
+         * @see https://developer.twitter.com/en/docs/twitter-api/users/lookup/api-reference/get-users
+         * @static 
+         */ 
+        public static function getUsers($userIds, $additionalParameters)
+        {
+                        /** @var \Atymic\Twitter\Service\Accessor $instance */
+                        return $instance->getUsers($userIds, $additionalParameters);
+        }
+                    /**
+         * 
+         *
+         * @throws ClientException
+         * @see https://developer.twitter.com/en/docs/twitter-api/users/lookup/api-reference/get-users-by-username-username
+         * @static 
+         */ 
+        public static function getUserByUsername($username, $queryParameters)
+        {
+                        /** @var \Atymic\Twitter\Service\Accessor $instance */
+                        return $instance->getUserByUsername($username, $queryParameters);
+        }
+                    /**
+         * 
+         *
+         * @throws ClientException
+         * @see https://developer.twitter.com/en/docs/twitter-api/users/lookup/api-reference/get-users
+         * @static 
+         */ 
+        public static function getUsersByUsernames($usernames, $additionalParameters)
+        {
+                        /** @var \Atymic\Twitter\Service\Accessor $instance */
+                        return $instance->getUsersByUsernames($usernames, $additionalParameters);
+        }
+                    /**
+         * 
+         *
+         * @throws ClientException
+         * @see https://developer.twitter.com/en/docs/twitter-api/users/follows/api-reference/get-users-id-following
+         * @static 
+         */ 
+        public static function getFollowing($userId, $queryParameters)
+        {
+                        /** @var \Atymic\Twitter\Service\Accessor $instance */
+                        return $instance->getFollowing($userId, $queryParameters);
+        }
+                    /**
+         * 
+         *
+         * @throws ClientException
+         * @see https://developer.twitter.com/en/docs/twitter-api/users/follows/api-reference/get-users-id-followers
+         * @static 
+         */ 
+        public static function getFollowers($userId, $queryParameters)
+        {
+                        /** @var \Atymic\Twitter\Service\Accessor $instance */
+                        return $instance->getFollowers($userId, $queryParameters);
+        }
+                    /**
+         * 
+         *
+         * @throws ClientException
+         * @see https://developer.twitter.com/en/docs/twitter-api/users/follows/api-reference/post-users-source_user_id-following
+         * @static 
+         */ 
+        public static function follow($sourceUserId, $targetUserId)
+        {
+                        /** @var \Atymic\Twitter\Service\Accessor $instance */
+                        return $instance->follow($sourceUserId, $targetUserId);
+        }
+                    /**
+         * 
+         *
+         * @throws ClientException
+         * @see https://developer.twitter.com/en/docs/twitter-api/users/follows/api-reference/delete-users-source_id-following
+         * @static 
+         */ 
+        public static function unfollow($sourceUserId, $targetUserId)
+        {
+                        /** @var \Atymic\Twitter\Service\Accessor $instance */
+                        return $instance->unfollow($sourceUserId, $targetUserId);
+        }
+                    /**
+         * 
+         *
+         * @throws ClientException
+         * @see https://developer.twitter.com/en/docs/twitter-api/tweets/hide-replies/api-reference/put-tweets-id-hidden
+         * @static 
+         */ 
+        public static function hideTweet($tweetId, $hidden = true)
+        {
+                        /** @var \Atymic\Twitter\Service\Accessor $instance */
+                        return $instance->hideTweet($tweetId, $hidden);
+        }
+                    /**
+         * 
+         *
+         * @throws InvalidArgumentException
+         * @static 
+         */ 
+        public static function usingCredentials($accessToken, $accessTokenSecret, $consumerKey = null, $consumerSecret = null)
+        {
+                        /** @var \Atymic\Twitter\Service\Accessor $instance */
+                        return $instance->usingCredentials($accessToken, $accessTokenSecret, $consumerKey, $consumerSecret);
+        }
+                    /**
+         * 
+         *
+         * @throws InvalidArgumentException
+         * @static 
+         */ 
+        public static function usingConfiguration($configuration)
+        {
+                        /** @var \Atymic\Twitter\Service\Accessor $instance */
+                        return $instance->usingConfiguration($configuration);
+        }
+                    /**
+         * 
+         *
+         * @throws InvalidArgumentException
+         * @static 
+         */ 
+        public static function forApiV1()
+        {
+                        /** @var \Atymic\Twitter\Service\Accessor $instance */
+                        return $instance->forApiV1();
+        }
+                    /**
+         * 
+         *
+         * @throws InvalidArgumentException
+         * @static 
+         */ 
+        public static function forApiV2()
+        {
+                        /** @var \Atymic\Twitter\Service\Accessor $instance */
+                        return $instance->forApiV2();
+        }
+                    /**
+         * 
+         *
+         * @throws ClientException
+         * @see https://developer.twitter.com/en/docs/twitter-api/tweets/counts/api-reference/get-tweets-counts-recent
+         * @static 
+         */ 
+        public static function countRecent($query, $additionalParameters = [])
+        {
+                        /** @var \Atymic\Twitter\Service\Accessor $instance */
+                        return $instance->countRecent($query, $additionalParameters);
+        }
+                    /**
+         * 
+         *
+         * @throws ClientException
+         * @see https://developer.twitter.com/en/docs/twitter-api/tweets/counts/api-reference/get-tweets-counts-all
+         * @static 
+         */ 
+        public static function countAll($query, $additionalParameters = [])
+        {
+                        /** @var \Atymic\Twitter\Service\Accessor $instance */
+                        return $instance->countAll($query, $additionalParameters);
+        }
+         
+    }
+     
+}
+
     namespace Spatie\LaravelIgnition\Facades { 
             /**
      * 
@@ -22059,6 +22379,7 @@ namespace  {
             class Vite extends \Illuminate\Support\Facades\Vite {}
             class Socialite extends \Laravel\Socialite\Facades\Socialite {}
             class Image extends \Intervention\Image\Facades\Image {}
+            class Twitter extends \Atymic\Twitter\Facade\Twitter {}
             class Flare extends \Spatie\LaravelIgnition\Facades\Flare {}
      
 }

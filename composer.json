@@ -9,6 +9,8 @@
     "license": "MIT",
     "require": {
         "php": "^8.0.2",
+        "atymic/twitter": "^3.1",
+        "facebook/graph-sdk": "^5.1",
         "google/apiclient": "^2.13",
         "guzzlehttp/guzzle": "^7.2",
         "intervention/image": "^2.7",

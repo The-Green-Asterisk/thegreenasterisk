@@ -32,7 +32,7 @@
             @endforeach
     </section>
     <div class="section-wrapper">
-        <section>
+        <section class="smaller-section">
             <div class="section-header">
                 <h2>Current Projects</h2>
             </div>
@@ -62,10 +62,11 @@
                     </div>
                 </div>
         </section>
-        <section>
+        <section class="smaller-section">
             <div class="section-header">
                 <h2>Social Feed</h2>
             </div>
+            @include('components.social-feed', ['social_posts' => $social_posts])
         </section>
     </div>
 </x-layout>

@@ -13,12 +13,20 @@ class IndexController extends Controller
 
         if (env('APP_ENV') === 'production') {
             if (auth()->check() && Auth::user()?->isAdmin()) {
-                return view('welcome', compact('posts'));
+                $socials = new SocialController();
+                $social_posts = $socials->buildFeed();
+
+                return view('welcome', compact('posts', 'social_posts'));
             } else {
                 return redirect('https://thegreenasterisk.netlify.app/');
             }
         } else {
-            return view('welcome', compact('posts'));
+            $socials = new SocialController();
+            $social_posts = $socials->buildFeed();
+
+            // dd($social_posts);
+
+            return view('welcome', compact('posts', 'social_posts'));
         }
     }
 

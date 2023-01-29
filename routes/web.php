@@ -6,6 +6,7 @@ use App\Http\Controllers\ImageController;
 use App\Http\Controllers\IndexController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\SessionController;
+use App\Http\Controllers\SocialController;
 use App\Http\Controllers\TagController;
 use Illuminate\Support\Facades\Route;
 
@@ -47,3 +48,5 @@ Route::resource('tag', TagController::class);
 Route::resource('profile', ProfileController::class)->middleware('auth');
 
 Route::post('/image-upload', [ImageController::class, 'store'])->name('image.upload')->middleware('auth');
+
+Route::get('/social', [SocialController::class, 'buildFeed'])->name('social');

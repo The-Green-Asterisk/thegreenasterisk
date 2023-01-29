@@ -263,6 +263,9 @@ section .section-img {
     float: left;
     border-radius: 5px;
 }
+section.smaller-section {
+    max-height: 40rem;
+}
 section .end-section {
     clear: both;
 }
