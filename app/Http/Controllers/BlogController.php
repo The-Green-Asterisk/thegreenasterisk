@@ -164,7 +164,9 @@ class BlogController extends Controller
             $blogPost->image = 'storage/'.$request->file('image')->store('images');
         }
         $blogPost->is_draft = $draft;
-        $blogPost->published_at = $newPublish ? now() : null;
+        if ($newPublish) {
+            $blogPost->published_at = now();
+        }
         $blogPost->save();
 
         $blogPost->tags()->sync($request->tags);

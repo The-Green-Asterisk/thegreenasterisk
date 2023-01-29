@@ -22,11 +22,17 @@
                         <img class="headerImg" src="{{ asset($post->image) }}" alt="{{ $post->title }}"
                             style="{{ !$loop->first ? ' height: 10rem;' : '' }}">
                     </a>
-                    <div class="post-content">
-                        <p>
-                            {!! $post->getexcerpt() !!}
-                        </p>
-                    </div>
+                    <div class="tags">
+                        @foreach ($post->tags as $tag)
+                            <a href="{{ route('blog.index', ['tag' => $tag->name]) }}">
+                                <span class="tag">{{ $tag->name }}</span>
+                            </a>
+                        @endforeach
+                        <div class="post-content">
+                            <p>
+                                {!! $post->getexcerpt() !!}
+                            </p>
+                        </div>
                 </section>
                 {!! $loop->first ? '<hr style="width: 100%">' : '' !!}
             @endforeach
