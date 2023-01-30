@@ -29,7 +29,7 @@
                 <button class="btn btn-secondary" type="button" onclick="window.location.href='/blog'">
                     View Published
                 </button>
-            @elseif ($posts->where('is_draft', true)->count() > 0)
+            @elseif ($posts->draft_count > 0)
                 <button class="btn btn-secondary" type="button" onclick="window.location.href='/blog?drafts=1'">
                     View Drafts
                 </button>

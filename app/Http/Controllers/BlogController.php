@@ -61,6 +61,8 @@ class BlogController extends Controller
         if ($posts[$posts->count() - 1]->id == 0 && $page > 0) {
             return null;
         } else {
+            $posts->draft_count = BlogPost::where('is_draft', true)->count();
+
             return $posts;
         }
     }
