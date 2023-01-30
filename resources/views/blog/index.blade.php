@@ -16,11 +16,11 @@
             </button>
         @endif
         @admin
-            @if (request()->get('all') == null)
+            @if (request()->get('all') == null && $posts->where('is_draft', true)->count() > 0)
                 <button class="btn btn-secondary" type="button" onclick="window.location.href='/blog?all=1'">
                     View All
                 </button>
-            @else
+            @elseif (request()->get('all') == 1)
                 <button class="btn btn-secondary" type="button" onclick="window.location.href='/blog'">
                     View Published
                 </button>
@@ -29,7 +29,7 @@
                 <button class="btn btn-secondary" type="button" onclick="window.location.href='/blog'">
                     View Published
                 </button>
-            @else
+            @elseif ($posts->where('is_draft', true)->count() > 0)
                 <button class="btn btn-secondary" type="button" onclick="window.location.href='/blog?drafts=1'">
                     View Drafts
                 </button>

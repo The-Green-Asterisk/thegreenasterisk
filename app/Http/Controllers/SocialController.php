@@ -11,6 +11,18 @@ class SocialController extends Controller
     {
         $tweets = Twitter::userTweets(9896162, ['max_results' => 25, 'expansions' => 'attachments.media_keys', 'tweet.fields' => 'created_at', 'media.fields' => 'preview_image_url,url', 'response_format' => 'object']);
 
+        //if there's an error, email me
+        if (isset($tweets->errors)) {
+            $error = '';
+            foreach ($tweets->errors as $e) {
+                $error .= $e->message;
+            }
+            $error .= ' - '.json_encode($tweets);
+            mail(config('app.admin_email'), 'Twitter Error', $error);
+
+            return [];
+        }
+
         //convert urls to links
         foreach ($tweets->data as $tweet) {
             $tweet->text = preg_replace('/(https?:\/\/[^\s]+)/', '<a href="$1" target="_blank">$1</a>', $tweet->text);
@@ -57,6 +69,18 @@ class SocialController extends Controller
         $fbPosts = Http::get('https://graph.facebook.com/v15.0/me?fields=id,name,posts{full_picture,message,link,permalink_url,created_time}&access_token='.config('services.facebook.access_token'));
 
         $fbPosts = json_decode($fbPosts);
+        //if there's an error, email me
+        if (isset($fbPosts->error)) {
+            $error = '';
+            foreach ($fbPosts->error as $e) {
+                $error .= $e->message;
+            }
+            $error .= ' - '.json_encode($fbPosts);
+            mail(config('app.admin_email'), 'Facebook Error', $error);
+
+            return [];
+        }
+
         //convert urls to links
         foreach ($fbPosts->posts->data as $post) {
             if (isset($post->message)) {
@@ -92,6 +116,18 @@ class SocialController extends Controller
         $ig = Http::get('https://graph.instagram.com/me/media?fields=id,caption,media_type,username,media_url,timestamp,permalink&access_token='.config('services.instagram.access_token'));
 
         $ig = json_decode($ig);
+
+        //if there's an error, email me
+        if (isset($ig->error)) {
+            $error = '';
+            foreach ($ig->error as $e) {
+                $error .= $e->message;
+            }
+            $error .= ' - '.json_encode($ig);
+            mail(config('app.admin_email'), 'Instagram Error', $error);
+
+            return [];
+        }
 
         //turn hashtags into links
         foreach ($ig->data as $post) {
