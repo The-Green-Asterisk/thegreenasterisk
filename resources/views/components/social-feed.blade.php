@@ -6,8 +6,10 @@
                     <source src="{{ $post['image'] }}" type="video/mp4">
                 </video>
             @else
-                <img src="{{ $post['image'] }}" alt="{{ $post['type'] }}" class="section-img"
-                    style="float:none;width:100%;margin:0">
+                <a href="{{ $post['url'] }}" target="_blank">
+                    <img src="{{ $post['image'] }}" alt="{{ $post['type'] }}" class="section-img"
+                        style="float:none;width:100%;margin:0">
+                </a>
             @endif
         @endif
 
