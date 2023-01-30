@@ -269,3 +269,21 @@ section.smaller-section {
 section .end-section {
     clear: both;
 }
+
+/* on screen sizes 400px or lower, left and right margins 0 */
+@media screen and (max-width: 400px) {
+    section,
+    .main-content,
+    .heroImg {
+        margin-right: 0 !important;
+        margin-left: 0 !important;
+        padding-left: 0 !important;
+        padding-right: 0 !important;
+    }
+    .main-content {
+        width: 100% !important;
+    }
+    .heroImg {
+        width: 100% !important;
+    }
+}
