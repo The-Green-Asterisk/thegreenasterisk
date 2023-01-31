@@ -9,7 +9,15 @@ class IndexController extends Controller
 {
     public function home()
     {
-        $posts = BlogPost::where('is_draft', false)->orderByDesc('published_at')->take(6)->get();
+        $posts = BlogPost::where('is_draft', false)->whereDoesntHave('tags', function ($query) {
+            $query->where('name', 'featured');
+        })->orderByDesc('published_at')->take(6)->get();
+        $featured_posts = BlogPost::where('is_draft', false)->whereHas('tags', function ($query) {
+            $query->where('name', 'featured');
+        })->orderByDesc('published_at')->get();
+
+        $posts = $featured_posts->merge($posts);
+
         $socials = new SocialController();
         $social_posts = $socials->buildFeed();
 
