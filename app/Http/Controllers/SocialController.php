@@ -85,11 +85,15 @@ class SocialController extends Controller
         //if there's an error, email me
         if (isset($fbPosts->error) || isset($pagePosts->error)) {
             $error = '';
-            foreach ($fbPosts->error as $e) {
-                $error .= $e;
+            if (isset($fbPosts->error)) {
+                foreach ($fbPosts->error as $e) {
+                    $error .= $e;
+                }
             }
-            foreach ($pagePosts->error as $e) {
-                $error .= $e;
+            if (isset($pagePosts->error)) {
+                foreach ($pagePosts->error as $e) {
+                    $error .= $e;
+                }
             }
             $error .= ' - '.json_encode($fbPosts).json_encode($pagePosts);
             Mail::to(config('app.admin_email'))->send(new ErrorMail($error));
