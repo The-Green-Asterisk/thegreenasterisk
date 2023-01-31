@@ -26,7 +26,7 @@ class IndexController extends Controller
 
     public function about()
     {
-        return view('/');
+        return view('about');
     }
 
     public function contact()

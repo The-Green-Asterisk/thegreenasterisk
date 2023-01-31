@@ -27,3 +27,9 @@ window.onload = () => {
     });
 };
 
+if (document.querySelector('#cookie-banner-button')) {
+    document.querySelector('#cookie-banner-button').addEventListener('click', () => {
+        document.querySelector('#cookie-banner').style.display = 'none';
+        document.cookie = 'cookies-are-cool=true; expires=Fri, 31 Dec 9999 23:59:59 GMT;';
+    });
+}

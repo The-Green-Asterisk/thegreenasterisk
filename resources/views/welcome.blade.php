@@ -1,9 +1,6 @@
 <x-layout>
     <img src="{{ asset('/steve.jpg') }}" alt="Steve" class="heroImg" />
-    <p>Welcome to The Green Asterisk.</p>
-    @admin
-        <p>You are an admin.</p>
-    @endadmin
+    <p style="text-align: center">Welcome to The Green Asterisk.</p>
     <section>
         <div class="section-header">
             <a href="/blog">
@@ -42,31 +39,43 @@
             <div class="section-header">
                 <h2>Current Projects</h2>
             </div>
-            <div class="section-content">
-                <div class="project">
-                    <div class="project-header">
-                        <h3>Project 1</h3>
-                    </div>
-                    <div class="project-content">
-                        <p>Project 1 content.</p>
-                    </div>
-                </div>
-                <div class="project">
-                    <div class="project-header">
-                        <h3>Project 2</h3>
-                    </div>
-                    <div class="project-content">
-                        <p>Project 2 content.</p>
-                    </div>
-                </div>
-                <div class="project">
-                    <div class="project-header">
-                        <h3>Project 3</h3>
-                    </div>
-                    <div class="project-content">
-                        <p>Project 3 content.</p>
-                    </div>
-                </div>
+            <section>
+                <h3 class="section-header">
+                    Gravity's Folly
+                </h3>
+                <p>Gravity's Folly is a campaign setting for D&D 5e that takes place in a sci-fi world where technology
+                    has advanced enough as to be indistinguishable from magic! As such, the mechanical rules of magic
+                    are completely unchanged from the basic D&D ruleset, but the flavor is entirely grounded in science
+                    and technology</p>
+                <p>Here's a <a href="{{ route('blog.show', 3) }}">blog post about it</a>, and look for more in the
+                    future as it gets more
+                    and more fleshed out as
+                    my friends and I play through it!</p>
+            </section>
+            <section>
+                <h3 class="section-header">
+                    Catharicosa
+                </h3>
+                <p>Catharicosa will be a suite of platform agnostic tools for TTRPGs to make your game easier as both DM
+                    and player.</p>
+                <p><a href="https://catharicosa.com">Catharicosa Notes</a> and <a
+                        href="https://starship-console.catharicosa.com">Starship Console</a> are already in the bag,
+                    but look for more to come!</p>
+            </section>
+            <section>
+                <h3 class="section-header">
+                    Javascript Games
+                </h3>
+                <p>Here are a couple of games I made during my journey to learn web development! Enjoy!</p>
+                <ul>
+                    <li>
+                        <a href="https://thegreenasterisk-card-game.netlify.app/">Star Wars Card Game</a>
+                    </li>
+                    <li>
+                        <a href="https://thegreenasterisk-flappy-bird.netlify.app/">Flappy Bird</a>
+                    </li>
+                </ul>
+            </section>
         </section>
         <section class="smaller-section">
             <div class="section-header">

@@ -58,6 +58,7 @@
     @if ($showFooter === true)
         <x-footer />
     @endif
+    <x-cookie-banner />
 </body>
 
 </html>

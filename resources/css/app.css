@@ -287,3 +287,18 @@ section .end-section {
         width: 100% !important;
     }
 }
+.fab {
+    margin: 0 1rem;
+}
+#cookie-banner {
+    display: flex;
+    align-items: center;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background-color: rgb(92, 255, 127);
+    padding: 0.2rem 1rem;
+    border-radius: 5px;
+    z-index: 100;
+}

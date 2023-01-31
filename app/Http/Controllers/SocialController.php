@@ -76,13 +76,15 @@ class SocialController extends Controller
         $fbPosts = json_decode($fbPosts);
         $pagePosts = json_decode($pagePosts);
 
-        $fbPosts->posts->data = array_merge($fbPosts->posts->data, $pagePosts->posts->data);
+        if (isset($fbPosts->posts->data) && isset($pagePosts->posts->data)) {
+            $fbPosts->posts->data = array_merge($fbPosts->posts->data, $pagePosts->posts->data);
+        }
 
         //if there's an error, email me
-        if (isset($fbPosts->error)) {
+        if (isset($fbPosts->error) || isset($pagePosts->error)) {
             $error = '';
             foreach ($fbPosts->error as $e) {
-                $error .= $e->message;
+                $error .= $e;
             }
             $error .= ' - '.json_encode($fbPosts);
             mail(config('app.admin_email'), 'Facebook Error', $error);
