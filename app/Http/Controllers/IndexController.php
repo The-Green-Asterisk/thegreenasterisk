@@ -14,7 +14,7 @@ class IndexController extends Controller
         $social_posts = $socials->buildFeed();
 
         if (env('APP_ENV') === 'production') {
-            if (auth()->check()) {            // && Auth::user()?->isAdmin()) {
+            if (auth()->check() && Auth::user()?->isAdmin()) {
                 return view('welcome', compact('posts', 'social_posts'));
             } else {
                 return redirect('https://thegreenasterisk.netlify.app/');

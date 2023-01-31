@@ -66,16 +66,17 @@ class SocialController extends Controller
     {
         //get new temporary access token from here: https://developers.facebook.com/tools/explorer/
         // $token = Http::get('https://graph.facebook.com/oauth/access_token?grant_type=fb_exchange_token&client_id='.config('services.facebook.client_id').'&client_secret='.config('services.facebook.client_secret').'&fb_exchange_token={{{insert Temporary Access Token}}}'));
+        // $token = json_decode($token);
+        // dd($token);
+
         $fbPosts = Http::get('https://graph.facebook.com/v15.0/me?fields=id,name,posts{full_picture,message,link,permalink_url,created_time}&access_token='.config('services.facebook.access_token'));
 
-        // $pagePosts = Http::get('https://graph.facebook.com/v15.0/LordSteve?fields=id,name,posts{full_picture,message,link,permalink_url,created_time}&access_token='.config('services.facebook.access_token'));
+        $pagePosts = Http::get('https://graph.facebook.com/v15.0/111220456882666/?fields=posts%7Bcreated_time%2Cpermalink_url%2Cfull_picture%2Cmessage%7D&access_token='.config('services.facebook.page_access_token'));
 
         $fbPosts = json_decode($fbPosts);
-        // $pagePosts = json_decode($pagePosts);
+        $pagePosts = json_decode($pagePosts);
 
-        // dd($pagePosts);
-
-        // $fbPosts->posts->data = array_merge($fbPosts->posts->data, $pagePosts->posts->data);
+        $fbPosts->posts->data = array_merge($fbPosts->posts->data, $pagePosts->posts->data);
 
         //if there's an error, email me
         if (isset($fbPosts->error)) {

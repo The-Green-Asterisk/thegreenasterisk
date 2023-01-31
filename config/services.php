@@ -45,6 +45,9 @@ return [
         'client_secret' => env('FACEBOOK_CLIENT_SECRET'),
         'redirect' => env('FACEBOOK_REDIRECT'),
         'access_token' => env('FACEBOOK_ACCESS_TOKEN'),
+        'page_client_id' => env('FACEBOOK_PAGE_CLIENT_ID'),
+        'page_client_secret' => env('FACEBOOK_PAGE_CLIENT_SECRET'),
+        'page_access_token' => env('FACEBOOK_PAGE_ACCESS_TOKEN'),
     ],
     'twitter' => [
         'client_id' => env('TWITTER_CLIENT_ID'),
