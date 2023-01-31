@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\ErrorMail;
 use Http;
+use Mail;
 use Twitter;
 
 class SocialController extends Controller
@@ -18,7 +20,7 @@ class SocialController extends Controller
                 $error .= $e->message;
             }
             $error .= ' - '.json_encode($tweets);
-            mail(config('app.admin_email'), 'Twitter Error', $error);
+            Mail::to(config('app.admin_email'))->send(new ErrorMail($error));
 
             return [];
         }
@@ -86,8 +88,11 @@ class SocialController extends Controller
             foreach ($fbPosts->error as $e) {
                 $error .= $e;
             }
-            $error .= ' - '.json_encode($fbPosts);
-            mail(config('app.admin_email'), 'Facebook Error', $error);
+            foreach ($pagePosts->error as $e) {
+                $error .= $e;
+            }
+            $error .= ' - '.json_encode($fbPosts).json_encode($pagePosts);
+            Mail::to(config('app.admin_email'))->send(new ErrorMail($error));
 
             return [];
         }
@@ -135,7 +140,7 @@ class SocialController extends Controller
                 $error .= $e->message;
             }
             $error .= ' - '.json_encode($ig);
-            mail(config('app.admin_email'), 'Instagram Error', $error);
+            Mail::to(config('app.admin_email'))->send(new ErrorMail($error));
 
             return [];
         }
