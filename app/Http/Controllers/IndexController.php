@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Models\BlogPost;
-use Auth;
 
 class IndexController extends Controller
 {
@@ -21,15 +20,7 @@ class IndexController extends Controller
         $socials = new SocialController();
         $social_posts = $socials->buildFeed();
 
-        if (env('APP_ENV') === 'production') {
-            if (auth()->check() && Auth::user()?->isAdmin()) {
-                return view('welcome', compact('posts', 'social_posts'));
-            } else {
-                return redirect('https://thegreenasterisk.netlify.app/');
-            }
-        } else {
-            return view('welcome', compact('posts', 'social_posts'));
-        }
+        return view('welcome', compact('posts', 'social_posts'));
     }
 
     public function about()
