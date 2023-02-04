@@ -209,6 +209,11 @@ textarea {
 .btn-link:active {
     background-color: transparent;
 }
+.btn:disabled {
+    background-color: #ccc;
+    color: #1b2a33;
+    cursor: not-allowed;
+}
 input::file-selector-button {
     background: none;
     border: none;
