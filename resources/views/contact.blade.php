@@ -17,6 +17,7 @@
             <textarea class="form-control" id="message" name="message" rows="5" required
                 placeholder="Write whatever you want here, but if it's rude I reserve the right to ignore it."></textarea>
         </div>
+
         <script src="https://www.google.com/recaptcha/enterprise.js?render=6Le6IFEkAAAAAFUMdtlncJ34CLU-kvRYXAsmODA9"></script>
         <script>
             grecaptcha.enterprise.ready(function() {
@@ -28,6 +29,8 @@
                 });
             });
         </script>
+        <div class="g-recaptcha" data-sitekey="6Le6IFEkAAAAAFUMdtlncJ34CLU-kvRYXAsmODA9"></div>
+        <script src="https://www.google.com/recaptcha/api.js" async defer></script>
         <div class="button-row">
             <button type="submit" class="btn btn-primary" disabled>Send</button>
         </div>
