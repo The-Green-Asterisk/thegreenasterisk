@@ -32,12 +32,12 @@ class SocialController extends Controller
 
         //convert hashtags to links
         foreach ($tweets->data as $tweet) {
-            $tweet->text = preg_replace('/^#[a-zA-Z0-9_]+$/', '<a href="https://twitter.com/hashtag/$1" target="_blank">#$1</a>', $tweet->text);
+            $tweet->text = preg_replace('/#([a-zA-Z0-9_]+)/', '<a href="https://twitter.com/hashtag/$1" target="_blank">#$1</a>', $tweet->text);
         }
 
         //convert @ to follow link
         foreach ($tweets->data as $tweet) {
-            $tweet->text = preg_replace('/^@[a-zA-Z0-9_.]{1,15}$/', '<a href="https://twitter.com/$1" target="_blank">@$1</a>', $tweet->text);
+            $tweet->text = preg_replace('/@([a-zA-Z0-9_.]{1,15})\b/', '<a href="https://twitter.com/$1" target="_blank">@$1</a>', $tweet->text);
         }
 
         foreach ($tweets->data as $tweet) {
@@ -111,7 +111,7 @@ class SocialController extends Controller
         //convert hashtags to links
         foreach ($fbPosts->posts->data as $post) {
             if (isset($post->message)) {
-                $post->message = preg_replace('/#([^\s]+)/', '<a href="https://www.facebook.com/hashtag/$1" target="_blank">#$1</a>', $post->message);
+                $post->message = preg_replace('/#([a-zA-Z0-9_.]+)/', '<a href="https://www.facebook.com/hashtag/$1" target="_blank">#$1</a>', $post->message);
             }
         }
 
@@ -152,14 +152,14 @@ class SocialController extends Controller
         //turn hashtags into links
         foreach ($ig->data as $post) {
             if (isset($post->caption)) {
-                $post->caption = preg_replace('/^#[a-zA-Z0-9_.]+$/', '<a href="https://www.instagram.com/explore/tags/$1" target="_blank">#$1</a>', $post->caption);
+                $post->caption = preg_replace('/#([a-zA-Z0-9_.]+)/', '<a href="https://www.instagram.com/explore/tags/$1" target="_blank">#$1</a>', $post->caption);
             }
         }
 
         //turn @ into links
         foreach ($ig->data as $post) {
             if (isset($post->caption)) {
-                $post->caption = preg_replace('/^[a-zA-Z0-9_.]{1,30}$/', '<a href="https://www.instagram.com/$1" target="_blank">@$1</a>', $post->caption);
+                $post->caption = preg_replace('/@([a-zA-Z0-9_.]{1,30})\b/', '<a href="https://www.instagram.com/$1" target="_blank">@$1</a>', $post->caption);
             }
         }
 
