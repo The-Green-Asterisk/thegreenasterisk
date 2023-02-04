@@ -17,19 +17,8 @@
             <textarea class="form-control" id="message" name="message" rows="5" required
                 placeholder="Write whatever you want here, but if it's rude I reserve the right to ignore it."></textarea>
         </div>
-        <script src="https://www.google.com/recaptcha/enterprise.js?render=6Lf8XVAkAAAAAFm2UBRv7vkP8Fh6MPGBqQ-XW6Kh"></script>
-        <script>
-            grecaptcha.enterprise.ready(function() {
-                grecaptcha.enterprise.execute('6Lf8XVAkAAAAAFm2UBRv7vkP8Fh6MPGBqQ-XW6Kh', {
-                    action: 'login'
-                }).then(function(token) {
-                    document.getElementById('g-recaptcha-response').value = token;
-                    document.querySelector('button[type="submit"]').disabled = false;
-                });
-            });
-        </script>
         <div class="button-row">
-            <button type="submit" class="btn btn-primary" disabled>Send</button>
+            <button type="submit" class="btn btn-primary">Send</button>
         </div>
     </form>
 </x-layout>
