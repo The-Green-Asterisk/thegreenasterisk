@@ -9,12 +9,13 @@ import '@/views/components/tags/tags.js';
 const { fetch: originalFetch } = window;
 window.fetch = async (url, options = {}) => {
     el.loader.style.display = 'flex';
+    const token = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
     options.headers
-        ? options.headers['X-CSRF-TOKEN'] = document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+        ? options.headers['X-CSRF-TOKEN'] = token
         : options = {
             ...options,
             headers: {
-                'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+                'X-CSRF-TOKEN': token
             }
         };
     const response = await originalFetch(url, options);
