@@ -28,9 +28,21 @@ window.onload = () => {
     });
 };
 
-if (document.querySelector('#cookie-banner-button')) {
-    document.querySelector('#cookie-banner-button').addEventListener('click', () => {
-        document.querySelector('#cookie-banner').style.display = 'none';
+if (el.cookieBannerButton) {
+    el.cookieBannerButton.addEventListener('click', () => {
+        el.cookieBanner.style.display = 'none';
         document.cookie = 'cookies-are-cool=true; expires=Fri, 31 Dec 9999 23:59:59 GMT;';
+    });
+}
+
+if (el.selectors && el.selectors.length > 0) {
+    [...el.selectors].forEach(selector => {
+        selector.addEventListener('mousedown', (e) => {
+            e.preventDefault();
+            selector.focus();
+            if ([...el.options].includes(e.target)) {
+                e.target.selected = !e.target.selected;
+            }
+        });
     });
 }
