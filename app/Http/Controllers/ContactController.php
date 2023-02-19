@@ -22,10 +22,14 @@ class ContactController extends Controller
             'message' => 'required',
         ]);
 
-        // send the email
-        Mail::to(config('mail.from.address'))->send(new ContactFormMail($request->all()));
+        if ($request['turing-test'] !== 'on') {
+            return redirect()->back()->with('error', 'Nice try, Mr. Robot!');
+        } else {
+            // send the email
+            Mail::to(config('mail.from.address'))->send(new ContactFormMail($request->all()));
 
-        // redirect the user with a success message
-        return redirect()->back()->with('success', 'Your message has been sent!');
+            // redirect the user with a success message
+            return redirect()->back()->with('success', 'Your message has been sent!');
+        }
     }
 }

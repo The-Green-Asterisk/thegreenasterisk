@@ -18,12 +18,18 @@
             toolbar: 'undo redo | styles | bold italic | alignleft aligncenter alignright alignjustify alignnone | indent outdent | cut copy paste | image | link unlink openlink removeformat',
             images_upload_url: '/image-upload',
             image_file_types: 'image/jpeg,image/png,image/gif',
+            setup: function(editor) {
+                editor.on('input', function(e) {
+                    document.querySelector('textarea').value = editor.getContent();
+                });
+            },
             images_upload_handler: function(blobInfo, success, failure) {
                 var xhr, formData;
                 xhr = new XMLHttpRequest();
                 xhr.withCredentials = false;
                 xhr.open('POST', '/image-upload');
-                xhr.setRequestHeader("X-CSRF-TOKEN", document.querySelector('meta[name="csrf-token"]').content);
+                xhr.setRequestHeader("X-CSRF-TOKEN", document.querySelector('meta[name="csrf-token"]')
+                    .content);
                 xhr.onload = function() {
                     var json;
                     if (xhr.status != 200) {

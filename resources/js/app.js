@@ -46,3 +46,17 @@ if (el.selectors && el.selectors.length > 0) {
         });
     });
 }
+
+if (el.formInputs && el.submitButton) {
+    el.formInputs.forEach(input => {
+        if (input.required) {
+            input.addEventListener('input', () => {
+                if ([...el.formInputs].every(input => input.value.length > 0)) {
+                    el.submitButton.disabled = false;
+                } else {
+                    el.submitButton.disabled = true;
+                }
+            });
+        }
+    });
+}

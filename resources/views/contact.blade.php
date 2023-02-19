@@ -18,20 +18,9 @@
                 placeholder="Write whatever you want here, but if it's rude I reserve the right to ignore it."></textarea>
         </div>
         <div class="form-group">
-            <script src="https://www.google.com/recaptcha/enterprise.js?render=6Lf8XVAkAAAAAFm2UBRv7vkP8Fh6MPGBqQ-XW6Kh"></script>
-            <script>
-                grecaptcha.enterprise.ready(function() {
-                    grecaptcha.enterprise.execute('6Lf8XVAkAAAAAFm2UBRv7vkP8Fh6MPGBqQ-XW6Kh', {
-                        action: 'login'
-                    }).then(function(token) {
-                        document.getElementById('g-recaptcha-response').value = token;
-                        document.getElementById('submit').disabled = false;
-                    });
-                });
-            </script>
-            <input type="hidden" id="g-recaptcha-response" name="g-recaptcha-response">
-            <div class="g-recaptcha" data-sitekey="6Lf8XVAkAAAAAFm2UBRv7vkP8Fh6MPGBqQ-XW6Kh"></div>
         </div>
+        <p>Are you human, or are you dancer?</p>
+        <x-toggle.toggle name="turing-test" required="true" />
         <div class="button-row">
             <button type="submit" class="btn btn-primary" id="submit" disabled>Send</button>
         </div>
