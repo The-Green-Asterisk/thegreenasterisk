@@ -181,9 +181,10 @@ class SocialController extends Controller
     {
         $twitter = $this->getTwitterFeed();
         // $facebook = $this->getFacebookFeed();
-        $instagram = $this->getInstagramFeed();
+        // $instagram = $this->getInstagramFeed();
 
-        $feed = array_merge($twitter, $instagram);
+        // $feed = array_merge($twitter, $facebook, $instagram);
+        $feed = $twitter;
 
         //sort feed by timestamp
         usort($feed, function ($a, $b) {
