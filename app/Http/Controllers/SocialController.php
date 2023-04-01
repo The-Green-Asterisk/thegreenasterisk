@@ -67,11 +67,11 @@ class SocialController extends Controller
     public function getFacebookFeed()
     {
         //get new temporary access token from here: https://developers.facebook.com/tools/explorer/
-        // $token = Http::get('https://graph.facebook.com/oauth/access_token?grant_type=fb_exchange_token&client_id='.config('services.facebook.client_id').'&client_secret='.config('services.facebook.client_secret').'&fb_exchange_token={{{insert Temporary Access Token}}}'));
+        // $token = Http::get('https://graph.facebook.com/oauth/access_token?grant_type=fb_exchange_token&client_id='.config('services.facebook.client_id').'&client_secret='.config('services.facebook.client_secret').'&fb_exchange_token=EAAMxMuREX50BAGD4ICxYfeaTVPgx9UUukJWnZAPzI3hKF19bvz85QopiMpc0ZCZC3nxE4YvijeLRxcwHNUUl3LsPFHP3oFSZBilPZB1X3Slo0C062FklEtPFZCfdgCq5tuM198Ju0X1qe7J7z7RpIb8b6DnnJaZAhi6cjfeJPUbL4kanACPi7AaZBMqamRKWkZAF4hhXAZC4nx7B7U6T7kluZBxxOLQvyOM1NBXXgcQenDVUxEMY6UIJjet3UaAZAdImUeMZD');
         // $token = json_decode($token);
         // dd($token);
 
-        $fbPosts = Http::get('https://graph.facebook.com/v15.0/me?fields=id,name,posts{full_picture,message,link,permalink_url,created_time}&access_token='.config('services.facebook.access_token'));
+        $fbPosts = Http::get('https://graph.facebook.com/v15.0/me?fields=id,name,posts{full_picture,message,permalink_url,created_time}&access_token='.config('services.facebook.access_token'));
 
         $pagePosts = Http::get('https://graph.facebook.com/v15.0/111220456882666/?fields=posts%7Bcreated_time%2Cpermalink_url%2Cfull_picture%2Cmessage%7D&access_token='.config('services.facebook.page_access_token'));
 
@@ -180,10 +180,10 @@ class SocialController extends Controller
     public function buildFeed()
     {
         $twitter = $this->getTwitterFeed();
-        // $facebook = $this->getFacebookFeed();
+        $facebook = $this->getFacebookFeed();
         $instagram = $this->getInstagramFeed();
 
-        $feed = array_merge($twitter, $instagram);
+        $feed = array_merge($twitter, $facebook, $instagram);
 
         //sort feed by timestamp
         usort($feed, function ($a, $b) {
