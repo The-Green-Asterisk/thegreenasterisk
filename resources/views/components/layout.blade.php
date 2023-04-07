@@ -13,6 +13,7 @@
     <meta property="og:image:height" content="630" />
     <meta property="og:site_name" content="The Green Asterisk" />
     <meta property="og:locale" content="en_US" />
+    <meta property="fb:app_id" content="{{ config('services.facebook.client_id') }}" />
 
     <title>{{ $title ?? 'The Green Asterisk' }}</title>
 
