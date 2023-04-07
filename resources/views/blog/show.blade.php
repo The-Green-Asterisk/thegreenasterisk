@@ -1,15 +1,7 @@
 <x-layout>
-    <meta property="og:url" content="{{ url()->current() }}" />
-    <meta property="og:type" content="article" />
-    <meta property="og:title" content="{{ $blogPost->title }}" />
-    <meta property="og:description" content="{{ $blogPost->excerpt }}" />
-    <meta property="og:image" content="{{ asset($blogPost->image) }}" />
-    <meta property="og:image:width" content="1200" />
-    <meta property="og:image:height" content="630" />
-    <meta property="og:site_name" content="The Green Asterisk" />
-    <meta property="og:locale" content="en_US" />
-    <meta property="article:published_time" content="{{ $blogPost->published_at }}" />
-    <meta property="article:modified_time" content="{{ $blogPost->updated_at }}" />
+    @section('meta_title', $blogPost->title)
+    @section('meta_description', $blogPost->excerpt)
+    @section('meta_image', asset($blogPost->image))
 
     <x-slot name="title">{{ $blogPost->title }}</x-slot>
 

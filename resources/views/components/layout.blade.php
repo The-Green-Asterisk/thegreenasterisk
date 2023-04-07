@@ -4,6 +4,15 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta property="og:url" content="{{ url()->current() }}" />
+    <meta property="og:type" content="article" />
+    <meta property="og:title" content="@yield('meta_title', 'The Green Asterisk')" />
+    <meta property="og:description" content="@yield('meta_description', 'Welcome to the Green Asterisk')" />
+    <meta property="og:image" content="@yield('meta_image', asset('asterisk.png'))" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:site_name" content="The Green Asterisk" />
+    <meta property="og:locale" content="en_US" />
 
     <title>{{ $title ?? 'The Green Asterisk' }}</title>
 
