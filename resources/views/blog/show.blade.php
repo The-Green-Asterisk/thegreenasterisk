@@ -1,6 +1,6 @@
 <x-layout>
     @section('meta_title', $blogPost->title)
-    @section('meta_description', $blogPost->getexcerpt())
+    @section('meta_description', strip_tags($blogPost->getexcerpt()))
     @section('meta_image', asset($blogPost->image))
 
     <x-slot name="title">{{ $blogPost->title }}</x-slot>
