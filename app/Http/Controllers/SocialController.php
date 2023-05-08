@@ -141,7 +141,7 @@ class SocialController extends Controller
         if (isset($ig->error)) {
             $error = '';
             foreach ($ig->error as $e) {
-                $error .= $e->message;
+                $error .= $e;
             }
             $error .= ' - '.json_encode($ig);
             Mail::to(config('app.admin_email'))->send(new ErrorMail($error));
