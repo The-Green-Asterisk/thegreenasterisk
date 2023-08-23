@@ -68,7 +68,8 @@ class SocialController extends Controller
     public function getFacebookFeed()
     {
         //get new temporary access token from here: https://developers.facebook.com/tools/explorer/
-        // $token = Http::get('https://graph.facebook.com/oauth/access_token?grant_type=fb_exchange_token&client_id='.config('services.facebook.client_id').'&client_secret='.config('services.facebook.client_secret').'&fb_exchange_token={{ access_token }}');
+        // $access_token = '';
+        // $token = Http::get('https://graph.facebook.com/oauth/access_token?grant_type=fb_exchange_token&client_id='.config('services.facebook.client_id').'&client_secret='.config('services.facebook.client_secret').'&fb_exchange_token='.$access_token);
         // $token = json_decode($token);
         // dd($token);
 
