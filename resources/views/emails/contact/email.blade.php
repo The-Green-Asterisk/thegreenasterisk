@@ -3,7 +3,7 @@
 
 You have a new message from [{{ $name }}]({{ $email }}) who used The Green Asterisk's contact form.
 
->{!! $message !!}
+{!! $message !!}
 
 <x-mail::button :url="'mailto:' . $email">
 Reply to {{ $name }}

@@ -3,7 +3,7 @@
 
     Here's the error message:
 
-    >{!! $error !!}
+    {!! $error !!}
 
     Thanks,
     {{ config('app.name') }}

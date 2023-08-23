@@ -45,7 +45,7 @@ class ErrorMail extends Mailable
      */
     public function build()
     {
-        $error = $this->error;
+        $error = isset($this->error->message) ? $this->error->message : $this->error;
 
         return $this->markdown('emails.error.email')->with(compact('error'));
     }
