@@ -11,6 +11,7 @@ class SocialController extends Controller
 {
     public function getTwitterFeed()
     {
+        //deprecated -- if you go back to using "X", check out their new protocols.
         $tweets = Twitter::userTweets(9896162, ['max_results' => 25, 'expansions' => 'attachments.media_keys', 'tweet.fields' => 'created_at', 'media.fields' => 'preview_image_url,url', 'response_format' => 'object']);
 
         //if there's an error, email me
@@ -179,11 +180,11 @@ class SocialController extends Controller
 
     public function buildFeed()
     {
-        $twitter = $this->getTwitterFeed();
+        // $twitter = $this->getTwitterFeed();
         $facebook = $this->getFacebookFeed();
         $instagram = $this->getInstagramFeed();
 
-        $feed = array_merge($twitter, $facebook, $instagram);
+        $feed = array_merge($facebook, $instagram);
 
         //sort feed by timestamp
         usort($feed, function ($a, $b) {
