@@ -23,7 +23,7 @@
             </a>
         </h2>
         <p class="dateline">
-            Published {{ $post->getPublishedAtAttribute($post->published_at) }} by {{ $post->user->name }}
+            Published {{ $post->getPublishedAtAttribute($post->published_at) }} by {{ $post->user?->name }}
         </p>
         <p>
             {!! $post->getexcerpt() !!}

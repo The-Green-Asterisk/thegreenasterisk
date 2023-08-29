@@ -13,7 +13,7 @@
 .loader .spinner {
     width: 5rem;
     height: 5rem;
-    border: 0.5rem solid rgba(255, 255, 255, 0.3);
+    border: 0.25rem solid rgba(255, 255, 255, 0.3);
     border-top-color: var(--ui-color);
     border-radius: 50%;
     animation: spin 1s linear infinite;
