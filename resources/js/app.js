@@ -1,6 +1,6 @@
 import './bootstrap';
-import el from '@/js/const/elements.js';
-import { initLoader } from '@/js/services/request.js';
+import el from '@/js/const/elements';
+import { initLoader } from '@/js/services/request';
 import pathNames from '@/js/const/pathnames';
 import pages from '@/js/pages';
 import components from '@/js/components';

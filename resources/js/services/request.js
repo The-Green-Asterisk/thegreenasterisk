@@ -4,13 +4,12 @@ export function initLoader() {
     const { fetch: originalFetch } = window;
     window.fetch = async (url, options = {}) => {
         el.loader.style.display = 'flex';
-        const token = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
         options.headers
-            ? options.headers['X-CSRF-TOKEN'] = token
+            ? options.headers['X-CSRF-TOKEN'] = el.crfToken
             : options = {
                 ...options,
                 headers: {
-                    'X-CSRF-TOKEN': token
+                    'X-CSRF-TOKEN': el.crfToken
                 }
             };
         const response = await originalFetch(url, options);

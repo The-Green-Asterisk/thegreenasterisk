@@ -39,7 +39,7 @@ export default function (el) {
             var reader = new FileReader();
 
             reader.onload = function (e) {
-                document.getElementById('image-preview').setAttribute('src', e.target.result);
+                el.imagePreview.setAttribute('src', e.target.result);
             }
 
             reader.readAsDataURL(input.files[0]);
@@ -72,13 +72,13 @@ export default function (el) {
         localStorage.clear();
     }, 1000);
 
-    if (document.querySelector('section#blog-pane')) {
+    if (el.blogPane) {
         let page = 1;
         let loading = false;
-        document.querySelector('section#blog-pane').onscroll = function () {
+        el.blogPane.onscroll = function () {
             if ((this.scrollTop + this.clientHeight >= this.scrollHeight - 100) && !loading) {
                 loading = true;
-                getHtml('/infinite-scroll?page=' + page)
+                getHtml('/infinite-scroll', {page: page})
                     .then(html => {
                         if (html === '') return;
                         this.innerHTML += html;
