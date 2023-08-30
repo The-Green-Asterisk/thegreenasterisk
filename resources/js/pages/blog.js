@@ -1,5 +1,6 @@
+import modalFunc from "../components/modal";
 import pathNames from "../const/pathnames";
-import { post, get, getHtml, del } from "../services/request";
+import { del, getHtml } from "../services/request";
 
 export default function (el) {
     window.deleteModal = function (id) {
@@ -12,6 +13,7 @@ export default function (el) {
                     del(`/blog/${id}`)
                         .then(window.location.href = pathNames.BLOG);
                 }
+                modalFunc();
             });
     }
     window.deleteCommentModal = function (id) {
@@ -24,6 +26,7 @@ export default function (el) {
                     del(`/blog/comment/${id}`)
                         .then(res => window.location.href = res.url);
                 }
+                modalFunc();
             }
             );
     }
