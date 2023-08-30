@@ -7,7 +7,7 @@ import components from '@/js/components';
 
 initLoader();
 
-switch (window.location.pathname.split(/[\/#?]/)[1]) {
+switch (`\/${window.location.pathname.split(/[\/#?]/)[1]}`) {
     case pathNames.HOME:
         components.navbar(el);
         components.modal(el);
