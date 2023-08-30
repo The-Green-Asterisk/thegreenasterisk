@@ -13,7 +13,7 @@ export default function (el) {
                     del(`/blog/${id}`)
                         .then(window.location.href = pathNames.BLOG);
                 }
-                modalFunc();
+                modalFunc(el);
             });
     }
     window.deleteCommentModal = function (id) {
@@ -26,7 +26,7 @@ export default function (el) {
                     del(`/blog/comment/${id}`)
                         .then(res => window.location.href = res.url);
                 }
-                modalFunc();
+                modalFunc(el);
             }
             );
     }
