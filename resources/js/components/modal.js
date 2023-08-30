@@ -5,7 +5,7 @@ export default function (el) {
         el.modal.remove();
     }
     window.outsideClick = function (event) {
-        if (event.target.id === 'modal') {
+        if (event.target.id === el.modal.id) {
             window.closeModal();
         }
     }
