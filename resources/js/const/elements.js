@@ -11,7 +11,7 @@ const el = {
     options: document.getElementsByTagName('option'),
     inputs: document.getElementsByTagName('input'),
     tagNameInput: document.querySelector('#tag_name'),
-    modal: document.querySelector('#modal'),
+    modal: () => document.querySelector('#modal'),
     blogPane: document.querySelector('#blog-pane'),
     imagePreview: document.querySelector('#image-preview'),
     crfToken: document.querySelector('meta[name="csrf-token"]').getAttribute('content')
