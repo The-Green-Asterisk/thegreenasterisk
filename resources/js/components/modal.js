@@ -1,4 +1,6 @@
 export default function (el) {
+    el.modal = el.grabModal();
+
     window.closeModal = function () {
         el.modal.remove();
     }

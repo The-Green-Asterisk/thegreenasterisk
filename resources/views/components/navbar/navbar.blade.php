@@ -11,7 +11,7 @@
             <li>
                 <a href="/logout">Log Out</a>
                 <a href="{{ route('profile.index') }}">
-                    <img src="{{ Auth::user()->avatar }}" class="avatar" width="60px" />
+                    <img src="{{ asset(Auth::user()->avatar) }}" class="avatar" width="60px" />
                 </a>
             </li>
         @endauth

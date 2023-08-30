@@ -50,6 +50,7 @@ export default function (el) {
     }
 
     window.onbeforeunload = function () {
+        if (el.inputs.length == 0) return;
         let values = {};
         el.inputs.forEach(input => {
             if (input && input.name && !input.name.startsWith('_') && input.type !== 'file')
@@ -62,6 +63,7 @@ export default function (el) {
         localStorage.setItem('content', content);
     };
     setTimeout(() => {
+        if (el.inputs.length == 0) return;
         let values = JSON.parse(localStorage.getItem('formValues'));
         let content = localStorage.getItem('content');
 
