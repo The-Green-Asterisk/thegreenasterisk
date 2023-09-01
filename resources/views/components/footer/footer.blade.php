@@ -11,11 +11,11 @@
             <a href="https://threads.net/@lordsteve" target="_blank">
                 <i class="fa-brands fa-threads"></i>
             </a>
-            <a href="https://twitter.com/LordSteve" target="_blank">
-                <i class="fab fa-twitter"></i>
-            </a>
             <a href="https://facebook.com/LordSteve" target="_blank">
                 <i class="fab fa-facebook"></i>
+            </a>
+            <a href="https://twitter.com/LordSteve" target="_blank">
+                <i class="fab fa-twitter"></i>
             </a>
             <a href="https://www.youtube.com/c/SteveBeaudry" target="_blank">
                 <i class="fab fa-youtube"></i>
