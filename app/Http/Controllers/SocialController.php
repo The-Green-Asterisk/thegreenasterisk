@@ -104,20 +104,20 @@ class SocialController extends Controller
         }
 
         //convert urls to links
-        foreach ($fbPosts->posts->data as $post) {
+        if (isset($fbPosts->posts)) foreach ($fbPosts->posts->data as $post) {
             if (isset($post->message)) {
                 $post->message = preg_replace('/(https?:\/\/[^\s]+)/', '<a href="$1" target="_blank">$1</a>', $post->message);
             }
         }
 
         //convert hashtags to links
-        foreach ($fbPosts->posts->data as $post) {
+        if (isset($fbPosts->posts)) foreach ($fbPosts->posts->data as $post) {
             if (isset($post->message)) {
                 $post->message = preg_replace('/#([a-zA-Z0-9_.]+)/', '<a href="https://www.facebook.com/hashtag/$1" target="_blank">#$1</a>', $post->message);
             }
         }
 
-        foreach ($fbPosts->posts->data as $post) {
+        if (isset($fbPosts->posts)) foreach ($fbPosts->posts->data as $post) {
             $posts[] = [
                 'type' => 'Facebook',
                 'message' => isset($post->message) ? $post->message : null,
@@ -128,7 +128,7 @@ class SocialController extends Controller
             ];
         }
 
-        return $posts;
+        return isset($posts) ? $posts : [];
     }
 
     public function getInstagramFeed()

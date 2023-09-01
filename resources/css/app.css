@@ -292,7 +292,7 @@ section .end-section {
         width: 100% !important;
     }
 }
-.fab {
+.fab, .fa-brands {
     margin: 0 1rem;
 }
 #cookie-banner {
