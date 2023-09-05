@@ -296,7 +296,7 @@ section .end-section {
     margin: 0 1rem;
 }
 #cookie-banner {
-    display: flex;
+    display: none;
     align-items: center;
     position: fixed;
     bottom: 0;

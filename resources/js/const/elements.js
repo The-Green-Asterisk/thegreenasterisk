@@ -38,7 +38,26 @@ export default class El {
     addNewElement = (element, elName) => {
         this[elName] = element;
         console.info(`${elName} has been added to elements temporarily. Be sure to add it to the class before pushing to production!`);
-    }
+    };
+
+    getCookies = () => {
+        const cookieObj = {};
+        document.cookie.split(';').forEach(cookie => {
+            cookieObj[this.kebabToCamelCase(cookie.split('=')[0].trim())] = 
+                cookie.split('=')[1] === "true" || cookie.split('=')[1] === "false"
+                    ? Boolean(cookie.split('=')[1])
+                    : isNaN(Number(cookie.split('=')[1]))
+                        ? cookie.split('=')[1]
+                        : Number(cookie.split('=')[1]);
+        });
+        return cookieObj;
+    };
+
+    kebabToCamelCase = (str) => {
+        return str.replace(/-([a-z])/g, function (match, letter) {
+          return letter.toUpperCase();
+        });
+      }
 
     constructor() {
         if (this.selectors && this.selectors.length > 0) {
@@ -58,11 +77,12 @@ export default class El {
             });
         }
 
-        if (document.cookie.indexOf('cookies_are_cool=true') === -1) {
-            this.cookieBanner.style.display = 'block';
-        } else {
+        const cookies = this.getCookies();
+        if (cookies.cookiesAreCool) {
             this.cookieBanner.style.display = 'none';
-        }
+        } else {
+            this.cookieBanner.style.display = 'flex';
+        };
 
         if (this.cookieBannerButton) {
             this.cookieBannerButton.onclick = () => {
