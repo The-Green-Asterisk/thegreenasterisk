@@ -62,6 +62,7 @@ export default function (el) {
                 initModal(el);
             });
     });
+
     if (el.image) el.image.onchange = () => {
         if (el.image.files && el.image.files[0]) {
             var reader = new FileReader();
@@ -127,7 +128,7 @@ export default function (el) {
         el.blogPane.onscroll = function () {
             if ((this.scrollTop + this.clientHeight >= this.scrollHeight - 100) && !loading) {
                 loading = true;
-                getHtml('/infinite-scroll', {page: page})
+                getHtml(PathNames.INFINITE_SCROLL, {page: page})
                     .then(html => {
                         if (html === '') return;
                         this.innerHTML += html;

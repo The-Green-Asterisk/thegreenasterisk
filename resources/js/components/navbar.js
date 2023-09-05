@@ -1,10 +1,11 @@
+import PathNames from "../const/pathNames.js";
 import { get, getHtml } from "../services/request.js";
 import initModal from "./modal.js";
 
 export default function (el) {
     if (el.logInButton) {
         function doLogIn() {
-            getHtml('/login')
+            getHtml(PathNames.LOGIN)
             .then(html => {
                 const modal = document.createElement('div');
                 modal.innerHTML = html;
