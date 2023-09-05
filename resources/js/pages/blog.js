@@ -23,7 +23,7 @@ export default function (el) {
                 const modal = document.createElement('div');
                 modal.innerHTML = html;
                 el.body.appendChild(modal);
-                modal.querySelector('#submit-modal') = function () {
+                modal.querySelector('#submit-modal').onclick = function () {
                     del(`/blog/${el.deleteButton.value}`)
                         .then(window.location.href = PathNames.BLOG);
                 }
