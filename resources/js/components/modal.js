@@ -1,12 +1,13 @@
 export default function (el) {
-    el.modal = el.grabModal();
+    el.grabModal();
+    if (!el.modal) return;
 
-    window.closeModal = function () {
+    el.modal.querySelector('#close-modal').onclick = function () {
         el.modal.remove();
     }
-    window.outsideClick = function (event) {
+    el.modal.onclick = function (event) {
         if (event.target.id === el.modal.id) {
-            window.closeModal();
+            el.modal.remove();
         }
     }
 }

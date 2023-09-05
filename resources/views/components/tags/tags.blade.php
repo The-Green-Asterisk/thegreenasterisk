@@ -8,7 +8,7 @@
             </select>
         </label>
     @endif
-    <button class="btn btn-info" type="button" onclick="newTag()">
+    <button class="btn btn-info" type="button" id="new-tag-button">
         + New Tag
     </button>
 </div>

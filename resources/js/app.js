@@ -1,61 +1,46 @@
 import './bootstrap';
-import el from '@/js/const/elements';
-import { initLoader } from '@/js/services/request';
-import pathNames from '@/js/const/pathnames';
-import pages from '@/js/pages';
-import components from '@/js/components';
 
-initLoader();
+import components from './components';
+import pages from './pages';
 
-switch (`\/${window.location.pathname.split(/[\/#?]/)[1]}`) {
-    case pathNames.HOME:
-        components.navbar(el);
-        components.modal(el);
+import El from './const/elements';
+import PathNames from './const/pathNames';
+
+import { initLoader } from './services/request';
+
+const elements = new El();
+initLoader(elements);
+
+switch (PathNames.basePath()) {
+    case PathNames.HOME:
+        components.navbar(elements);
+        components.modal(elements);
         break;
-    case pathNames.BLOG:
-        pages.blog(el);
-        components.navbar(el);
-        components.modal(el);
-        components.tags(el);
+    case PathNames.BLOG:
+        pages.blog(elements);
+        components.navbar(elements);
+        components.modal(elements);
+        components.tags(elements);
         break;
-    case pathNames.ABOUT:
-    case pathNames.CONTACT:
-    case pathNames.TOS:
-    case pathNames.PRIVACY:
-        components.navbar(el);
-        components.modal(el);
+    case PathNames.ABOUT:
+    case PathNames.CONTACT:
+    case PathNames.TOS:
+    case PathNames.PRIVACY:
+        components.navbar(elements);
+        components.modal(elements);
         break;
     default:
         break;
 }
 
-if (el.cookieBannerButton) {
-    el.cookieBannerButton.onclick = () => {
-        el.cookieBanner.style.display = 'none';
-        document.cookie = 'cookies-are-cool=true; expires=Fri, 31 Dec 9999 23:59:59 GMT;';
-    };
-}
-
-if (el.selectors && el.selectors.length > 0) {
-    [...el.selectors].forEach(selector => {
-        selector.onclick = (e) => {
-            e.preventDefault();
-            selector.focus();
-            if ([...el.options].includes(e.target)) {
-                e.target.selected = !e.target.selected;
-            }
-        };
-    });
-}
-
-if (el.formInputs && el.submitButton) {
-    el.formInputs.forEach(input => {
+if (elements.formInputs && elements.submitButton) {
+    elements.formInputs.forEach(input => {
         if (input.required) {
             input.oninput = () => {
-                if ([...el.formInputs].every(input => input.value.length > 0)) {
-                    el.submitButton.disabled = false;
+                if ([...elements.formInputs].every(input => input.value.length > 0)) {
+                    elements.submitButton.disabled = false;
                 } else {
-                    el.submitButton.disabled = true;
+                    elements.submitButton.disabled = true;
                 }
             };
         }

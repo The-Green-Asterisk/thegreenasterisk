@@ -8,7 +8,7 @@
 
         <div>
             <label for="image">Header Image:</label>
-            <input type="file" name="image" id="image" class="btn btn-info" onchange="imagePreview(this)">
+            <input type="file" name="image" id="image" class="btn btn-info">
             <img id="image-preview" class="headerImg" src="/placeholder.png" />
         </div>
 
@@ -25,7 +25,7 @@
         <x-tags.tags :tags="$tags" />
 
         <div class="button-row">
-            <button class="btn btn-secondary" type="button" onclick="window.location.href='/blog'">Cancel</button>
+            <button class="btn btn-secondary" type="button" id="cancel-create-button">Cancel</button>
             <button class="btn btn-info" type="submit" formaction="{{ route('blog.draft') }}">Save as Draft</button>
             <button class="btn btn-primary" type="submit">Publish</button>
         </div>

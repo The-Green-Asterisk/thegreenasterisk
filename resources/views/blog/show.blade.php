@@ -39,7 +39,7 @@
                 <button type="submit" class="btn btn-primary">Submit</button>
             </form>
         @else
-            <p><a href="#" onclick="logIn()">Login</a> to leave a comment.</p>
+            <p><a href="#" id="log-in-button">Login</a> to leave a comment.</p>
         @endif
     </div>
     <hr>
@@ -53,7 +53,7 @@
                         @if ((auth()->check() && auth()->user()->id == $comment->user_id) || auth()->user()->is_admin)
                             @if ($comment->id != 0)
                                 <div style="float: right">
-                                    <a href="#" onclick="deleteCommentModal({{ $comment->id }})"
+                                    <a href="#" class="delete-comment-button" value="{{ $comment->id }}"
                                         style="color:red;">
                                         Delete
                                     </a>
@@ -70,10 +70,9 @@
         </div>
     @endif
     <div class="button-row">
-        <button class="btn btn-secondary" type="button" onclick="window.location.href='/blog'">Back to Blog</button>
+        <button class="btn btn-secondary" type="button" id="back-to-blog-button">Back to Blog</button>
         @admin
-            <button class="btn btn-primary" type="button"
-                onclick="window.location.href='/blog/{{ $blogPost->id }}/edit'">Edit
+            <button class="btn btn-primary" type="button" id="edit-blog-post-button" value="{{ $blogPost->id }}">Edit
                 Post</button>
         @endadmin
     </div>

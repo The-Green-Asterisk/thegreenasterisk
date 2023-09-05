@@ -16,7 +16,7 @@
             </li>
         @endauth
         @guest
-            <li><a href="#" onclick="logIn()">Log In</a></li>
+            <li><a href="#" id="log-in-button">Log In</a></li>
         @endguest
     </ul>
 </nav>

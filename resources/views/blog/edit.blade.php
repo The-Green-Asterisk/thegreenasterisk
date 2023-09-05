@@ -20,15 +20,14 @@
                     </select>
                 </label>
             @endif
-            <button class="btn btn-info" type="button" onclick="newTag()">
+            <button class="btn btn-info" type="button" id="new-tag-button">
                 + New Tag
             </button>
         </div>
 
         <div class="button-row">
-            <button class="btn btn-secondary" type="button" onclick="cancelEdit()">Cancel</button>
-            <button class="btn btn-danger" type="button" onclick="deleteModal({{ $blogPost->id }})">Delete
-                Post</button>
+            <button class="btn btn-secondary" type="button" id="cancel-edit-button">Cancel</button>
+            <button class="btn btn-danger" type="button" id="delete-button" value={{ $blogPost->id }} >Delete Post</button>
             @if ($blogPost->is_draft)
                 <button class="btn btn-info" type="submit" formaction="{{ route('blog.draft') }}">Save
                     Draft</button>

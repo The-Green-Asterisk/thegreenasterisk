@@ -1,10 +1,10 @@
-<div class="modal" id="modal" onclick="outsideClick(event)">
+<div class="modal" id="modal">
     <div class="body">
         <div class="header">
             <h2 class="title">
                 {{ $title ?? 'Why is there no title?' }}
             </h2>
-            <button class="close" id="closeModal" onclick="closeModal()">
+            <button class="close" id="close-modal">
                 <i class="fas fa-times"></i>
             </button>
         </div>
@@ -13,12 +13,12 @@
         </div>
         <div class="button-row">
             @if ($showCloseButton)
-                <button class="btn btn-secondary" id="closeModal" onclick="closeModal()">
+                <button class="btn btn-secondary" id="close-modal">
                     {{ $closeButtonText ?? 'Close' }}
                 </button>
             @endif
             @if ($showSubmitButton)
-                <button class="btn btn-primary" id="submitModal" onclick="submitModal()">
+                <button class="btn btn-primary" id="submit-modal">
                     {{ $submitButtonText ?? 'Submit' }}
                 </button>
             @endif

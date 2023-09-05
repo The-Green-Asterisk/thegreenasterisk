@@ -11,30 +11,30 @@
     </section>
     <div class="button-row">
         @if (request()->get('tag') != null)
-            <button class="btn btn-secondary" type="button" onclick="window.location.href='/blog'">
+            <button class="btn btn-secondary" type="button" id="clear-tag-button">
                 Clear Tag
             </button>
         @endif
         @admin
             @if (request()->get('all') == null && $posts->where('is_draft', true)->count() > 0)
-                <button class="btn btn-secondary" type="button" onclick="window.location.href='/blog?all=1'">
+                <button class="btn btn-secondary view-button" type="button" value="all">
                     View All
                 </button>
             @elseif (request()->get('all') == 1)
-                <button class="btn btn-secondary" type="button" onclick="window.location.href='/blog'">
+                <button class="btn btn-secondary view-button" type="button">
                     View Published
                 </button>
             @endif
             @if (request()->get('drafts') == 1)
-                <button class="btn btn-secondary" type="button" onclick="window.location.href='/blog'">
+                <button class="btn btn-secondary view-button" type="button">
                     View Published
                 </button>
             @elseif ($posts->draft_count > 0)
-                <button class="btn btn-secondary" type="button" onclick="window.location.href='/blog?drafts=1'">
+                <button class="btn btn-secondary view-button" type="button" value="drafts">
                     View Drafts
                 </button>
             @endif
-            <button class="btn btn-primary" type="button" onclick="window.location.href='/blog/create'">
+            <button class="btn btn-primary" type="button" id="create-post-button">
                 + Create Post
             </button>
         @endadmin

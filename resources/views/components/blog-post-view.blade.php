@@ -6,10 +6,10 @@
         @admin
             @if ($post->id != 0)
                 <div style="float: right">
-                    <a href="/blog/{{ $post->id }}/edit">
+                    <a href="/blog/{{ $post->id }}/edit" id="edit-blog-post-button">
                         Edit
                     </a>
-                    <a href="#" onclick="deleteModal({{ $post->id }})" style="color:red;">
+                    <a href="#"  id="delete-button" value="{{ $post->id }})" style="color:red;">
                         Delete
                     </a>
                 </div>

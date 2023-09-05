@@ -1,27 +1,27 @@
-import el from "@/js/const/elements";
-
-export function initLoader() {
-    const { fetch: originalFetch } = window;
-    window.fetch = async (url, options = {}) => {
-        el.loader.style.display = 'flex';
-        options.headers
-            ? options.headers['X-CSRF-TOKEN'] = el.crfToken
-            : options = {
-                ...options,
-                headers: {
-                    'X-CSRF-TOKEN': el.crfToken
-                }
-            };
-        const response = await originalFetch(url, options);
-        el.loader.style.display = 'none';
-        return response;
-    };
-
-    window.onload = () => {
-        setTimeout(() => {
+export function initLoader(el) {
+    window.fetch=((oldFetch, input, init) =>{
+        return async (url = input, options = init | undefined) => {
+            el.loader.style.display = 'flex';
+            options.headers
+                ? options.headers['X-CSRF-TOKEN'] = el.crfToken
+                : options = {
+                    ...options,
+                    headers: {
+                        'X-CSRF-TOKEN': el.crfToken
+                    }
+                };
+            const response = await oldFetch(url, options);
             el.loader.style.display = 'none';
-        });
-    };
+            return response;
+        }
+    })(window.fetch);
+
+    window.onload=((oldLoad) => {
+        return () => {
+            oldLoad && oldLoad();
+            el.loader.style.display = 'none';
+        }
+    })(window.onload);
 }
 
 export default async function request(
