@@ -18,13 +18,13 @@ export default function (el) {
     }
 
     if (el.deleteButton) el.deleteButton.onclick = function () {
-        getHtml(`/blog/${el.deleteButton.value}/delete-confirm`)
+        getHtml(`${PathNames.BLOG}/${el.deleteButton.value}/delete-confirm`)
             .then(html => {
                 const modal = document.createElement('div');
                 modal.innerHTML = html;
                 el.body.appendChild(modal);
                 modal.querySelector('#submit-modal').onclick = function () {
-                    del(`/blog/${el.deleteButton.value}`)
+                    del(`${PathNames.BLOG}/${el.deleteButton.value}`)
                         .then(window.location.href = PathNames.BLOG);
                 }
                 initModal(el);
@@ -35,28 +35,27 @@ export default function (el) {
         window.location.href = PathNames.BLOG;
     }
 
-    if (el.viewButtons.length > 0) {
-        el.viewButtons.forEach(button => {
-            button.onclick = function () {
-                window.location.href = button.value !== ''
-                    ? `${PathNames.BLOG}?${button.value}=1`
-                    : PathNames.BLOG;
-            }
-        });
-    }
+    if (el.viewButtons.length > 0) el.viewButtons.forEach(button => {
+        button.onclick = function () {
+            window.location.href = button.value !== ''
+                ? `${PathNames.BLOG}?${button.value}=1`
+                : PathNames.BLOG;
+        }
+    });
 
     if (el.createPostButton) el.createPostButton.onclick = function () {
+        localStorage.clear();
         window.location.href = PathNames.BLOG_CREATE;
-    }
+    };
     
     if (el.deleteCommentButtons) el.deleteCommentButtons.forEach(button => {
-        button.onclick = getHtml(`/blog/comment/${button.value}/delete-confirm`)
+        button.onclick = getHtml(`${PathNames.BLOG}/comment/${button.value}/delete-confirm`)
             .then(html => {
                 const modal = document.createElement('div');
                 modal.innerHTML = html;
                 el.body.appendChild(modal);
                 modal.querySelector('#submit-modal').onclick = function () {
-                    del(`/blog/comment/${button.value}`)
+                    del(`${PathNames.BLOG}/comment/${button.value}`)
                         .then(res => window.location.href = res.url);
                 }
                 initModal(el);
@@ -81,9 +80,6 @@ export default function (el) {
         if (el.editBlogPostButton.type === 'button') {
             window.location.href = `${PathNames.BLOG}/${el.editBlogPostButton.value}/edit`;
         }
-    }
-    if (el.createPostButton) el.createPostButton.onclick = function () {
-        localStorage.clear();
     }
 
     window.onbeforeunload=((oldBeforeUnload) => {
