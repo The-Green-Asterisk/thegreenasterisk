@@ -27,7 +27,7 @@ export default function (el) {
                     del(`/blog/${el.deleteButton.value}`)
                         .then(window.location.href = PathNames.BLOG);
                 }
-                initModal();
+                initModal(el);
             });
     }
 
@@ -59,7 +59,7 @@ export default function (el) {
                     del(`/blog/comment/${button.value}`)
                         .then(res => window.location.href = res.url);
                 }
-                initModal();
+                initModal(el);
             });
     });
     if (el.image) el.image.onchange = () => {
