@@ -3,7 +3,7 @@
 
     At The Green Asterisk, we are committed to protecting your privacy. This Privacy Policy explains how we collect,
     use,
-    and disclose information that we collect through our website, http://thegreenasterisk.com.
+    and disclose information that we collect through our website, https://thegreenasterisk.com.
 
     <h2>Information We Collect</h2>
 
