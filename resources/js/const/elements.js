@@ -1,3 +1,5 @@
+import CookieJar from "../services/cookieJar";
+
 export default class El {
     crfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
 
@@ -40,25 +42,6 @@ export default class El {
         console.info(`${elName} has been added to elements temporarily. Be sure to add it to the class before pushing to production!`);
     };
 
-    getCookies = () => {
-        const cookieObj = {};
-        document.cookie.split(';').forEach(cookie => {
-            cookieObj[this.kebabToCamelCase(cookie.split('=')[0].trim())] = 
-                cookie.split('=')[1] === "true" || cookie.split('=')[1] === "false"
-                    ? Boolean(cookie.split('=')[1])
-                    : isNaN(Number(cookie.split('=')[1]))
-                        ? cookie.split('=')[1]
-                        : Number(cookie.split('=')[1]);
-        });
-        return cookieObj;
-    };
-
-    kebabToCamelCase = (str) => {
-        return str.replace(/-([a-z])/g, function (match, letter) {
-          return letter.toUpperCase();
-        });
-      }
-
     constructor() {
         if (this.selectors && this.selectors.length > 0) {
             this.selectors.forEach(selector => {
@@ -77,8 +60,7 @@ export default class El {
             });
         }
 
-        const cookies = this.getCookies();
-        if (cookies.cookiesAreCool) {
+        if (CookieJar.get('cookies-are-cool')) {
             this.cookieBanner.style.display = 'none';
         } else {
             this.cookieBanner.style.display = 'flex';
@@ -87,7 +69,7 @@ export default class El {
         if (this.cookieBannerButton) {
             this.cookieBannerButton.onclick = () => {
                 this.cookieBanner.style.display = 'none';
-                document.cookie = 'cookies-are-cool=true; expires=Fri, 31 Dec 9999 23:59:59 GMT;';
+                CookieJar.set('cookies-are-cool', true, new Date(Date.getFullYear() + 999).toUTCString());
             };
         }
     }
