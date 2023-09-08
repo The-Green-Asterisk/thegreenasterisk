@@ -22,7 +22,7 @@ export default class CookieJar {
                         : Number(cookie.split('=')[1]);
         });
         return cookie
-            ? cookieObj[this.kebabToCamelCase(cookie)]
+            ? cookieObj[this.#kebabToCamelCase(cookie)]
             : cookieObj;
     };
 
