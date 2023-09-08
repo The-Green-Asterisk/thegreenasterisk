@@ -1,4 +1,4 @@
-export default function (el) {
+export default function modal(el) {
     el.grabModal();
     if (!el.modal) return;
 

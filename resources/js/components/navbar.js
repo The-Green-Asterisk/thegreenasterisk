@@ -2,7 +2,7 @@ import PathNames from "../const/pathNames.js";
 import { get, getHtml } from "../services/request.js";
 import initModal from "./modal.js";
 
-export default function (el) {
+export default function navbar(el) {
     if (el.logInButton) {
         function doLogIn() {
             getHtml(PathNames.LOGIN)

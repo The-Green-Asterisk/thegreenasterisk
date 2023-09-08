@@ -1,6 +1,5 @@
 import './bootstrap';
 
-import components from './components';
 import pages from './pages';
 
 import El from './const/elements';
@@ -13,36 +12,23 @@ initLoader(elements);
 
 switch (PathNames.basePath()) {
     case PathNames.HOME:
-        components.navbar(elements);
-        components.modal(elements);
+        pages.home(elements);
         break;
     case PathNames.BLOG:
         pages.blog(elements);
-        components.navbar(elements);
-        components.modal(elements);
-        components.tags(elements);
         break;
     case PathNames.ABOUT:
+        pages.about(elements);
+        break;
     case PathNames.CONTACT:
+        pages.contact(elements);
+        break;
     case PathNames.TOS:
+        pages.tos(elements);
+        break;
     case PathNames.PRIVACY:
-        components.navbar(elements);
-        components.modal(elements);
+        pages.privacy(elements);
         break;
     default:
         break;
-}
-
-if (elements.formInputs && elements.submitButton) {
-    elements.formInputs.forEach(input => {
-        if (input.required) {
-            input.oninput = () => {
-                if ([...elements.formInputs].every(input => input.value.length > 0)) {
-                    elements.submitButton.disabled = false;
-                } else {
-                    elements.submitButton.disabled = true;
-                }
-            };
-        }
-    });
 }

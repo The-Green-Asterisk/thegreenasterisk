@@ -1,8 +1,12 @@
-import initModal from "../components/modal";
+import components from "../components";
 import PathNames from "../const/pathNames";
 import { del, getHtml } from "../services/request";
 
-export default function (el) {
+export default function blog(el) {
+    components.navbar(el);
+    components.modal(el);
+    components.tags(el);
+
     if (el.cancelCreateButton) el.cancelCreateButton.onclick = function () {
         window.location.href = PathNames.BLOG;
     }
@@ -27,7 +31,7 @@ export default function (el) {
                     del(`${PathNames.BLOG}/${el.deleteButton.value}`)
                         .then(window.location.href = PathNames.BLOG);
                 }
-                initModal(el);
+                components.modal(el);
             });
     }
 
@@ -58,7 +62,7 @@ export default function (el) {
                     del(`${PathNames.BLOG}/comment/${button.value}`)
                         .then(res => window.location.href = res.url);
                 }
-                initModal(el);
+                components.modal(el);
             });
     });
 

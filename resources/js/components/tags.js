@@ -1,7 +1,7 @@
 import PathNames from "../const/pathNames";
 import { getHtml, post } from "../services/request";
 
-export default function (el) {
+export default function tags(el) {
     if (el.newTagButton) el.newTagButton.onclick = function () {
         getHtml(PathNames.TAG_CREATE)
             .then(html => {

@@ -1,4 +1,10 @@
-export default class {
+export default class CookieJar {
+    static #kebabToCamelCase = (str) => {
+        return str.replace(/-([a-z])/g, function (match, letter) {
+            return letter.toUpperCase();
+        });
+    };
+
     /**
     * Returns all cookies as an object or the value of a specific cookie
     * @param {string?} cookie
@@ -8,7 +14,7 @@ export default class {
         
         const cookieObj = {};
         document.cookie.split(';').forEach(cookie => {
-            cookieObj[this.kebabToCamelCase(cookie.split('=')[0].trim())] = 
+            cookieObj[this.#kebabToCamelCase(cookie.split('=')[0].trim())] = 
                 cookie.split('=')[1] === "true" || cookie.split('=')[1] === "false"
                     ? Boolean(cookie.split('=')[1])
                     : isNaN(Number(cookie.split('=')[1]))
@@ -64,10 +70,4 @@ export default class {
             console.error(`Cookie ${cookie} does not exist.`);
         }
     };
-
-    kebabToCamelCase = (str) => {
-        return str.replace(/-([a-z])/g, function (match, letter) {
-            return letter.toUpperCase();
-        });
-    }
 }

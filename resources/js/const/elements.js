@@ -60,6 +60,20 @@ export default class El {
             });
         }
 
+        if (this.formInputs && this.submitButton) {
+            this.formInputs.forEach(input => {
+                if (input.required) {
+                    input.oninput = () => {
+                        if ([...this.formInputs].every(input => input.value.length > 0)) {
+                            this.submitButton.disabled = false;
+                        } else {
+                            this.submitButton.disabled = true;
+                        }
+                    };
+                }
+            });
+        }        
+
         if (CookieJar.get('cookies-are-cool')) {
             this.cookieBanner.style.display = 'none';
         } else {
