@@ -4,6 +4,7 @@ import about from './about.js';
 import contact from './contact.js';
 import tos from './tos.js';
 import privacy from './privacy.js';
+import manyWorlds from './manyWorlds.js';
 
 const pages = {
     home,
@@ -11,6 +12,7 @@ const pages = {
     about,
     contact,
     tos,
-    privacy
+    privacy,
+    manyWorlds
 };
 export default pages;

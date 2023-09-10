@@ -50,3 +50,23 @@ Route::resource('profile', ProfileController::class)->middleware('auth');
 Route::post('/image-upload', [ImageController::class, 'store'])->name('image.upload')->middleware('auth');
 
 Route::get('/social', [SocialController::class, 'buildFeed'])->name('social');
+
+Route::get('/many-worlds', function () {
+    //array of objects
+    $tabs = [
+        (object) [
+            'name' => 'The DRIP Campaign',
+            'link' => '#',
+            'active' => true,
+            'shortName' => 'DRIP'
+        ],
+        (object) [
+            'name' => 'Gravity\'s Folly',
+            'link' => '#',
+            'active' => false,
+            'shortName' => 'GF'
+        ]
+    ];
+
+    return view('many-worlds.index', compact('tabs'));
+})->name('many-worlds');

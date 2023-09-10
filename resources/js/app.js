@@ -29,6 +29,8 @@ switch (PathNames.basePath()) {
     case PathNames.PRIVACY:
         pages.privacy(elements);
         break;
+    case PathNames.MANY_WORLDS:
+        pages.manyWorlds(elements);
     default:
         break;
 }

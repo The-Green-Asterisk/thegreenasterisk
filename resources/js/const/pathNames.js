@@ -10,6 +10,7 @@ export default class PathNames {
     static TOS = '/tos';
     static PRIVACY = '/privacy';
     static INFINITE_SCROLL = '/infinite-scroll';
+    static MANY_WORLDS = '/many-worlds';
 
     static basePath = () => `\/${window.location.pathname.split(/[\/#?]/)[1]}`;
 };

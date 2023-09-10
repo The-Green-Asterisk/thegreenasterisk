@@ -37,6 +37,8 @@ export default class El {
     newTagButton = document.querySelector('#new-tag-button');
     clearTagButton = document.querySelector('#clear-tag-button');
 
+    tabs = document.querySelectorAll('.tab');
+
     addNewElement = (element, elName) => {
         this[elName] = element;
         console.info(`${elName} has been added to elements temporarily. Be sure to add it to the class before pushing to production!`);
@@ -85,6 +87,13 @@ export default class El {
                 this.cookieBanner.style.display = 'none';
                 CookieJar.set('cookies-are-cool', true, new Date(Date.getFullYear() + 999).toUTCString());
             };
+        }
+
+        if (this.tabs) {
+            this.tabs.forEach(tab => {
+                if (tab.getAttribute('bg'))
+                    tab.style.backgroundImage = `url(${tab.getAttribute('bg')})`;
+            })
         }
     }
 };
