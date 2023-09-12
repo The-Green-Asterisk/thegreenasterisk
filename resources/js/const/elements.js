@@ -1,6 +1,7 @@
 import CookieJar from "../services/cookieJar";
 
 export default class El {
+    root = document.querySelector(':root');
     crfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
 
     cookieBanner = document.querySelector('#cookie-banner');
@@ -89,10 +90,10 @@ export default class El {
             };
         }
 
-        if (this.tabs) {
-            this.tabs.forEach(tab => {
-                if (tab.getAttribute('bg'))
-                    tab.style.backgroundImage = `url(${tab.getAttribute('bg')})`;
+        if (document.querySelectorAll('div, body')) {
+            document.querySelectorAll('div, body').forEach(div => {
+                if (div.getAttribute('bg'))
+                    div.style.backgroundImage = `url(${div.getAttribute('bg')})`;
             })
         }
     }

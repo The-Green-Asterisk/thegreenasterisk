@@ -16,6 +16,7 @@
         0 8px 10px -6px rgb(0 0 0 / 0.1);
     --inner-shadow: inset 0 2px 4px 0 rgb(0 0 0 / 0.1);
     --ui-color: #6eb95f;
+    --stroke: -1px -1px 0 #fff, 1px -1px 0 #fff, -1px 1px 0 #fff, 1px 1px 0 #fff;
 }
 
 html {
@@ -24,7 +25,6 @@ html {
     background-color: white;
 }
 body {
-    background-image: url("/public/bg.jpg");
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;

@@ -63,7 +63,7 @@
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
 
-<body>
+<body bg="{{ isset($bg) ? $bg : asset('/bg.jpg') }}">
     <x-loader />
     @if ($showNavbar === true)
         <x-navbar />
