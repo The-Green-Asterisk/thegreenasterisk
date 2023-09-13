@@ -53,7 +53,7 @@
                         @if ((auth()->check() && auth()->user()->id == $comment->user_id) || auth()->user()->is_admin)
                             @if ($comment->id != 0)
                                 <div style="float: right">
-                                    <a href="#" class="delete-comment-button" value="{{ $comment->id }}"
+                                    <a href="" class="delete-comment-button" name="{{ $comment->id }}"
                                         style="color:red;">
                                         Delete
                                     </a>

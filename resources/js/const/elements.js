@@ -1,4 +1,5 @@
 import CookieJar from "../services/cookieJar";
+import StorageBox from "../services/storageBox";
 
 export default class El {
     root = document.querySelector(':root');
@@ -13,6 +14,7 @@ export default class El {
     logInButton = document.querySelectorAll('#log-in-button');
     logOutButton = document.querySelector('#log-out-button');
 
+    forms = document.querySelectorAll('form');
     inputs = document.getElementsByTagName('input');
     formInputs = document.querySelectorAll('input, textarea');
     submitButton = document.querySelector('button[type="submit"]');
@@ -75,7 +77,63 @@ export default class El {
                     };
                 }
             });
-        }        
+
+            this.forms.forEach(form => {
+                form.onsubmit = ((oldOnSubmit) => {
+                    form.submitButton = form.querySelector('button[type="submit"]');
+                    return (e) =>{
+                        oldOnSubmit && oldOnSubmit(e);
+                        form.submitButton.disabled = true;
+                        form.submitButton.innerHTML = '<i class="fas fa-spinner fa-spin"></i>';
+                        this.submitted = true;
+                    }
+                })(form.onsubmit)
+            });
+        }
+
+        window.onbeforeunload=((oldBeforeUnload) => {
+            return () => {
+                oldBeforeUnload && oldBeforeUnload();
+                if (this.formInputs.length == 0) return;
+                if (this.submitted) {
+                    StorageBox.clear();
+                    return;
+                }
+                
+                let values = {};
+                this.formInputs.forEach(input => {
+                    if (input && input.name && !input.name.startsWith('_') && input.type !== 'file')
+                        values[input.name] = input.value;
+                });
+    
+                let content = tinymce.get('content')?.getContent() ?? '';
+                let message = tinymce.get('message')?.getContent() ?? '';
+    
+                StorageBox.set('formValues', values);
+                StorageBox.set('content', content);
+                StorageBox.set('message', message);
+            }
+        })(window.onbeforeunload);
+        window.onload=((oldLoad) => {
+            return () => {
+                oldLoad && oldLoad();
+                if (this.formInputs.length == 0) return;
+                
+                let values = StorageBox.get('formValues');
+                let content = StorageBox.get('content');
+                let message = StorageBox.get('message');
+    
+                this.formInputs.forEach(input => {
+                    if (input && input.name && !input.name.startsWith('_') && values && values[input.name] && input.type !== 'file')
+                        input.value = values[input.name];
+                });
+    
+                if (content && content !== undefined && content !== '') tinymce.get('content')?.setContent(content);
+                if (message && message !== undefined && message !== '') tinymce.get('message')?.setContent(message);
+    
+                localStorage.clear();
+            }
+        })(window.onload);
 
         if (CookieJar.get('cookies-are-cool')) {
             this.cookieBanner.style.display = 'none';

@@ -53,17 +53,22 @@ export default function blog(el) {
     };
     
     if (el.deleteCommentButtons) el.deleteCommentButtons.forEach(button => {
-        button.onclick = getHtml(`${PathNames.BLOG}/comment/${button.value}/delete-confirm`)
-            .then(html => {
-                const modal = document.createElement('div');
-                modal.innerHTML = html;
-                el.body.appendChild(modal);
-                modal.querySelector('#submit-modal').onclick = function () {
-                    del(`${PathNames.BLOG}/comment/${button.value}`)
-                        .then(res => window.location.href = res.url);
-                }
-                components.modal(el);
-            });
+        button.onclick = function (e) {
+            e.preventDefault();
+            getHtml(`${PathNames.BLOG}/comment/${button.name}/delete-confirm`)
+                .then(html => {
+                    const modal = document.createElement('div');
+                    modal.innerHTML = html;
+                    el.body.appendChild(modal);
+                    modal.querySelector('#submit-modal').onclick = function () {
+                        del(`${PathNames.BLOG}/comment/${button.name}`)
+                            .then(res => {
+                                window.location.href = res.url
+                            });
+                    };
+                    components.modal(el);
+                });
+            }
     });
 
     if (el.image) el.image.onchange = () => {
@@ -85,42 +90,6 @@ export default function blog(el) {
             window.location.href = `${PathNames.BLOG}/${el.editBlogPostButton.value}/edit`;
         }
     }
-
-    window.onbeforeunload=((oldBeforeUnload) => {
-        return () => {
-            oldBeforeUnload && oldBeforeUnload();
-            if (el.formInputs.length == 0) return;
-            
-            let values = {};
-            el.formInputs.forEach(input => {
-                if (input && input.name && !input.name.startsWith('_') && input.type !== 'file')
-                    values[input.name] = input.value;
-            });
-
-            let content = tinymce.get('content')?.getContent() ?? '';
-
-            localStorage.setItem('formValues', JSON.stringify(values));
-            localStorage.setItem('content', content);
-        }
-    })(window.onbeforeunload);
-    window.onload=((oldLoad) => {
-        return () => {
-            oldLoad && oldLoad();
-            if (el.formInputs.length == 0) return;
-            
-            let values = JSON.parse(localStorage.getItem('formValues'));
-            let content = localStorage.getItem('content');
-
-            el.formInputs.forEach(input => {
-                if (input && input.name && !input.name.startsWith('_') && values && values[input.name] && input.type !== 'file')
-                    input.value = values[input.name];
-            });
-
-            if (content && content !== undefined && content !== '') tinymce.get('content')?.setContent(content);
-
-            localStorage.clear();
-        }
-    })(window.onload);
 
     if (el.blogPane) {
         let page = 1;
