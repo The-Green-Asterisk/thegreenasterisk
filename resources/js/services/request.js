@@ -81,6 +81,13 @@ export async function put(path, data) {
 }
 
 export async function del(path, data) {
-    data._method = 'DELETE';
-    return await request('POST', path, data);
+    if (data?._method){
+        data._method = 'DELETE';
+    } else {
+        data = {
+            ...data,
+            _method: 'DELETE'
+        };
+    }
+    return await request('POST', path, data, false);
 }
