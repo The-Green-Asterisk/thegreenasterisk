@@ -196,17 +196,17 @@ class BlogController extends Controller
         return $modal->render();
     }
 
-    public function comment(Request $request, BlogPost $blogPost)
+    public function comment(Request $request, int $blogId)
     {
         $this->validate($request, [
             'comment_content' => 'required|min:5',
         ]);
 
-        $blogPost = BlogPost::find($request->blog_post_id);
-
+        $blogPost = BlogPost::find($blogId);
         $blogPost->comments()->create([
             'content' => $request->comment_content,
             'user_id' => auth()->id(),
+            'blog_post_id' => $blogPost->id,
         ]);
 
         $data = [
