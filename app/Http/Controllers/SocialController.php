@@ -73,7 +73,7 @@ class SocialController extends Controller
         // $token = json_decode($token);
         // dd($token);
 
-        $fbPosts = Http::get('https://graph.facebook.com/v15.0/me?fields=id,name,posts{full_picture,message,permalink_url,created_time}&access_token='.config('services.facebook.access_token'));
+        $fbPosts = Http::get('https://graph.facebook.com/v15.0/me?fields=id%2Cname%2Cposts%7Bpermalink_url%2Cmessage%2Ccreated_time%2Cfull_picture%7D&access_token='.config('services.facebook.access_token'));
 
         $pagePosts = Http::get('https://graph.facebook.com/v15.0/111220456882666/?fields=posts%7Bcreated_time%2Cpermalink_url%2Cfull_picture%2Cmessage%7D&access_token='.config('services.facebook.page_access_token'));
 
@@ -121,8 +121,8 @@ class SocialController extends Controller
             $posts[] = [
                 'type' => 'Facebook',
                 'message' => isset($post->message) ? $post->message : null,
-                'timestamp' => $post->created_time,
-                'url' => $post->permalink_url,
+                'timestamp' => isset($post->created_time) ? $post->created_time : null,
+                'url' => isset($post->permalink_url) ? $post->permalink_url : null,
                 'image' => isset($post->full_picture) ? $post->full_picture : null,
                 'is_video' => false,
             ];
