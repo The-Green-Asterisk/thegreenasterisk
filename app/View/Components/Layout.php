@@ -12,16 +12,19 @@ class Layout extends Component
 
     public $mainContent;
 
+    public $bg;
+
     /**
      * Create a new component instance.
      *
      * @return void
      */
-    public function __construct($showNavbar = true, $showFooter = true, $mainContent = true)
+    public function __construct($showNavbar = true, $showFooter = true, $mainContent = true, $bg = null)
     {
         $this->showNavbar = $showNavbar;
         $this->showFooter = $showFooter;
         $this->mainContent = $mainContent;
+        $this->bg = $bg;
     }
 
     /**
@@ -34,7 +37,8 @@ class Layout extends Component
         $showNavbar = $this->showNavbar;
         $showFooter = $this->showFooter;
         $mainContent = $this->mainContent;
+        $bg = $this->bg;
 
-        return view('components.layout', compact('showNavbar', 'showFooter', 'mainContent'));
+        return view('components.layout', compact('showNavbar', 'showFooter', 'mainContent', 'bg'));
     }
 }

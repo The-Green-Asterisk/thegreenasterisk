@@ -8,6 +8,7 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\SessionController;
 use App\Http\Controllers\SocialController;
 use App\Http\Controllers\TagController;
+use App\Http\Controllers\WorldController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -51,25 +52,4 @@ Route::post('/image-upload', [ImageController::class, 'store'])->name('image.upl
 
 Route::get('/social', [SocialController::class, 'buildFeed'])->name('social');
 
-Route::get('/many-worlds/{world?}', function ($world = null) {
-    $tabs = collect([
-        (object) [
-            'name' => 'The D.R.I.P. Campaign',
-            'link' => route('many-worlds', 'drip'),
-            'active' => $world === 'drip',
-            'shortName' => 'drip'
-        ],
-        (object) [
-            'name' => 'Gravity\'s Folly',
-            'link' => route('many-worlds', 'gravitys-folly'),
-            'active' => $world === 'gravitys-folly',
-            'shortName' => 'gravitys-folly'
-        ]
-    ]);
-    $worldActive = !!$tabs->where('active', true)->first();
-
-    $bg = $worldActive ? asset('/storage/images/'.$tabs->where('active', true)->first()->shortName.'_bg.jpg') : null;
-    $worldName = $worldActive ? $tabs->where('active', true)->first()->name : 'Many Worlds';
-
-    return view('many-worlds.index', compact('tabs', 'bg', 'worldName', 'worldActive'));
-})->name('many-worlds');
+Route::get('/many-worlds/{world?}', [WorldController::class, 'index'])->name('many-worlds');

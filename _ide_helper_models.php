@@ -24,9 +24,9 @@ namespace App\Models{
  * @property int $user_id
  * @property int $is_draft
  * @property string|null $published_at
- * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Comment[] $comments
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Comment> $comments
  * @property-read int|null $comments_count
- * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Tag[] $tags
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Tag> $tags
  * @property-read int|null $tags_count
  * @property-read \App\Models\User $user
  * @method static \Illuminate\Database\Eloquent\Builder|BlogPost filter($filters)
@@ -46,6 +46,41 @@ namespace App\Models{
  * @method static \Illuminate\Database\Eloquent\Builder|BlogPost whereUserId($value)
  */
 	class BlogPost extends \Eloquent {}
+}
+
+namespace App\Models{
+/**
+ * App\Models\Character
+ *
+ * @property int $id
+ * @property string $name
+ * @property string|null $summary
+ * @property string|null $description
+ * @property int $world_id
+ * @property int|null $location_id
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property int|null $organization_id
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Organization> $leaderOf
+ * @property-read int|null $leader_of_count
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Organization> $memberOf
+ * @property-read int|null $member_of_count
+ * @property-read \App\Models\Location|null $primaryLocation
+ * @property-read \App\Models\World $world
+ * @method static \Illuminate\Database\Eloquent\Builder|Character newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|Character newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|Character query()
+ * @method static \Illuminate\Database\Eloquent\Builder|Character whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Character whereDescription($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Character whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Character whereLocationId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Character whereName($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Character whereOrganizationId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Character whereSummary($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Character whereUpdatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Character whereWorldId($value)
+ */
+	class Character extends \Eloquent {}
 }
 
 namespace App\Models{
@@ -76,13 +111,135 @@ namespace App\Models{
 
 namespace App\Models{
 /**
+ * App\Models\Event
+ *
+ * @property int $id
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property int $world_id
+ * @property string $name
+ * @property string|null $summary
+ * @property string|null $description
+ * @property string|null $start_date
+ * @property string|null $end_date
+ * @property-read \App\Models\World $world
+ * @method static \Illuminate\Database\Eloquent\Builder|Event newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|Event newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|Event query()
+ * @method static \Illuminate\Database\Eloquent\Builder|Event whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Event whereDescription($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Event whereEndDate($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Event whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Event whereName($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Event whereStartDate($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Event whereSummary($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Event whereUpdatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Event whereWorldId($value)
+ */
+	class Event extends \Eloquent {}
+}
+
+namespace App\Models{
+/**
+ * App\Models\Item
+ *
+ * @property int $id
+ * @property string $name
+ * @property string|null $summary
+ * @property string|null $description
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property int $world_id
+ * @property-read \App\Models\World $world
+ * @method static \Illuminate\Database\Eloquent\Builder|Item newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|Item newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|Item query()
+ * @method static \Illuminate\Database\Eloquent\Builder|Item whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Item whereDescription($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Item whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Item whereName($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Item whereSummary($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Item whereUpdatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Item whereWorldId($value)
+ */
+	class Item extends \Eloquent {}
+}
+
+namespace App\Models{
+/**
+ * App\Models\Location
+ *
+ * @property int $id
+ * @property string $name
+ * @property string $summary
+ * @property string $description
+ * @property int $world_id
+ * @property int|null $location_id
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Character> $characters
+ * @property-read int|null $characters_count
+ * @property-read Location|null $location
+ * @property-read \App\Models\World $world
+ * @method static \Illuminate\Database\Eloquent\Builder|Location newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|Location newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|Location query()
+ * @method static \Illuminate\Database\Eloquent\Builder|Location whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Location whereDescription($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Location whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Location whereLocationId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Location whereName($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Location whereSummary($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Location whereUpdatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Location whereWorldId($value)
+ */
+	class Location extends \Eloquent {}
+}
+
+namespace App\Models{
+/**
+ * App\Models\Organization
+ *
+ * @property int $id
+ * @property string $name
+ * @property string|null $summary
+ * @property string|null $description
+ * @property int $world_id
+ * @property int|null $location_id
+ * @property int $leader_id
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Character> $characters
+ * @property-read int|null $characters_count
+ * @property-read \App\Models\Character $leader
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Character> $members
+ * @property-read int|null $members_count
+ * @property-read \App\Models\World $world
+ * @method static \Illuminate\Database\Eloquent\Builder|Organization newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|Organization newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|Organization query()
+ * @method static \Illuminate\Database\Eloquent\Builder|Organization whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Organization whereDescription($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Organization whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Organization whereLeaderId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Organization whereLocationId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Organization whereName($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Organization whereSummary($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Organization whereUpdatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Organization whereWorldId($value)
+ */
+	class Organization extends \Eloquent {}
+}
+
+namespace App\Models{
+/**
  * App\Models\Tag
  *
  * @property int $id
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property string $name
- * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\BlogPost[] $blogPosts
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\BlogPost> $blogPosts
  * @property-read int|null $blog_posts_count
  * @method static \Illuminate\Database\Eloquent\Builder|Tag filter($filters)
  * @method static \Illuminate\Database\Eloquent\Builder|Tag latestFirst()
@@ -119,11 +276,11 @@ namespace App\Models{
  * @property string|null $remember_token
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
- * @property-read \Illuminate\Notifications\DatabaseNotificationCollection|\Illuminate\Notifications\DatabaseNotification[] $notifications
+ * @property-read \Illuminate\Notifications\DatabaseNotificationCollection<int, \Illuminate\Notifications\DatabaseNotification> $notifications
  * @property-read int|null $notifications_count
- * @property-read \Illuminate\Database\Eloquent\Collection|\Laravel\Sanctum\PersonalAccessToken[] $tokens
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \Laravel\Sanctum\PersonalAccessToken> $tokens
  * @property-read int|null $tokens_count
- * @method static \Database\Factories\UserFactory factory(...$parameters)
+ * @method static \Database\Factories\UserFactory factory($count = null, $state = [])
  * @method static \Illuminate\Database\Eloquent\Builder|User newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|User newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|User query()
@@ -145,5 +302,42 @@ namespace App\Models{
  * @method static \Illuminate\Database\Eloquent\Builder|User whereUpdatedAt($value)
  */
 	class User extends \Eloquent {}
+}
+
+namespace App\Models{
+/**
+ * App\Models\World
+ *
+ * @property int $id
+ * @property string $name
+ * @property string $short_name
+ * @property string|null $summary
+ * @property string|null $description
+ * @property string|null $image
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Character> $characters
+ * @property-read int|null $characters_count
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Event> $events
+ * @property-read int|null $events_count
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Item> $items
+ * @property-read int|null $items_count
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Location> $locations
+ * @property-read int|null $locations_count
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Organization> $organizations
+ * @property-read int|null $organizations_count
+ * @method static \Illuminate\Database\Eloquent\Builder|World newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|World newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|World query()
+ * @method static \Illuminate\Database\Eloquent\Builder|World whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|World whereDescription($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|World whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|World whereImage($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|World whereName($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|World whereShortName($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|World whereSummary($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|World whereUpdatedAt($value)
+ */
+	class World extends \Eloquent {}
 }
 
