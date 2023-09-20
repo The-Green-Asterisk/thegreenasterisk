@@ -96,16 +96,16 @@ export default class El {
                     StorageBox.clear();
                     return;
                 }
-                
+
                 let values = {};
                 this.formInputs.forEach(input => {
                     if (input && input.name && !input.name.startsWith('_') && input.type !== 'file')
                         values[input.name] = input.value;
                 });
-    
+
                 let content = tinymce.get('content')?.getContent() ?? '';
                 let message = tinymce.get('message')?.getContent() ?? '';
-    
+
                 StorageBox.set('formValues', values);
                 StorageBox.set('content', content);
                 StorageBox.set('message', message);
@@ -115,19 +115,19 @@ export default class El {
             return () => {
                 oldLoad && oldLoad();
                 if (this.formInputs.length == 0) return;
-                
+
                 let values = StorageBox.get('formValues');
                 let content = StorageBox.get('content');
                 let message = StorageBox.get('message');
-    
+
                 this.formInputs.forEach(input => {
                     if (input && input.name && !input.name.startsWith('_') && values && values[input.name] && input.type !== 'file')
                         input.value = values[input.name];
                 });
-    
+
                 if (content && content !== undefined && content !== '') tinymce.get('content')?.setContent(content);
                 if (message && message !== undefined && message !== '') tinymce.get('message')?.setContent(message);
-    
+
                 localStorage.clear();
             }
         })(window.onload);
@@ -140,8 +140,9 @@ export default class El {
 
         if (this.cookieBannerButton) {
             this.cookieBannerButton.onclick = () => {
+                var thisYear = new Date().getFullYear();
+                CookieJar.set('cookies-are-cool', true, new Date(thisYear + 999).toUTCString());
                 this.cookieBanner.style.display = 'none';
-                CookieJar.set('cookies-are-cool', true, new Date(Date.getFullYear() + 999).toUTCString());
             };
         }
     }
