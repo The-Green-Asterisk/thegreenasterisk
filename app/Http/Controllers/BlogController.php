@@ -164,7 +164,6 @@ class BlogController extends Controller
         $blogPost->content = $request->content;
         if ($request->image) {
             $blogPost->image = 'storage/'.$request->file('image')->store('images');
-            dd($request->file('image')->store('images'));
         }
         $blogPost->is_draft = $draft;
         if ($newPublish) {
