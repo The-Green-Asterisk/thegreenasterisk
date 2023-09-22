@@ -1,5 +1,6 @@
 import components from "../components";
 import ColorThief from '/node_modules/colorthief/dist/color-thief.mjs';
+import PathNames from "../const/pathNames";
 
 export default function manyWorlds(el) {
     components.navbar(el);
@@ -21,5 +22,32 @@ export default function manyWorlds(el) {
         }
     } else {
         //
+    }
+
+    if (el.cancelCreateButton) {
+        el.cancelCreateButton.onclick = function () {
+            window.location.href = PathNames.MANY_WORLDS;
+        }
+    }
+
+    if (el.shortNameInput) {
+        el.worldNameInput.onkeyup = function () {
+            el.shortNameInput.value = el.worldNameInput.value.replace(/\s+/g, '-').toLowerCase();
+        }
+    }
+
+    if (el.deleteButton) el.deleteButton.onclick = function () {
+        getHtml(`${PathNames.BLOG}/${el.deleteButton.value}/delete-confirm`)
+            .then(html => {
+                const modal = document.createElement('div');
+                modal.innerHTML = html;
+                el.body.appendChild(modal);
+                components.modal(el);
+                console.log(modal);
+                modal.querySelector('#submit-modal').onclick = function () {
+                    del(`${PathNames.MANY_WORLDS}/${el.deleteButton.value}`)
+                        .then(window.location.href = PathNames.MANY_WORLDS);
+                }
+            });
     }
 }

@@ -232,6 +232,9 @@ input::file-selector-button {
     outline: none;
     transition: all 0.35s;
 }
+form *{
+    margin: 1rem 0;
+}
 .error {
     color: red;
 }

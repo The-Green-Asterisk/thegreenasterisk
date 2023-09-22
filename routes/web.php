@@ -9,6 +9,11 @@ use App\Http\Controllers\SessionController;
 use App\Http\Controllers\SocialController;
 use App\Http\Controllers\TagController;
 use App\Http\Controllers\WorldController;
+use App\Http\Controllers\World\CharacterController;
+use App\Http\Controllers\World\EventController;
+use App\Http\Controllers\World\ItemController;
+use App\Http\Controllers\World\LocationController;
+use App\Http\Controllers\World\OrganizationController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -52,4 +57,35 @@ Route::post('/image-upload', [ImageController::class, 'store'])->name('image.upl
 
 Route::get('/social', [SocialController::class, 'buildFeed'])->name('social');
 
-Route::get('/many-worlds/{world?}', [WorldController::class, 'index'])->name('many-worlds');
+
+//Many Worlds
+Route::resource('many-worlds', WorldController::class)->parameters([
+    'many-worlds' => 'world'
+])->scoped([
+    'world' => 'short_name'
+]);
+Route::resource('many-worlds.locations', LocationController::class)->parameters([
+    'many-worlds' => 'world'
+])->scoped([
+    'world' => 'short_name'
+]);
+Route::resource('many-worlds.organizations', OrganizationController::class)->parameters([
+    'many-worlds' => 'world'
+])->scoped([
+    'world' => 'short_name'
+]);
+Route::resource('many-worlds.characters', CharacterController::class)->parameters([
+    'many-worlds' => 'world'
+])->scoped([
+    'world' => 'short_name'
+]);
+Route::resource('many-worlds.items', ItemController::class)->parameters([
+    'many-worlds' => 'world'
+])->scoped([
+    'world' => 'short_name'
+]);
+Route::resource('many-worlds.events', EventController::class)->parameters([
+    'many-worlds' => 'world'
+])->scoped([
+    'world' => 'short_name'
+]);

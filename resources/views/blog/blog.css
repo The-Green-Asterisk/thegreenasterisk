@@ -13,7 +13,6 @@ input {
     font-size: 1.2rem;
     font-weight: 400;
     outline: none;
-    cursor: pointer;
 }
 .tox {
     border-radius: 0.5rem !important;

@@ -42,6 +42,9 @@ export default class El {
 
     tabs = document.querySelectorAll('.tab');
 
+    worldNameInput = document.querySelector('#world-name');
+    shortNameInput = document.querySelector('#short-name');
+
     addNewElement = (element, elName) => {
         this[elName] = element;
         console.info(`${elName} has been added to elements temporarily. Be sure to add it to the class before pushing to production!`);
