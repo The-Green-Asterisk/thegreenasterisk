@@ -59,9 +59,11 @@ class WorldController extends Controller
     {
         $world = World::create([
             'name' => $request->name,
-            'short_name' => $request->short_name,
+            'short_name' => strtolower($request->short_name),
             'article' => $request->article
         ]);
+
+        $request->file('image')->storeAs('images', $world->short_name.'_bg.jpg');
 
         return redirect()->route('many-worlds.show', $world->short_name);
     }

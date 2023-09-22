@@ -61,6 +61,7 @@ namespace App\Models{
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property int|null $organization_id
+ * @property string|null $image
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Organization> $leaderOf
  * @property-read int|null $leader_of_count
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Organization> $memberOf
@@ -73,6 +74,7 @@ namespace App\Models{
  * @method static \Illuminate\Database\Eloquent\Builder|Character whereCreatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Character whereDescription($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Character whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Character whereImage($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Character whereLocationId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Character whereName($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Character whereOrganizationId($value)
@@ -122,6 +124,7 @@ namespace App\Models{
  * @property string|null $description
  * @property string|null $start_date
  * @property string|null $end_date
+ * @property string|null $image
  * @property-read \App\Models\World $world
  * @method static \Illuminate\Database\Eloquent\Builder|Event newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Event newQuery()
@@ -130,6 +133,7 @@ namespace App\Models{
  * @method static \Illuminate\Database\Eloquent\Builder|Event whereDescription($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Event whereEndDate($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Event whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Event whereImage($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Event whereName($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Event whereStartDate($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Event whereSummary($value)
@@ -150,6 +154,7 @@ namespace App\Models{
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property int $world_id
+ * @property string|null $image
  * @property-read \App\Models\World $world
  * @method static \Illuminate\Database\Eloquent\Builder|Item newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Item newQuery()
@@ -157,6 +162,7 @@ namespace App\Models{
  * @method static \Illuminate\Database\Eloquent\Builder|Item whereCreatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Item whereDescription($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Item whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Item whereImage($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Item whereName($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Item whereSummary($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Item whereUpdatedAt($value)
@@ -177,6 +183,7 @@ namespace App\Models{
  * @property int|null $location_id
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property string|null $image
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Character> $characters
  * @property-read int|null $characters_count
  * @property-read Location|null $location
@@ -187,6 +194,7 @@ namespace App\Models{
  * @method static \Illuminate\Database\Eloquent\Builder|Location whereCreatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Location whereDescription($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Location whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Location whereImage($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Location whereLocationId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Location whereName($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Location whereSummary($value)
@@ -209,6 +217,7 @@ namespace App\Models{
  * @property int $leader_id
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property string|null $image
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Character> $characters
  * @property-read int|null $characters_count
  * @property-read \App\Models\Character $leader
@@ -221,6 +230,7 @@ namespace App\Models{
  * @method static \Illuminate\Database\Eloquent\Builder|Organization whereCreatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Organization whereDescription($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Organization whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Organization whereImage($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Organization whereLeaderId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Organization whereLocationId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Organization whereName($value)
