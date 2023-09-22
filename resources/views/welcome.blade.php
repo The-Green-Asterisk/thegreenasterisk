@@ -58,7 +58,7 @@
                 </h3>
                 <p>Catharicosa will be a suite of platform agnostic tools for TTRPGs to make your game easier as both DM
                     and player.</p>
-                <p><a href="https://catharicosa.com" target="_blank">Catharicosa Notes</a> and <a
+                <p><a href="https://notes.catharicosa.com" target="_blank">Catharicosa Notes</a> and <a
                         href="https://starship-console.catharicosa.com" target="_blank">Starship Console</a> are already
                     in the bag,
                     but look for more to come!</p>
@@ -67,16 +67,8 @@
                 <h3 class="section-header">
                     Javascript Games
                 </h3>
-                <p>Here are a couple of games I made during my journey to learn web development! Enjoy!</p>
-                <ul>
-                    <li>
-                        <a href="https://thegreenasterisk-card-game.netlify.app/" target="_blank">Star Wars Card
-                            Game</a>
-                    </li>
-                    <li>
-                        <a href="https://thegreenasterisk-flappy-bird.netlify.app/" target="_blank">Flappy Bird</a>
-                    </li>
-                </ul>
+                <p>I made this <a href="flappy-bird" target="_blank">Flappy Bird</a> game when I was learning how to JavaScript. Play and enjoy!</p>
+                <small>Disclaimer: Not the original Flappy Bird game.</small>
             </section>
         </section>
         <section class="smaller-section">

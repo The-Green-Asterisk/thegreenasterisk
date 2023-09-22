@@ -143,8 +143,7 @@ export default class El {
 
         if (this.cookieBannerButton) {
             this.cookieBannerButton.onclick = () => {
-                var thisYear = new Date().getFullYear();
-                CookieJar.set('cookies-are-cool', true, new Date(thisYear + 999).toUTCString());
+                CookieJar.set('cookies-are-cool', true, new Date(new Date().getFullYear() + 999, 0).toUTCString());
                 this.cookieBanner.style.display = 'none';
             };
         }
