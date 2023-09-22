@@ -116,7 +116,7 @@ class BlogController extends Controller
         // Get a random image from the random folder
         $backupImg = $imgs[array_rand($imgs)];
 
-        $imgUrl = $request->file('image')?->store('images');
+        $imgUrl = $request->file('image')?->store('storage/images');
 
         $post = new BlogPost();
         $post->title = $request->title;
@@ -163,7 +163,7 @@ class BlogController extends Controller
         $blogPost->title = $request->title;
         $blogPost->content = $request->content;
         if ($request->image) {
-            $blogPost->image = 'storage/'.$request->file('image')->store('images');
+            $blogPost->image = 'storage/'.$request->file('image')->store('storage/images');
         }
         $blogPost->is_draft = $draft;
         if ($newPublish) {
