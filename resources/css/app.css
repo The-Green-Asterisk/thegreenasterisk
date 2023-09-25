@@ -268,7 +268,7 @@ section .section-header {
     background-color: #e2e2e2;
     border-radius: 0.5rem;
     padding: 0.5rem;
-    postion: relative;
+    position: relative;
 }
 section .section-img {
     width: 10rem;
