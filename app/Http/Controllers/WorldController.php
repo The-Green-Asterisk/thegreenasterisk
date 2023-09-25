@@ -39,7 +39,7 @@ class WorldController extends Controller
     {
         $world = World::create([
             'name' => $request->name,
-            'image' => $request->file('image') && $request->file('image')->storeAs('images', $world->short_name.'_bg.jpg'),
+            'image' => $request->file('image') && $request->file('image')->storeAs('images', $request->short_name.'_bg.jpg'),
             'short_name' => strtolower($request->short_name),
             'article' => $request->article
         ]);
@@ -60,7 +60,7 @@ class WorldController extends Controller
     {
         $world->update([
             'name' => $request->name,
-            'image' => $request->file('image') && $request->file('image')->storeAs('images', $world->short_name.'_bg.jpg'),
+            'image' => $request->file('image') && $request->file('image')->storeAs('images', $request->short_name.'_bg.jpg'),
             'short_name' => strtolower($request->short_name),
             'article' => $request->article
         ]);
