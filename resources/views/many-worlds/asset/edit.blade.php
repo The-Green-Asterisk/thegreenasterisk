@@ -21,7 +21,7 @@
             </div>
             <div>
                 <label for="description">Description:</label>
-                <textarea name="description" id="description">{{ $asset->description }}</textarea>
+                <textarea name="description" id="description" required>{{ $asset->description }}</textarea>
             </div>
             @if(isset($locations) && $locations->count() > 0)
                 <div>

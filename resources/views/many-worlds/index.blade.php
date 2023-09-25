@@ -1,11 +1,6 @@
 <x-many-worlds :tabs="$tabs" :bg="$bg" :world="$world">
     <section>
         <section class="section-header">
-        @admin
-            <div class="edit-link">
-                <a href="{{ route('many-worlds.create') }}">Create A World</a>
-            </div>
-        @endadmin
             <h1>And, lo, there were many worlds before me</h1>
         </section>
         <h3>Beyond the gates of this realm lie portals to realities beyond our own. Realities that do not heed to the rules established by what we now consider home.</h3>

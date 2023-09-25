@@ -4,20 +4,14 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\World;
+use App\Http\Controllers\World\TabsController;
 
 class WorldController extends Controller
 {
     public function index()
     {
         return view('many-worlds.index', [
-            'tabs' => World::all()->map(function ($w) {
-                return (object) [
-                    'name' => $w->name,
-                    'link' => route('many-worlds.show', $w->short_name),
-                    'active' => false,
-                    'shortName' => $w->short_name
-                ];
-            }),
+            'tabs' => TabsController::makeTabs(),
             'world' => null,
             'bg' => asset('/storage/images/graph-paper.jpg')
         ]);
@@ -26,14 +20,7 @@ class WorldController extends Controller
     public function show(World $world)
     {
         return view('many-worlds.show', [
-            'tabs' => World::all()->map(function ($w) use($world) {
-                return (object) [
-                    'name' => $w->name,
-                    'link' => route('many-worlds.show', $w->short_name),
-                    'active' => $w->short_name === $world->short_name,
-                    'shortName' => $w->short_name
-                ];
-            }),
+            'tabs' => TabsController::makeTabs($world),
             'world' => $world,
             'bg' => asset('/storage/images/'.$world->short_name.'_bg.jpg')
         ]);
@@ -42,14 +29,7 @@ class WorldController extends Controller
     public function create()
     {
         return view('many-worlds.create', [
-            'tabs' => World::all()->map(function ($w) {
-                return (object) [
-                    'name' => $w->name,
-                    'link' => route('many-worlds.show', $w->short_name),
-                    'active' => false,
-                    'shortName' => $w->short_name
-                ];
-            }),
+            'tabs' => TabsController::makeTabs(),
             'world' => null,
             'bg' => asset('/storage/images/graph-paper.jpg')
         ]);
@@ -59,11 +39,10 @@ class WorldController extends Controller
     {
         $world = World::create([
             'name' => $request->name,
+            'image' => $request->file('image') && $request->file('image')->storeAs('images', $world->short_name.'_bg.jpg'),
             'short_name' => strtolower($request->short_name),
             'article' => $request->article
         ]);
-
-        $request->file('image')->storeAs('images', $world->short_name.'_bg.jpg');
 
         return redirect()->route('many-worlds.show', $world->short_name);
     }
@@ -71,14 +50,7 @@ class WorldController extends Controller
     public function edit(World $world)
     {
         return view('many-worlds.edit', [
-            'tabs' => World::all()->map(function ($w) use($world) {
-                return (object) [
-                    'name' => $w->name,
-                    'link' => route('many-worlds.show', $w->short_name),
-                    'active' => $w->short_name === $world->short_name,
-                    'shortName' => $w->short_name
-                ];
-            }),
+            'tabs' => TabsController::makeTabs($world),
             'world' => $world,
             'bg' => asset('/storage/images/'.$world->short_name.'_bg.jpg')
         ]);
@@ -88,7 +60,8 @@ class WorldController extends Controller
     {
         $world->update([
             'name' => $request->name,
-            'short_name' => $request->short_name,
+            'image' => $request->file('image') && $request->file('image')->storeAs('images', $world->short_name.'_bg.jpg'),
+            'short_name' => strtolower($request->short_name),
             'article' => $request->article
         ]);
 

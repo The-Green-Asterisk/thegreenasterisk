@@ -4,10 +4,14 @@
             <h1>Let there be light...</h1>
         </div>
 
-        <form method="POST" name="new-world" action="{{ route('many-worlds.store') }}" >
+        <form method="POST" name="new-world" action="{{ route('many-worlds.store') }}" enctype="multipart/form-data">
             @csrf
             <input type="hidden" name="user_id" value="{{ Auth::user()->id }}" />
+            <label for="image">Background Image:</label>
+            <input type="file" name="image" id="image" />
+            <label for="name" hidden>World Name:</label>
             <input type="text" name="name" id="world-name" placeholder="World Name" />
+            <label for="short_name" hidden>Short Name:</label>
             <input type="text" name="short_name" id="short-name" placeholder="Short Name" />
             <textarea type="text" name="article" placeholder="Article"></textarea>
             <div class="button-row">
