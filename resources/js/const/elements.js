@@ -46,6 +46,10 @@ export default class El {
     shortNameInput = document.querySelector('#short-name');
 
     addNewElement = (element, elName) => {
+        if (typeof element.nodeType !== 1) {
+            console.error(`${elName} is not a valid element!`);
+            return;
+        }
         this[elName] = element;
         console.info(`${elName} has been added to elements temporarily. Be sure to add it to the class before pushing to production!`);
     };
@@ -69,16 +73,18 @@ export default class El {
         }
 
         if (this.formInputs && this.submitButton) {
-            this.formInputs.forEach(input => {
-                if (input.required) {
-                    input.oninput = () => {
-                        if ([...this.formInputs].every(input => input.value.length > 0)) {
-                            this.submitButton.disabled = false;
-                        } else {
-                            this.submitButton.disabled = true;
-                        }
+            let requiredInputs = [...this.formInputs].filter(input => input.required);
+            let disableSubmitButton = () => {
+                this.submitButton.disabled = !requiredInputs.every(input => input.value.trim().length > 0);
+            };
+            setTimeout(disableSubmitButton, 1000);
+            requiredInputs.forEach(input => {
+                input.oninput = ((oldOnInput) => {
+                    return (e) => {
+                        oldOnInput && oldOnInput(e);
+                        disableSubmitButton();
                     };
-                }
+                })(input.oninput);
             });
 
             this.forms.forEach(form => {
@@ -111,10 +117,12 @@ export default class El {
 
                 let content = tinymce.get('content')?.getContent() ?? '';
                 let message = tinymce.get('message')?.getContent() ?? '';
+                let description = tinymce.get('description')?.getContent() ?? '';
 
                 StorageBox.set('formValues', values);
                 StorageBox.set('content', content);
                 StorageBox.set('message', message);
+                StorageBox.set('description', description);
             }
         })(window.onbeforeunload);
         window.onload=((oldLoad) => {
@@ -125,6 +133,7 @@ export default class El {
                 let values = StorageBox.get('formValues');
                 let content = StorageBox.get('content');
                 let message = StorageBox.get('message');
+                let description = StorageBox.get('description');
 
                 this.formInputs.forEach(input => {
                     if (input && input.name && !input.name.startsWith('_') && values && values[input.name] && input.type !== 'file')
@@ -133,6 +142,7 @@ export default class El {
 
                 if (content && content !== undefined && content !== '') tinymce.get('content')?.setContent(content);
                 if (message && message !== undefined && message !== '') tinymce.get('message')?.setContent(message);
+                if (description && description !== undefined && description !== '') tinymce.get('description')?.setContent(description);
 
                 localStorage.clear();
             }

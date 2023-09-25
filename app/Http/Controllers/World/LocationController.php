@@ -11,52 +11,37 @@ class LocationController extends Controller
 {
     public function index(World $world)
     {
-        return view('many-worlds.locations.index', [
-            'tabs' => World::all()->map(function ($w) use($world) {
-                return (object) [
-                    'name' => $w->name,
-                    'link' => route('many-worlds.show', $w->short_name),
-                    'active' => $w->short_name === $world->short_name,
-                    'shortName' => $w->short_name
-                ];
-            }),
+        if ($world->locations()->count() === 0) {
+            return redirect()->route('many-worlds.locations.create', $world->short_name);
+        }
+        return view('many-worlds.asset.index', [
+            'tabs' => TabsController::makeTabs($world),
             'world' => $world,
             'bg' => asset('/storage/images/'.$world->short_name.'_bg.jpg'),
-            'locations' => $world->locations()->get()
+            'assets' => $world->locations()->get(),
+            'type' => 'locations'
         ]);
     }
 
     public function show(World $world, Location $location)
     {
-        return view('many-worlds.locations.show', [
-            'tabs' => World::all()->map(function ($w) use($world) {
-                return (object) [
-                    'name' => $w->name,
-                    'link' => route('many-worlds.show', $w->short_name),
-                    'active' => $w->short_name === $world->short_name,
-                    'shortName' => $w->short_name
-                ];
-            }),
+        return view('many-worlds.asset.show', [
+            'tabs' => TabsController::makeTabs($world),
             'world' => $world,
             'bg' => asset('/storage/images/'.$world->short_name.'_bg.jpg'),
-            'location' => $location
+            'asset' => $location,
+            'type' => 'locations'
         ]);
     }
 
     public function create(World $world)
     {
-        return view('many-worlds.locations.create', [
-            'tabs' => World::all()->map(function ($w) use($world) {
-                return (object) [
-                    'name' => $w->name,
-                    'link' => route('many-worlds.show', $w->short_name),
-                    'active' => $w->short_name === $world->short_name,
-                    'shortName' => $w->short_name
-                ];
-            }),
+        return view('many-worlds.asset.create', [
+            'tabs' => TabsController::makeTabs($world),
             'world' => $world,
             'bg' => asset('/storage/images/'.$world->short_name.'_bg.jpg'),
-            'locations' => $world->locations()->get()
+            'locations' => $world->locations()->get(),
+            'type' => 'locations'
         ]);
     }
 
@@ -68,27 +53,22 @@ class LocationController extends Controller
             'summary' => $request->summary,
             'description' => $request->description,
             'world_id' => $world->id,
-            'location_id' => $request->location_id,
+            'location_id' => $request->parent_location,
             'created_at' => now()
         ]);
 
         return redirect()->route('many-worlds.locations.show', [$world->short_name, $location->id]);
     }
 
-    public function edit(World $world)
+    public function edit(World $world, Location $location)
     {
-        return view('many-worlds.edit', [
-            'tabs' => World::all()->map(function ($w) use($world) {
-                return (object) [
-                    'name' => $w->name,
-                    'link' => route('many-worlds.show', $w->short_name),
-                    'active' => $w->short_name === $world->short_name,
-                    'shortName' => $w->short_name
-                ];
-            }),
+        return view('many-worlds.asset.edit', [
+            'tabs' => TabsController::makeTabs($world),
             'world' => $world,
             'bg' => asset('/storage/images/'.$world->short_name.'_bg.jpg'),
-            'locations' => $world->locations()->get()
+            'asset' => $location,
+            'locations' => $world->locations()->get(),
+            'type' => 'locations'
         ]);
     }
 
@@ -98,10 +78,16 @@ class LocationController extends Controller
         $location->image = $request->file('image')?->store('images');
         $location->summary = $request->summary;
         $location->description = $request->description;
-        $location->location_id = $world->location_id;
+        $location->location_id = $request->parent_location;
         $location->updated_at = now();
         $location->save();
 
         return redirect()->route('many-worlds.locations.show', [$world->short_name, $location->id]);
+    }
+
+    public function destroy(World $world, Location $location)
+    {
+        $location->delete();
+        return redirect()->route('many-worlds.locations.index', $world->short_name);
     }
 }

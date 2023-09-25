@@ -11,52 +11,36 @@ class ItemController extends Controller
 {
     public function index(World $world)
     {
-        return view('many-worlds.items.index', [
-            'tabs' => World::all()->map(function ($w) use($world) {
-                return (object) [
-                    'name' => $w->name,
-                    'link' => route('many-worlds.show', $w->short_name),
-                    'active' => $w->short_name === $world->short_name,
-                    'shortName' => $w->short_name
-                ];
-            }),
+        if ($world->items()->count() === 0) {
+            return redirect()->route('many-worlds.items.create', $world->short_name);
+        }
+        return view('many-worlds.asset.index', [
+            'tabs' => TabsController::makeTabs($world),
             'world' => $world,
             'bg' => asset('/storage/images/'.$world->short_name.'_bg.jpg'),
-            'items' => $world->items()->get()
+            'assets' => $world->items()->get(),
+            'type' => 'items'
         ]);
     }
 
     public function show(World $world, Item $item)
     {
-        return view('many-worlds.items.show', [
-            'tabs' => World::all()->map(function ($w) use($world) {
-                return (object) [
-                    'name' => $w->name,
-                    'link' => route('many-worlds.show', $w->short_name),
-                    'active' => $w->short_name === $world->short_name,
-                    'shortName' => $w->short_name
-                ];
-            }),
+        return view('many-worlds.asset.show', [
+            'tabs' => TabsController::makeTabs($world),
             'world' => $world,
             'bg' => asset('/storage/images/'.$world->short_name.'_bg.jpg'),
-            'item' => $item
+            'asset' => $item,
+            'type' => 'items'
         ]);
     }
 
     public function create(World $world)
     {
-        return view('many-worlds.items.create', [
-            'tabs' => World::all()->map(function ($w) use($world) {
-                return (object) [
-                    'name' => $w->name,
-                    'link' => route('many-worlds.show', $w->short_name),
-                    'active' => $w->short_name === $world->short_name,
-                    'shortName' => $w->short_name
-                ];
-            }),
+        return view('many-worlds.asset.create', [
+            'tabs' => TabsController::makeTabs($world),
             'world' => $world,
             'bg' => asset('/storage/images/'.$world->short_name.'_bg.jpg'),
-            'items' => $world->items()->get()
+            'type' => 'items'
         ]);
     }
 
@@ -76,19 +60,13 @@ class ItemController extends Controller
 
     public function edit(World $world, Item $item)
     {
-        return view('many-worlds.items.edit', [
-            'tabs' => World::all()->map(function ($w) use($world) {
-                return (object) [
-                    'name' => $w->name,
-                    'link' => route('many-worlds.show', $w->short_name),
-                    'active' => $w->short_name === $world->short_name,
-                    'shortName' => $w->short_name
-                ];
-            }),
-            'item' => $item,
+        return view('many-worlds.asset.edit', [
+            'tabs' => TabsController::makeTabs($world),
+            'asset' => $item,
             'world' => $world,
             'bg' => asset('/storage/images/'.$world->short_name.'_bg.jpg'),
-            'items' => $world->items()->get()
+            'items' => $world->items()->get(),
+            'type' => 'items'
         ]);
     }
 
@@ -104,5 +82,11 @@ class ItemController extends Controller
         ]);
 
         return redirect()->route('many-worlds.items.show', [$world->short_name, $item->id]);
+    }
+
+    public function destroy(World $world, Item $item)
+    {
+        $item->delete();
+        return redirect()->route('many-worlds.items.index', $world->short_name);
     }
 }

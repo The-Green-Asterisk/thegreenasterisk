@@ -203,9 +203,13 @@ textarea {
 }
 .btn-link {
     background-color: transparent;
+    margin: 0;
+    padding: 0;
 }
 .btn-link:hover {
     background-color: transparent;
+    text-decoration: underline;
+    color: red;
 }
 .btn-link:active {
     background-color: transparent;
@@ -257,12 +261,14 @@ section {
     filter: drop-shadow(0 0 0.1rem gray);
     overflow-y: auto;
     max-height: 100rem;
+    position: relative;
 }
 section .section-header {
     text-align: center;
     background-color: #e2e2e2;
     border-radius: 0.5rem;
     padding: 0.5rem;
+    postion: relative;
 }
 section .section-img {
     width: 10rem;
@@ -271,6 +277,7 @@ section .section-img {
     margin: 0.5rem;
     float: left;
     border-radius: 5px;
+    box-shadow: var(--md-shadow);
 }
 section.smaller-section {
     max-height: 40rem;

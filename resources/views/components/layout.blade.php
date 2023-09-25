@@ -29,8 +29,12 @@
             images_upload_url: '/image-upload',
             image_file_types: 'image/jpeg,image/png,image/gif',
             setup: function(editor) {
-                editor.on('input', function(e) {
-                    document.querySelector('textarea').value = editor.getContent();
+                let textarea =
+                    [...document.querySelectorAll('textarea')].filter(t => t.id == editor.id)[0];
+                editor.on('keyup', function(e) {
+                    textarea.innerHTML = editor.getContent();
+                    textarea.value = editor.getContent();
+                    textarea.dispatchEvent(new Event('input'));
                 });
             },
             images_upload_handler: function(blobInfo, success, failure) {

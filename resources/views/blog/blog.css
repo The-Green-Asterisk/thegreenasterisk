@@ -5,7 +5,7 @@
     box-shadow: var(--inner-shadow);
     border: 1px solid #ccc;
 }
-input {
+input, select {
     width: calc(100% - 2rem);
     padding: 1rem;
     border: 1px solid #ccc;

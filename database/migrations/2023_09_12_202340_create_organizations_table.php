@@ -20,7 +20,7 @@ return new class extends Migration
             $table->text('description')->nullable();
             $table->foreignId('world_id')->constrained()->onDelete('cascade');
             $table->foreignId('location_id')->nullable()->constrained();
-            $table->foreignId('leader_id')->references('id')->on('characters')->onDelete('cascade');
+            $table->foreignId('leader_id')->nullable()->references('id')->on('characters')->onDelete('cascade');
             $table->timestamps();
         });
 

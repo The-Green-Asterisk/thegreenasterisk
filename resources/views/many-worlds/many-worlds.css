@@ -54,3 +54,19 @@
 .world-nav li {
     list-style: none;
 }
+.asset-img {
+    float: left;
+    width: 250px;
+    margin-right: 10px;
+    box-shadow: var(--md-shadow);
+}
+.asset-article-img {
+    float: right;
+    width: 400px;
+    margin-right: 10px;
+    box-shadow: var(--md-shadow);
+}
+.edit-link {
+    float:right;
+    margin: 5px;
+}

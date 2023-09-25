@@ -11,56 +11,40 @@ class EventController extends Controller
 {
     public function index(World $world)
     {
-        return view('many-worlds.events.index', [
-            'tabs' => World::all()->map(function ($w) use($world) {
-                return (object) [
-                    'name' => $w->name,
-                    'link' => route('many-worlds.show', $w->short_name),
-                    'active' => $w->short_name === $world->short_name,
-                    'shortName' => $w->short_name
-                ];
-            }),
+        if ($world->events()->count() === 0) {
+            return redirect()->route('many-worlds.events.create', $world->short_name);
+        }
+        return view('many-worlds.asset.index', [
+            'tabs' => TabsController::makeTabs($world),
             'world' => $world,
             'bg' => asset('/storage/images/'.$world->short_name.'_bg.jpg'),
-            'events' => $world->events()->get()
+            'assets' => $world->events()->get(),
+            'type' => 'events'
         ]);
     }
 
     public function show(World $world, Event $event)
     {
-        return view('many-worlds.events.show', [
-            'tabs' => World::all()->map(function ($w) use($world) {
-                return (object) [
-                    'name' => $w->name,
-                    'link' => route('many-worlds.show', $w->short_name),
-                    'active' => $w->short_name === $world->short_name,
-                    'shortName' => $w->short_name
-                ];
-            }),
+        return view('many-worlds.asset.show', [
+            'tabs' => TabsController::makeTabs($world),
             'world' => $world,
             'bg' => asset('/storage/images/'.$world->short_name.'_bg.jpg'),
-            'event' => $event
+            'asset' => $event,
+            'type' => 'events'
         ]);
     }
 
     public function create(World $world)
     {
-        return view('many-worlds.events.create', [
-            'tabs' => World::all()->map(function ($w) use($world) {
-                return (object) [
-                    'name' => $w->name,
-                    'link' => route('many-worlds.show', $w->short_name),
-                    'active' => $w->short_name === $world->short_name,
-                    'shortName' => $w->short_name
-                ];
-            }),
+        return view('many-worlds.asset.create', [
+            'tabs' => TabsController::makeTabs($world),
             'world' => $world,
             'bg' => asset('/storage/images/'.$world->short_name.'_bg.jpg'),
-            'events' => $world->events()->get()
+            'type' => 'events'
         ]);
     }
 
-    public function store(Request $request)
+    public function store(Request $request, World $world)
     {
         $event = Event::create([
             'name' => $request->name,
@@ -69,29 +53,23 @@ class EventController extends Controller
             'image' => $request->file('image')?->store('images'),
             'start_date' => $request->start_date,
             'end_date' => $request->end_date,
-            'world_id' => $request->world_id
+            'world_id' => $world->id
         ]);
 
         return redirect()->route('many-worlds.events.show', [
-            'world' => $event->world,
-            'event' => $event
+            'world' => $world->short_name,
+            'event' => $event->id
         ]);
     }
 
     public function edit(World $world, Event $event)
     {
-        return view('many-worlds.events.edit', [
-            'tabs' => World::all()->map(function ($w) use($world) {
-                return (object) [
-                    'name' => $w->name,
-                    'link' => route('many-worlds.show', $w->short_name),
-                    'active' => $w->short_name === $world->short_name,
-                    'shortName' => $w->short_name
-                ];
-            }),
+        return view('many-worlds.asset.edit', [
+            'tabs' => TabsController::makeTabs($world),
             'world' => $world,
             'bg' => asset('/storage/images/'.$world->short_name.'_bg.jpg'),
-            'event' => $event
+            'asset' => $event,
+            'type' => 'events'
         ]);
     }
 
@@ -110,5 +88,11 @@ class EventController extends Controller
             'world' => $event->world,
             'event' => $event
         ]);
+    }
+
+    public function destroy(World $world, Event $event)
+    {
+        $event->delete();
+        return redirect()->route('many-worlds.events.index', $world->short_name);
     }
 }

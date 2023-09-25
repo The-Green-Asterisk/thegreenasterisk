@@ -11,57 +11,42 @@ class CharacterController extends Controller
 {
     public function index(World $world)
     {
-        return view('many-worlds.characters.index', [
-            'tabs' => World::all()->map(function ($w) use($world) {
-                return (object) [
-                    'name' => $w->name,
-                    'link' => route('many-worlds.show', $w->short_name),
-                    'active' => $w->short_name === $world->short_name,
-                    'shortName' => $w->short_name
-                ];
-            }),
+        if ($world->characters()->count() === 0) {
+            return redirect()->route('many-worlds.characters.create', $world->short_name);
+        }
+        return view('many-worlds.asset.index', [
+            'tabs' => TabsController::makeTabs($world),
             'world' => $world,
             'bg' => asset('/storage/images/'.$world->short_name.'_bg.jpg'),
-            'characters' => $world->characters()->get()
+            'assets' => $world->characters()->get(),
+            'type' => 'characters'
         ]);
     }
 
     public function show(World $world, Character $character)
     {
-        return view('many-worlds.characters.show', [
-            'tabs' => World::all()->map(function ($w) use($world) {
-                return (object) [
-                    'name' => $w->name,
-                    'link' => route('many-worlds.show', $w->short_name),
-                    'active' => $w->short_name === $world->short_name,
-                    'shortName' => $w->short_name
-                ];
-            }),
+        return view('many-worlds.asset.show', [
+            'tabs' => TabsController::makeTabs($world),
             'world' => $world,
             'bg' => asset('/storage/images/'.$world->short_name.'_bg.jpg'),
-            'character' => $character
+            'asset' => $character,
+            'type' => 'characters'
         ]);
     }
 
     public function create(World $world)
     {
-        return view('many-worlds.characters.create', [
-            'tabs' => World::all()->map(function ($w) use($world) {
-                return (object) [
-                    'name' => $w->name,
-                    'link' => route('many-worlds.show', $w->short_name),
-                    'active' => $w->short_name === $world->short_name,
-                    'shortName' => $w->short_name
-                ];
-            }),
+        return view('many-worlds.asset.create', [
+            'tabs' => TabsController::makeTabs($world),
             'world' => $world,
             'bg' => asset('/storage/images/'.$world->short_name.'_bg.jpg'),
             'locations' => $world->locations()->get(),
-            'organizations' => $world->organizations()->get()
+            'organizations' => $world->organizations()->get(),
+            'type' => 'characters'
         ]);
     }
 
-    public function store(World $world, Character $character)
+    public function store(Request $request, World $world)
     {
         $character = Character::create([
             'name' => $request->name,
@@ -79,18 +64,14 @@ class CharacterController extends Controller
 
     public function edit(World $world, Character $character)
     {
-        return view('many-worlds.characters.edit', [
-            'tabs' => World::all()->map(function ($w) use($world) {
-                return (object) [
-                    'name' => $w->name,
-                    'link' => route('many-worlds.show', $w->short_name),
-                    'active' => $w->short_name === $world->short_name,
-                    'shortName' => $w->short_name
-                ];
-            }),
+        return view('many-worlds.asset.edit', [
+            'tabs' => TabsController::makeTabs($world),
             'world' => $world,
             'bg' => asset('/storage/images/'.$world->short_name.'_bg.jpg'),
-            'character' => $character
+            'locations' => $world->locations()->get(),
+            'organizations' => $world->organizations()->get(),
+            'asset' => $character,
+            'type' => 'characters'
         ]);
     }
 
@@ -106,5 +87,11 @@ class CharacterController extends Controller
         $character->save();
 
         return redirect()->route('many-worlds.characters.show', [$world->short_name, $character->id]);
+    }
+
+    public function destroy(World $world, Character $character)
+    {
+        $character->delete();
+        return redirect()->route('many-worlds.characters.index', $world->short_name);
     }
 }

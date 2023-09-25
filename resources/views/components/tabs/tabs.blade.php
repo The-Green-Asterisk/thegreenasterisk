@@ -10,7 +10,7 @@
             </a>
         </div>
     @endforeach
-    @admin()
+    @admin
         <div class="tab-wrapper">
             <a href="{{ route('many-worlds.create') }}">
                 <div class="tab" name="admin">
