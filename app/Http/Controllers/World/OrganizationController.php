@@ -84,7 +84,7 @@ class OrganizationController extends Controller
             'world_id' => $world->id,
             'location_id' => $request->location_id,
             'leader_id' => $request->leader_id,
-            'image' => $request->file('image')?->store('images'),
+            'image' => $request->file('image') != null ? $request->file('image')->store('images') : $organization->image,
             'created_at' => now()
         ]);
 
