@@ -77,7 +77,7 @@ class ItemController extends Controller
             'summary' => $request->summary,
             'description' => $request->description,
             'world_id' => $world->id,
-            'image' => $request->file('image')?->store('images'),
+            'image' => $request->file('image') != null ? $request->file('image')->store('images') : $item->image,
             'created_at' => now()
         ]);
 

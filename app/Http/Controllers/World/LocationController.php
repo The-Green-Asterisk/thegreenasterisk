@@ -75,7 +75,7 @@ class LocationController extends Controller
     public function update(Request $request, World $world, Location $location)
     {
         $location->name = $request->name;
-        $location->image = $request->file('image')?->store('images');
+        $location->image = $request->file('image') != null ? $request->file('image')->store('images') : $location->image;
         $location->summary = $request->summary;
         $location->description = $request->description;
         $location->location_id = $request->parent_location;

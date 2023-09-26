@@ -78,7 +78,7 @@ class CharacterController extends Controller
     public function update(Request $request, World $world, Character $character)
     {
         $character->name = $request->name;
-        $character->image = $request->file('image')?->store('images');
+        $character->image = $request->file('image') != null ? $request->file('image')->store('images') : $character->image;
         $character->summary = $request->summary;
         $character->description = $request->description;
         $character->location_id = $request->location_id;

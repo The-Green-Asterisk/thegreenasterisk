@@ -78,7 +78,7 @@ class EventController extends Controller
         $event->name = $request->name;
         $event->summary = $request->summary;
         $event->description = $request->description;
-        $event->image = $request->file('image')?->store('images');
+        $event->image = $request->file('image') != null ? $request->file('image')->store('images') : $event->image;
         $event->start_date = $request->start_date;
         $event->end_date = $request->end_date;
         $event->world_id = $request->world_id;
