@@ -16,7 +16,7 @@
                     @endif
                     <a href="{{ route('many-worlds.'.$type.'.show', [$world->short_name, $asset->id]) }}"><h2>{{ $asset->name }}</h2></a>
                     <h3>{{ $asset->summary }}</h3>
-                    <p>{!! substr($asset->description, 250).(strlen($asset->description) > 250 ? '...' : '') !!}</p>
+                    <p>{!! substr($asset->description, 0, 250).(strlen($asset->description) > 250 ? '...' : '') !!}</p>
                 </section>
             @endforeach
         @else
