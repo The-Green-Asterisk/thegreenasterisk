@@ -44,6 +44,8 @@ export default class El {
 
     worldNameInput = document.querySelector('#world-name');
     shortNameInput = document.querySelector('#short-name');
+    worldId = document.querySelector('#world_id')?.value;
+    assetType = document.querySelector('#asset_type')?.value;
 
     addNewElement = (element, elName) => {
         if (typeof element.nodeType !== 1) {

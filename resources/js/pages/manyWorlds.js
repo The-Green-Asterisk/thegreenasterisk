@@ -1,6 +1,8 @@
 import components from "../components";
 import ColorThief from '/node_modules/colorthief/dist/color-thief.mjs';
 import PathNames from "../const/pathNames";
+import { del, getHtml } from "../services/request";
+import initModal from "../components/modal";
 
 export default function manyWorlds(el) {
     components.navbar(el);
@@ -36,18 +38,47 @@ export default function manyWorlds(el) {
         }
     }
 
-    if (el.deleteButton) el.deleteButton.onclick = function () {
-        getHtml(`${PathNames.BLOG}/${el.deleteButton.value}/delete-confirm`)
-            .then(html => {
-                const modal = document.createElement('div');
-                modal.innerHTML = html;
-                el.body.appendChild(modal);
-                components.modal(el);
-                console.log(modal);
-                modal.querySelector('#submit-modal').onclick = function () {
-                    del(`${PathNames.MANY_WORLDS}/${el.deleteButton.value}`)
-                        .then(window.location.href = PathNames.MANY_WORLDS);
-                }
-            });
+    // if (el.deleteButton) el.deleteButton.onclick = function () {
+    //     getHtml(`${PathNames.BLOG}/${el.deleteButton.value}/delete-confirm`)
+    //         .then(html => {
+    //             const modal = document.createElement('div');
+    //             modal.innerHTML = html;
+    //             el.body.appendChild(modal);
+    //             components.modal(el);
+    //             modal.querySelector('#submit-modal').onclick = function () {
+    //                 del(`${PathNames.MANY_WORLDS}/${el.deleteButton.value}`)
+    //                     .then(window.location.href = PathNames.MANY_WORLDS);
+    //             }
+    //         });
+    // }
+
+    if (el.deleteCommentButtons) {
+        function deleteConfirm(worldName, commentId, assetId = null, assetType = null) {
+            function isAsset() {
+                return assetId ? `/${assetType}/${assetId}` : '';
+            }
+
+            getHtml(`${PathNames.MANY_WORLDS}/${worldName}${isAsset()}/comment/${commentId}/delete-confirm`)
+                .then(html => {
+                    const modal = document.createElement('div');
+                    modal.innerHTML = html;
+                    el.body.appendChild(modal);
+                    initModal(el);
+                    modal.querySelector('#submit-modal').onclick = function () {
+                        del(`${PathNames.MANY_WORLDS}/${worldName}${isAsset()}/comment/${commentId}`)
+                            .then(res => {
+                                window.location.reload();
+                            });
+                    };
+                });
+        };
+        el.deleteCommentButtons.forEach(button => {
+            button.onclick = function (e) {
+                e.preventDefault();
+                el.assetType
+                    ? deleteConfirm(el.worldId, button.value, el.assetId, el.assetType)
+                    : deleteConfirm(button.name, button.value);
+            }
+        });
     }
 }

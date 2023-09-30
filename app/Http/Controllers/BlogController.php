@@ -2,9 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Mail\CommentMail;
 use App\Models\BlogPost;
-use App\Models\Comment;
 use App\Models\Tag;
 use App\View\Components\Modal;
 use Auth;
@@ -189,51 +187,6 @@ class BlogController extends Controller
         $modal = new Modal(
             'Are you sure?',
             view('components.modal.modals.delete.delete', compact('blogPost')),
-            'Delete',
-            'Cancel',
-        );
-
-        return $modal->render();
-    }
-
-    public function comment(Request $request, int $blogId)
-    {
-        $this->validate($request, [
-            'comment_content' => 'required|min:5',
-        ]);
-
-        $blogPost = BlogPost::find($blogId);
-        $blogPost->comments()->create([
-            'content' => $request->comment_content,
-            'user_id' => auth()->id(),
-            'blog_post_id' => $blogPost->id,
-        ]);
-
-        $data = [
-            'comment' => $request->comment_content,
-            'post' => $blogPost,
-        ];
-
-        Mail::to(config('mail.from.address'))->send(new CommentMail($data));
-
-        return redirect()->route('blog.show', $blogPost);
-    }
-
-    public function commentDelete(Comment $comment)
-    {
-        $blogPost = $comment->blogPost;
-
-        $comment->blogPost()->dissociate();
-        $comment->delete();
-
-        return redirect()->route('blog.show', $blogPost);
-    }
-
-    public function commentDeleteConfirm(Comment $comment)
-    {
-        $modal = new Modal(
-            'Are you sure?',
-            view('components.modal.modals.delete.delete', compact('comment')),
             'Delete',
             'Cancel',
         );

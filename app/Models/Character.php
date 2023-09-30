@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\MorphMany;
 
 class Character extends Model
 {
@@ -29,5 +30,10 @@ class Character extends Model
     public function memberOf()
     {
         return $this->belongsToMany(Organization::class, 'character_organization', 'character_id', 'organization_id');
+    }
+
+    public function comments(): MorphMany
+    {
+        return $this->morphMany(Comment::class, 'commentable');
     }
 }

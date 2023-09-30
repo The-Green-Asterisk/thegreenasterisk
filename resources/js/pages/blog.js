@@ -1,6 +1,7 @@
 import components from "../components";
 import PathNames from "../const/pathNames";
 import { del, getHtml } from "../services/request";
+import initModal from "../components/modal";
 
 export default function blog(el) {
     components.navbar(el);
@@ -52,24 +53,29 @@ export default function blog(el) {
         window.location.href = PathNames.BLOG_CREATE;
     };
     
-    if (el.deleteCommentButtons) el.deleteCommentButtons.forEach(button => {
-        button.onclick = function (e) {
-            e.preventDefault();
-            getHtml(`${PathNames.BLOG}/comment/${button.name}/delete-confirm`)
+    if (el.deleteCommentButtons) {
+        function deleteConfirm(id) {
+            getHtml(`${PathNames.BLOG}/comment/${id}/delete-confirm`)
                 .then(html => {
                     const modal = document.createElement('div');
                     modal.innerHTML = html;
                     el.body.appendChild(modal);
+                    initModal(el);
                     modal.querySelector('#submit-modal').onclick = function () {
-                        del(`${PathNames.BLOG}/comment/${button.name}`)
+                        del(`${PathNames.BLOG}/comment/${id}`)
                             .then(res => {
                                 window.location.href = res.url
                             });
                     };
-                    components.modal(el);
                 });
+        };
+        el.deleteCommentButtons.forEach(button => {
+            button.onclick = function (e) {
+                e.preventDefault();
+                deleteConfirm(button.name);
             }
-    });
+        });
+    }
 
     if (el.image) el.image.onchange = () => {
         if (el.image.files && el.image.files[0]) {
