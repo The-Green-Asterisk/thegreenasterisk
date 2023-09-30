@@ -36,7 +36,7 @@ class CommentMail extends Mailable
         return new Envelope(
             subject: auth()->user()->name.' commented on your post '.$data['post']->title,
             from: config('mail.from.address'),
-            to: $data['post']->user->email,
+            to: $data['post']->user?->email ?? $data['email'],
         );
     }
 

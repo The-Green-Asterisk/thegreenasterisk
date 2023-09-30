@@ -24,8 +24,6 @@ namespace App\Models{
  * @property int $user_id
  * @property int $is_draft
  * @property string|null $published_at
- * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Comment> $comments
- * @property-read int|null $comments_count
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Tag> $tags
  * @property-read int|null $tags_count
  * @property-read \App\Models\User $user
@@ -95,13 +93,16 @@ namespace App\Models{
  * @property string $content
  * @property int $user_id
  * @property int $blog_post_id
- * @property-read \App\Models\BlogPost $blogPost
+ * @property string|null $commentable_type
+ * @property int|null $commentable_id
  * @property-read \App\Models\User $user
  * @method static \Illuminate\Database\Eloquent\Builder|Comment filter($filters)
  * @method static \Illuminate\Database\Eloquent\Builder|Comment newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Comment newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Comment query()
  * @method static \Illuminate\Database\Eloquent\Builder|Comment whereBlogPostId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Comment whereCommentableId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Comment whereCommentableType($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Comment whereContent($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Comment whereCreatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Comment whereId($value)
@@ -214,13 +215,13 @@ namespace App\Models{
  * @property string|null $description
  * @property int $world_id
  * @property int|null $location_id
- * @property int $leader_id
+ * @property int|null $leader_id
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property string|null $image
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Character> $characters
  * @property-read int|null $characters_count
- * @property-read \App\Models\Character $leader
+ * @property-read \App\Models\Character|null $leader
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Character> $members
  * @property-read int|null $members_count
  * @property-read \App\Models\World $world

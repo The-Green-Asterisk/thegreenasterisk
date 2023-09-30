@@ -58,7 +58,13 @@
                                 alt="{{ $organization->name }}" />
                             <div style="width:100%">
                                 <h3 class="section-header">
-                                    {{ $organization->name ?? 'Unnamed Organization' }}
+                                    @if(isset($organization->name))
+                                        <a href="{{ route('many-worlds.organizations.show', [$world->short_name, $organization->id]) }}">
+                                            {{ $organization->name }}
+                                        </a>
+                                    @else
+                                        Unnamed Organization
+                                    @endif
                                 </h3>
                                 <p>{{ $organization->summary ?? 'This seems to be an organization' }}</p>
                             </div>
@@ -85,7 +91,13 @@
                                 alt="{{ $world->name }}" />
                             <div style="width:100%">
                                 <h3 class="section-header">
-                                    {{ $character->name ?? 'Unnamed character' }}
+                                    @if(isset($character->name))
+                                        <a href="{{ route('many-worlds.characters.show', [$world->short_name, $character->id]) }}">
+                                            {{ $character->name }}
+                                        </a>
+                                    @else
+                                        Unnamed Character
+                                    @endif
                                 </h3>
                                 <p>{{ $character->summary ?? 'This seems to be an character' }}</p>
                             </div>
@@ -111,7 +123,13 @@
                                 alt="{{ $world->name }}" />
                             <div style="width:100%">
                                 <h3 class="section-header">
-                                    {{ $item->name ?? 'Unnamed item' }}
+                                    @if(isset($item->name))
+                                        <a href="{{ route('many-worlds.items.show', [$world->short_name, $item->id]) }}">
+                                            {{ $item->name }}
+                                        </a>
+                                    @else
+                                        Unnamed Item
+                                    @endif
                                 </h3>
                                 <p>{{ $item->summary ?? 'This seems to be an item' }}</p>
                             </div>
@@ -138,7 +156,13 @@
                                 alt="{{ $world->name }}"/>
                             <div style="width:100%">
                                 <h3 class="section-header">
-                                    {{ $event->name ?? 'Unnamed event' }}
+                                    @if(isset($event->name))
+                                        <a href="{{ route('many-worlds.events.show', [$world->short_name, $event->id]) }}">
+                                            {{ $event->name }}
+                                        </a>
+                                    @else
+                                        Unnamed Event
+                                    @endif
                                 </h3>
                                 <p>{{ $event->summary ?? 'This seems to be an event' }}</p>
                             </div>
@@ -152,4 +176,46 @@
             @endif
         </section>
     </div>
+    <div class="comment-form">
+        @if (auth()->check())
+            <h2>Leave a Comment</h2>
+            <form method="POST" action="/many-worlds/{{ $world->short_name }}/comment">
+                @csrf
+                <div class="form-group">
+                    <input type="hidden" name="world_id" value="{{ $world->short_name }}" />
+                    <label for="content" hidden>Comment</label>
+                    <textarea id="comment_content" name="comment_content" rows="3"></textarea>
+                </div>
+                <button type="submit" class="btn btn-primary">Submit</button>
+            </form>
+        @else
+            <p><a href="#" id="log-in-button">Login</a> to leave a comment.</p>
+        @endif
+    </div>
+    <hr>
+    @if ($world->comments->count())
+        <div class="comments">
+            <h2>Comments</h2>
+            @foreach ($world->comments as $comment)
+                <div class="comment">
+                    <section>
+                        <img class="section-img comment-avatar" src="{{ $comment->user->avatar }}" alt="user image">
+                        @if ((auth()->check() && auth()->user()->id == $comment->user_id) || auth()->user()->is_admin)
+                            @if ($comment->id != 0)
+                                <div style="float: right">
+                                    <button class="btn btn-link delete-comment-button" name="{{ $world->short_name }}" value={{ $comment->id }}>
+                                        Delete
+                                    </button>
+                                </div>
+                            @endif
+                        @endif
+                        <p class="comment-user">{{ $comment->user->name }}</p>
+                        <p class="dateline">{{ $comment->getCreatedAtAttribute($comment->created_at) }}</p>
+                        <p class="comment-content">{!! $comment->content !!}</p>
+                        <div class="end-section"></div>
+                    </section>
+                </div>
+            @endforeach
+        </div>
+    @endif
 </x-many-worlds>
