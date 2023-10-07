@@ -54,7 +54,7 @@
                     <section>
                         <div style="display:flex;">
                             <img class="section-img"
-                                src="{{ isset($organization->image) ? asset('storage/images/'.$organization->image) : asset('storage/images/default_organization.jpg') }}"
+                                src="{{ isset($organization->image) ? asset('storage/'.$organization->image) : asset('storage/images/default_organization.jpg') }}"
                                 alt="{{ $organization->name }}" />
                             <div style="width:100%">
                                 <h3 class="section-header">
@@ -87,7 +87,7 @@
                     <section>
                         <div style="display:flex;">
                             <img class="section-img"
-                                src="{{ isset($character->image) ? asset('storage/images/'.$character->image) : asset('storage/images/default_character.jpg') }}"
+                                src="{{ isset($character->image) ? asset('storage/'.$character->image) : asset('storage/images/default_character.jpg') }}"
                                 alt="{{ $world->name }}" />
                             <div style="width:100%">
                                 <h3 class="section-header">
@@ -119,7 +119,7 @@
                     <section>
                         <div style="display:flex;">
                             <img class="section-img"
-                                src="{{ isset($item->image) ? asset('storage/images/'.$item->image) : asset('storage/images/default_item.png') }}"
+                                src="{{ isset($item->image) ? asset('storage/'.$item->image) : asset('storage/images/default_item.png') }}"
                                 alt="{{ $world->name }}" />
                             <div style="width:100%">
                                 <h3 class="section-header">
@@ -152,7 +152,7 @@
                     <section>
                         <div style="display:flex;">
                             <img class="section-img"
-                                src="{{ isset($event->image) ? asset('storage/images/'.$event->image) : asset('storage/images/default_event.jpg') }}"
+                                src="{{ isset($event->image) ? asset('storage/'.$event->image) : asset('storage/images/default_event.jpg') }}"
                                 alt="{{ $world->name }}"/>
                             <div style="width:100%">
                                 <h3 class="section-header">
