@@ -20,7 +20,6 @@ export default class El {
     submitButton = document.querySelector('button[type="submit"]');
 
     selectors = document.querySelectorAll('select');
-    tagNameInput = document.querySelector('#tag-name');
 
     modal = document.querySelector('#modal');
     grabModal = () => this.modal = document.querySelector('#modal');

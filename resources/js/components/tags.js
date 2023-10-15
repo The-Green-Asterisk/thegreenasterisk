@@ -1,5 +1,6 @@
 import PathNames from "../const/pathNames";
 import { getHtml, post } from "../services/request";
+import initModal from "./modal.js";
 
 export default function tags(el) {
     if (el.newTagButton) el.newTagButton.onclick = function () {
@@ -8,8 +9,9 @@ export default function tags(el) {
                 const modal = document.createElement('div');
                 modal.innerHTML = html;
                 el.body.appendChild(modal);
-                modal.querySelector('#submit-modal').onclick = function () {
-                    let name = el.tagNameInput.value;
+                initModal(el);
+                el.modal.querySelector('#submit-modal').onclick = function () {
+                    let name = el.modal.querySelector('#new-tag').value;
                     post(PathNames.TAG, {name: name})
                         .then(window.location.reload());
                 }
