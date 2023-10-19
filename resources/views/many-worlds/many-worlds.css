@@ -39,7 +39,13 @@
     background-color: var(--world-color);
     color: var(--world-color-secondary);
     box-shadow: var(--inner-shadow);
+    -ms-overflow-style: none;  /* IE and Edge */
+    scrollbar-width: none;  /* Firefox */
 }
+.world-nav::-webkit-scrollbar {
+    display: none;
+}
+
 .world-nav a {
     cursor: pointer;
     padding: 0 .3rem;
