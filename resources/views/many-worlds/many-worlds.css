@@ -28,8 +28,10 @@
 }
 
 .world-nav {
+    padding: 0;
+    overflow: scroll;
     display: flex;
-    justify-content: space-evenly;
+    justify-content: space-between;
     align-items: center;
     margin: 5px;
     border: 1px solid black;

@@ -1,4 +1,6 @@
 nav {
+    overflow: scroll;
+    white-space: nowrap;
     background-color: rgba(255, 255, 255, 0.9);
     box-shadow: var(--shadow);
     position: fixed;
@@ -15,6 +17,7 @@ nav ul {
     margin: 0.3rem;
 }
 nav ul li {
+    margin: 0 5px;
     display: flex;
     align-items: center;
     list-style: none;
