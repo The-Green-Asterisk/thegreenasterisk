@@ -50,7 +50,7 @@
                 <div class="comment">
                     <section>
                         <img class="section-img comment-avatar" src="{{ $comment->user->avatar }}" alt="user image">
-                        @if ((auth()->check() && auth()->user()->id == $comment->user_id) || auth()->user()->is_admin)
+                        @if ((auth()->check() && auth()->user()?->id == $comment->user_id) || auth()->user()?->is_admin)
                             @if ($comment->id != 0)
                                 <div style="float: right">
                                     <button class="btn btn-link delete-comment-button" name="{{ $comment->id }}">
