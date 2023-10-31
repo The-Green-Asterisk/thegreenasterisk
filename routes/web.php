@@ -53,7 +53,7 @@ Route::post('update', function (Request $request) {
 
     file_put_contents('update.txt', $output);
 
-    return redirect()->url('/update.txt');
+    return $output;
 });
 
 Route::get('/', [IndexController::class, 'home'])->name('home');
