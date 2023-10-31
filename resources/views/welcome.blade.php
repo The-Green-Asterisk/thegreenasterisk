@@ -4,7 +4,7 @@
     <section>
         <div class="section-header">
             <a href="/blog">
-                <h2>Recent Blog Posts</h2>
+                <h2>Here are the Recent Blog Posts</h2>
             </a>
         </div>
         <div class="section-wrapper">
