@@ -17,6 +17,7 @@ use App\Http\Controllers\World\LocationController;
 use App\Http\Controllers\World\OrganizationController;
 use App\Models\World;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Http\Request;
 
 /*
 |--------------------------------------------------------------------------
@@ -49,7 +50,7 @@ Route::post('update', function (Request $request) {
         $tmp = shell_exec($command);
         $output .= "{$command}\n{$tmp}\n";
     }
-    
+
     file_put_contents('update.txt', $output);
 
     return redirect()->url('/update.txt');
