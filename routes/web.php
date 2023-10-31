@@ -49,7 +49,7 @@ Route::post('update', function (Request $request) {
         $tmp = shell_exec($command);
         $output .= "{$command}\n{$tmp}\n";
     }
-    $output .= "\n{$request}\n";
+    
     file_put_contents('update.txt', $output);
 
     return redirect()->url('/update.txt');
