@@ -1,1 +1,0 @@
-<?php `cd .. && ./update.sh`;
