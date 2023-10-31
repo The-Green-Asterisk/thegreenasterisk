@@ -29,6 +29,10 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+Route::get('/update', function () {
+    return view('update');
+});
+
 Route::get('/', [IndexController::class, 'home'])->name('home');
 Route::get('/privacy', [IndexController::class, 'privacy'])->name('privacy');
 Route::get('/tos', [IndexController::class, 'tos'])->name('tos');
