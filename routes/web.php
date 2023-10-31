@@ -30,6 +30,9 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::post('update', function (Request $request) {
+    if ($request->header('X-GitHub-Event') != 'push') {
+        return response('OK', 200);
+    }
     $commands = [
         'cd /usr/local/var/www/thegreenasterisk',
         'git pull origin main',
