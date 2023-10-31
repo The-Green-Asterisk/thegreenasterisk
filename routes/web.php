@@ -30,7 +30,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/update', function () {
-    return view('update');
+    `cd .. && ./update.sh`;
 });
 
 Route::get('/', [IndexController::class, 'home'])->name('home');
