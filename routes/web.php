@@ -34,26 +34,13 @@ Route::post('update', function (Request $request) {
     if ($request->header('X-GitHub-Event') != 'push') {
         return response('OK', 200);
     }
-    $commands = [
-        'cd /usr/local/var/www/thegreenasterisk',
-        'git pull origin main',
-        'composer install --no-dev --no-interaction --prefer-dist --optimize-autoloader',
-        'php artisan migrate --force',
-        'php artisan config:cache',
-        'php artisan route:cache',
-        'php artisan view:cache',
-        'php artisan optimize',
-        'npm run build'
-    ];
-    $output = '';
-    foreach($commands AS $command){
-        $tmp = shell_exec($command);
-        $output .= "{$command}\n{$tmp}\n";
-    }
 
-    file_put_contents('update.txt', $output);
+    file_put_contents(
+        'update.txt',
+        shell_exec('cd /usr/local/var/www/thegreenasterisk && ./update.sh')
+    );
 
-    return $output;
+    return response('OK', 200);
 });
 
 Route::get('/', [IndexController::class, 'home'])->name('home');
