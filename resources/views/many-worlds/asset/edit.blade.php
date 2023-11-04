@@ -7,6 +7,7 @@
             @csrf
             @method('PUT')
         
+            <input type="hidden" name="world_id" value="{{ $world->id }}">
             <div>
                 <label for="image">Image:</label>
                 <input type="file" name="image" id="image">
