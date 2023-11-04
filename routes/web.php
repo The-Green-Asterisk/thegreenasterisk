@@ -37,7 +37,7 @@ Route::post('update', function (Request $request) {
 
     file_put_contents(
         'update.txt',
-        shell_exec('cd /usr/local/var/www/thegreenasterisk && ./update.sh')
+        shell_exec('.././update.sh')
     );
 
     return response('OK', 200);
