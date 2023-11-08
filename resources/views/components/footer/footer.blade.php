@@ -5,6 +5,9 @@
         <li><a href="{{ route('tos') }}">Terms</a></li>
         <li>
             {{-- social media links --}}
+            <a href="https://discord.gg/zNRhSpRPdf" target="_blank">
+                <i class="fab fa-discord"></i>
+            </a>
             <a href="https://instagram.com/LordSteve" target="_blank">
                 <i class="fab fa-instagram"></i>
             </a>
