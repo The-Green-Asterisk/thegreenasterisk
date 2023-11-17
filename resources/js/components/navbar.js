@@ -1,11 +1,11 @@
-import PathNames from "../const/pathNames.js";
-import { get, getHtml } from "../services/request.js";
+import constants from "../const";
+import { getHtml } from "../services/request";
 import initModal from "./modal.js";
 
 export default function navbar(el) {
     if (el.logInButton) {
         function doLogIn() {
-            getHtml(PathNames.LOGIN)
+            getHtml(constants.PathNames.LOGIN)
             .then(html => {
                 const modal = document.createElement('div');
                 modal.innerHTML = html;

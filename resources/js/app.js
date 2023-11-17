@@ -1,35 +1,33 @@
 import './bootstrap';
 
 import pages from './pages';
-
-import El from './const/elements';
-import PathNames from './const/pathNames';
+import constants from './const';
 
 import { initLoader } from './services/request';
 
-const elements = new El();
+const elements = new constants.El();
 initLoader(elements);
 
-switch (PathNames.basePath()) {
-    case PathNames.HOME:
+switch (constants.PathNames.basePath()) {
+    case constants.PathNames.HOME:
         pages.home(elements);
         break;
-    case PathNames.BLOG:
+    case constants.PathNames.BLOG:
         pages.blog(elements);
         break;
-    case PathNames.ABOUT:
+    case constants.PathNames.ABOUT:
         pages.about(elements);
         break;
-    case PathNames.CONTACT:
+    case constants.PathNames.CONTACT:
         pages.contact(elements);
         break;
-    case PathNames.TOS:
+    case constants.PathNames.TOS:
         pages.tos(elements);
         break;
-    case PathNames.PRIVACY:
+    case constants.PathNames.PRIVACY:
         pages.privacy(elements);
         break;
-    case PathNames.MANY_WORLDS:
+    case constants.PathNames.MANY_WORLDS:
         pages.manyWorlds(elements);
     default:
         break;

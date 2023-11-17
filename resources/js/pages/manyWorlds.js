@@ -1,13 +1,13 @@
 import components from "../components";
-import ColorThief from '/node_modules/colorthief/dist/color-thief.mjs';
-import PathNames from "../const/pathNames";
+import constants from "../const";
 import { del, getHtml } from "../services/request";
-import initModal from "../components/modal";
+import ColorThief from '/node_modules/colorthief/dist/color-thief.mjs';
 
 export default function manyWorlds(el) {
     components.navbar(el);
     components.modal(el);
     components.tabs(el);
+    
     const colorThief = new ColorThief();
 
     const activeWorld = document.querySelector('#active-tab');
@@ -28,7 +28,7 @@ export default function manyWorlds(el) {
 
     if (el.cancelCreateButton) {
         el.cancelCreateButton.onclick = function () {
-            window.location.href = PathNames.MANY_WORLDS;
+            window.location.href = constants.PathNames.MANY_WORLDS;
         }
     }
 
@@ -39,15 +39,15 @@ export default function manyWorlds(el) {
     }
 
     // if (el.deleteButton) el.deleteButton.onclick = function () {
-    //     getHtml(`${PathNames.BLOG}/${el.deleteButton.value}/delete-confirm`)
+    //     getHtml(`${constants.PathNames.BLOG}/${el.deleteButton.value}/delete-confirm`)
     //         .then(html => {
     //             const modal = document.createElement('div');
     //             modal.innerHTML = html;
     //             el.body.appendChild(modal);
     //             components.modal(el);
     //             modal.querySelector('#submit-modal').onclick = function () {
-    //                 del(`${PathNames.MANY_WORLDS}/${el.deleteButton.value}`)
-    //                     .then(window.location.href = PathNames.MANY_WORLDS);
+    //                 del(`${constants.PathNames.MANY_WORLDS}/${el.deleteButton.value}`)
+    //                     .then(window.location.href = constants.PathNames.MANY_WORLDS);
     //             }
     //         });
     // }
@@ -58,14 +58,14 @@ export default function manyWorlds(el) {
                 return assetId ? `/${assetType}/${assetId}` : '';
             }
 
-            getHtml(`${PathNames.MANY_WORLDS}/${worldName}${isAsset()}/comment/${commentId}/delete-confirm`)
+            getHtml(`${constants.PathNames.MANY_WORLDS}/${worldName}${isAsset()}/comment/${commentId}/delete-confirm`)
                 .then(html => {
                     const modal = document.createElement('div');
                     modal.innerHTML = html;
                     el.body.appendChild(modal);
-                    initModal(el);
+                    components.modal(el);
                     modal.querySelector('#submit-modal').onclick = function () {
-                        del(`${PathNames.MANY_WORLDS}/${worldName}${isAsset()}/comment/${commentId}`)
+                        del(`${constants.PathNames.MANY_WORLDS}/${worldName}${isAsset()}/comment/${commentId}`)
                             .then(res => {
                                 window.location.reload();
                             });

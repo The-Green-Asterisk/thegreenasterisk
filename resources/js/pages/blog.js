@@ -1,7 +1,6 @@
 import components from "../components";
-import PathNames from "../const/pathNames";
+import constants from "../const";
 import { del, getHtml } from "../services/request";
-import initModal from "../components/modal";
 
 export default function blog(el) {
     components.navbar(el);
@@ -9,60 +8,60 @@ export default function blog(el) {
     components.tags(el);
 
     if (el.cancelCreateButton) el.cancelCreateButton.onclick = function () {
-        window.location.href = PathNames.BLOG;
+        window.location.href = constants.PathNames.BLOG;
     }
     if (el.cancelEditButton) el.cancelEditButton.onclick = function () {
         if (history.back()) {
             history.back();
         } else {
-            window.location.href = PathNames.BLOG;
+            window.location.href = constants.PathNames.BLOG;
         };
     }
     if (el.backToBlogButton) el.backToBlogButton.onclick = function () {
-        window.location.href = PathNames.BLOG;
+        window.location.href = constants.PathNames.BLOG;
     }
 
     if (el.deleteButton) el.deleteButton.onclick = function () {
-        getHtml(`${PathNames.BLOG}/${el.deleteButton.value}/delete-confirm`)
+        getHtml(`${constants.PathNames.BLOG}/${el.deleteButton.value}/delete-confirm`)
             .then(html => {
                 const modal = document.createElement('div');
                 modal.innerHTML = html;
                 el.body.appendChild(modal);
                 modal.querySelector('#submit-modal').onclick = function () {
-                    del(`${PathNames.BLOG}/${el.deleteButton.value}`)
-                        .then(window.location.href = PathNames.BLOG);
+                    del(`${constants.PathNames.BLOG}/${el.deleteButton.value}`)
+                        .then(window.location.href = constants.PathNames.BLOG);
                 }
                 components.modal(el);
             });
     }
 
     if (el.clearTagButton) el.clearTagButton.onclick = function () {
-        window.location.href = PathNames.BLOG;
+        window.location.href = constants.PathNames.BLOG;
     }
 
     if (el.viewButtons.length > 0) el.viewButtons.forEach(button => {
         button.onclick = function () {
             window.location.href = button.value !== ''
-                ? `${PathNames.BLOG}?${button.value}=1`
-                : PathNames.BLOG;
+                ? `${constants.PathNames.BLOG}?${button.value}=1`
+                : constants.PathNames.BLOG;
         }
     });
 
     if (el.createPostButton) el.createPostButton.onclick = function () {
         localStorage.clear();
-        window.location.href = PathNames.BLOG_CREATE;
+        window.location.href = constants.PathNames.BLOG_CREATE;
     };
     
     if (el.deleteCommentButtons) {
         function deleteConfirm(id) {
-            getHtml(`${PathNames.BLOG}/comment/${id}/delete-confirm`)
+            getHtml(`${constants.PathNames.BLOG}/comment/${id}/delete-confirm`)
                 .then(html => {
                     const modal = document.createElement('div');
                     modal.innerHTML = html;
                     el.body.appendChild(modal);
-                    initModal(el);
+                    components.modal(el);
                     modal.querySelector('#submit-modal').onclick = function () {
-                        del(`${PathNames.BLOG}/comment/${id}`)
+                        del(`${constants.PathNames.BLOG}/comment/${id}`)
                             .then(res => {
                                 window.location.href = res.url
                             });
@@ -93,7 +92,7 @@ export default function blog(el) {
     if (el.editBlogPostButton) el.editBlogPostButton.onclick = function () {
         localStorage.clear();
         if (el.editBlogPostButton.type === 'button') {
-            window.location.href = `${PathNames.BLOG}/${el.editBlogPostButton.value}/edit`;
+            window.location.href = `${constants.PathNames.BLOG}/${el.editBlogPostButton.value}/edit`;
         }
     }
 
@@ -103,7 +102,7 @@ export default function blog(el) {
         el.blogPane.onscroll = function () {
             if ((this.scrollTop + this.clientHeight >= this.scrollHeight - 100) && !loading) {
                 loading = true;
-                getHtml(PathNames.INFINITE_SCROLL, {page: page})
+                getHtml(constants.PathNames.INFINITE_SCROLL, {page: page})
                     .then(html => {
                         if (html === '') return;
                         this.innerHTML += html;
