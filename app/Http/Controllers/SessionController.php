@@ -25,12 +25,12 @@ class SessionController extends Controller
 
     public function create($service)
     {
-        return Socialite::driver($service)->stateless()->redirect();
+        return Socialite::driver($service)->scopes($service == 'facebook' ?['email', 'user_posts']:[])->stateless()->redirect();
     }
 
     public function store($service)
     {
-        $serviceUser = Socialite::driver($service)->scopes($service == 'facebook' ?['email', 'manage_pages']:[])->stateless()->user();
+        $serviceUser = Socialite::driver($service)->scopes($service == 'facebook' ?['email', 'user_posts']:[])->stateless()->user();
         if (empty($serviceUser->avatar)) {
             $serviceUser->avatar = 'https://www.gravatar.com/avatar/'.md5(strtolower(trim($serviceUser->email))).'?d=mp';
         }

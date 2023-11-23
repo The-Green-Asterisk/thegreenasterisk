@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Mail\ErrorMail;
+use App\Models\User;
 use Http;
 use Mail;
 use Twitter;
@@ -67,18 +68,20 @@ class SocialController extends Controller
 
     public function getFacebookFeed()
     {
-        //get new temporary access token from here: https://developers.facebook.com/tools/explorer/
-        // $access_token = '';
-        // $token = Http::get('https://graph.facebook.com/oauth/access_token?grant_type=fb_exchange_token&client_id='.config('services.facebook.client_id').'&client_secret='.config('services.facebook.client_secret').'&fb_exchange_token='.$access_token);
-        // $token = json_decode($token);
-        // dd($token);
+        //get new access token from here: https://developers.facebook.com/tools/explorer/
+        $user = User::where('name', 'Steve Beaudry')->whereNotNull('facebook_account')->first();
 
-        $fbPosts = Http::get('https://graph.facebook.com/v15.0/me?fields=id%2Cname%2Cposts%7Bpermalink_url%2Cmessage%2Ccreated_time%2Cfull_picture%7D&access_token='.config('services.facebook.access_token'));
+        $fbRequest = json_decode(Http::get('https://graph.facebook.com/oauth/access_token?grant_type=fb_exchange_token&client_id='.config('services.facebook.client_id').'&client_secret='.config('services.facebook.client_secret').'&fb_exchange_token='.$user->login_service_token));
 
-        $pagePosts = Http::get('https://graph.facebook.com/v15.0/111220456882666/?fields=posts%7Bcreated_time%2Cpermalink_url%2Cfull_picture%2Cmessage%7D&access_token='.config('services.facebook.page_access_token'));
+        $fbPosts = json_decode(Http::get(
+            'https://graph.facebook.com/v15.0/me?fields=id,name,posts%7Bcreated_time%2Cpermalink_url%2Cfull_picture%2Cmessage%7D&access_token='
+            .$fbRequest->access_token
+        ));
 
-        $fbPosts = json_decode($fbPosts);
-        $pagePosts = json_decode($pagePosts);
+        $pagePosts = json_decode(Http::get(
+            'https://graph.facebook.com/v15.0/me?fields=id,name,posts%7Bcreated_time%2Cpermalink_url%2Cfull_picture%2Cmessage%7D&access_token='
+            .config('services.facebook.page_access_token')
+        ));
 
         if (isset($fbPosts->posts->data) && isset($pagePosts->posts->data)) {
             $fbPosts->posts->data = array_merge($fbPosts->posts->data, $pagePosts->posts->data);
