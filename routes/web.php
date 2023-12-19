@@ -43,6 +43,10 @@ Route::post('update', function (Request $request) {
     return response('OK', 200);
 });
 
+Route::get('/.well-known/acme-challenge/XY5kFEE95IBCU3YWZuo1_xvXSCMDGSxGFIya1tUg5ns', function () {
+    return 'XY5kFEE95IBCU3YWZuo1_xvXSCMDGSxGFIya1tUg5ns.K5V5gEZp4lbeNgHuVy68NoNISr68BCckMtv9OY2ifAE'
+});
+
 Route::get('/', [IndexController::class, 'home'])->name('home');
 Route::get('/privacy', [IndexController::class, 'privacy'])->name('privacy');
 Route::get('/tos', [IndexController::class, 'tos'])->name('tos');
