@@ -44,7 +44,7 @@ Route::post('update', function (Request $request) {
 });
 
 Route::get('/.well-known/acme-challenge/XY5kFEE95IBCU3YWZuo1_xvXSCMDGSxGFIya1tUg5ns', function () {
-    return 'XY5kFEE95IBCU3YWZuo1_xvXSCMDGSxGFIya1tUg5ns.K5V5gEZp4lbeNgHuVy68NoNISr68BCckMtv9OY2ifAE'
+    return 'XY5kFEE95IBCU3YWZuo1_xvXSCMDGSxGFIya1tUg5ns.K5V5gEZp4lbeNgHuVy68NoNISr68BCckMtv9OY2ifAE';
 });
 
 Route::get('/', [IndexController::class, 'home'])->name('home');
