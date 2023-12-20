@@ -4,4 +4,4 @@ composer install --no-dev --no-interaction --prefer-dist --optimize-autoloader
 php artisan migrate --force
 npm run build
 php artisan cache:clear
-php artisan route:cachegit
+php artisan route:cache
