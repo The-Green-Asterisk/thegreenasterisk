@@ -27,6 +27,11 @@ class Character extends Model
         return $this->hasMany(Organization::class, 'leader_id');
     }
 
+    public function organization()
+    {
+        return $this->belongsTo(Organization::class);
+    }
+
     public function memberOf()
     {
         return $this->belongsToMany(Organization::class, 'character_organization', 'character_id', 'organization_id');
