@@ -82,8 +82,8 @@ class CharacterController extends Controller
         $character->image = $request->file('image') != null ? $request->file('image')->store('images') : $character->image;
         $character->summary = $request->summary;
         $character->description = $request->description;
-        $character->location_id = $request->location_id;
-        $character->organization_id = $request->organization_id;
+        $character->location_id = $request->parent_location;
+        $character->organization_id = $request->organization;
         $character->updated_at = now();
         $character->save();
 
