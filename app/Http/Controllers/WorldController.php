@@ -19,6 +19,11 @@ class WorldController extends Controller
 
     public function show(World $world)
     {
+        $world->locations = $world->locations()->inRandomOrder()->take(3)->get();
+        $world->characters = $world->characters()->inRandomOrder()->take(3)->get();
+        $world->organizations = $world->organizations()->inRandomOrder()->take(3)->get();
+        $world->items = $world->items()->inRandomOrder()->take(3)->get();
+
         return view('many-worlds.show', [
             'tabs' => TabsController::makeTabs($world),
             'world' => $world,
