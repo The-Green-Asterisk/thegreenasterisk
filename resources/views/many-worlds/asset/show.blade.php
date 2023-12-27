@@ -35,7 +35,7 @@
                     @endforeach
                 </ul>
             @endif
-            @if(isset($asset->organizations) && $asset->organizations->count() > 0)
+            @if(isset($asset->organization))
                 <h3>Member Of:</h3>
                 <p><a href="{{ route('many-worlds.organizations.show', [$world->short_name, $asset->organization->id]) }}">{{ $asset->organization->name }}</a></p>
             @endif
