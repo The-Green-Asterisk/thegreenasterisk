@@ -1,9 +1,9 @@
-echo $(date +"%Y-%m-%d %T")
-cd /usr/local/var/www/thegreenasterisk
-git pull origin main
-composer install --no-dev --no-interaction --prefer-dist --optimize-autoloader
-php artisan migrate --force
-npm run build
-php artisan cache:clear
-php artisan route:cache
-echo $(date +"%Y-%m-%d %T")
+date > /public/update.txt
+cd /usr/local/var/www/thegreenasterisk >> /public/update.txt
+git pull origin main >> /public/update.txt
+composer install --no-dev --no-interaction --prefer-dist --optimize-autoloader >> /public/update.txt
+php artisan migrate --force >> /public/update.txt
+npm run build >> /public/update.txt
+php artisan cache:clear >> /public/update.txt
+php artisan route:cache >> /public/update.txt
+date >> /public/update.txt
