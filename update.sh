@@ -1,5 +1,5 @@
 date > public/update.txt
-cd /usr/local/var/www/thegreenasterisk >> public/update.txt
+cd /usr/local/var/www/thegreenasterisk
 git pull origin main >> public/update.txt
 composer install --no-dev --no-interaction --prefer-dist --optimize-autoloader >> public/update.txt
 php artisan migrate --force >> public/update.txt
