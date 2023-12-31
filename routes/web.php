@@ -34,7 +34,7 @@ Route::post('update', function (Request $request) {
     if ($request->header('X-GitHub-Event') != 'push') {
         return response('OK', 200);
     }
-    shell_exec('.././update.sh');
+    shell_exec('.././update.sh &');
     return response('OK', 200);
 });
 

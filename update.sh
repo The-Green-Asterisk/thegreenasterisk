@@ -1,4 +1,4 @@
-date > public/update.txt
+date >| public/update.txt
 cd /usr/local/var/www/thegreenasterisk
 git pull origin main >> public/update.txt
 composer install --no-dev --no-interaction --prefer-dist --optimize-autoloader >> public/update.txt
