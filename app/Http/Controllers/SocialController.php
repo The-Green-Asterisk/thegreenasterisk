@@ -73,6 +73,17 @@ class SocialController extends Controller
 
         $fbRequest = json_decode(Http::get('https://graph.facebook.com/oauth/access_token?grant_type=fb_exchange_token&client_id='.config('services.facebook.client_id').'&client_secret='.config('services.facebook.client_secret').'&fb_exchange_token='.$user->login_service_token));
 
+        if (isset($fbRequest->error)) {
+            $error = '';
+            foreach ($fbRequest->error as $e) {
+                $error .= $e;
+            }
+            $error .= ' - '.json_encode($fbRequest);
+            Mail::to(config('app.admin_email'))->send(new ErrorMail($error));
+
+            return [];
+        }
+
         $fbPosts = json_decode(Http::get(
             'https://graph.facebook.com/v15.0/me?fields=id,name,posts%7Bcreated_time%2Cpermalink_url%2Cfull_picture%2Cmessage%7D&access_token='
             .$fbRequest->access_token
@@ -103,7 +114,7 @@ class SocialController extends Controller
             $error .= ' - '.json_encode($fbPosts).json_encode($pagePosts);
             Mail::to(config('app.admin_email'))->send(new ErrorMail($error));
 
-            return [];
+            if (isset($fbPosts->error) && isset($pagePosts->error)) return [];
         }
 
         //convert urls to links

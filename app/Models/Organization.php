@@ -36,4 +36,9 @@ class Organization extends Model
     {
         return $this->morphMany(Comment::class, 'commentable');
     }
+
+    public function location()
+    {
+        return $this->belongsTo(Location::class);
+    }
 }

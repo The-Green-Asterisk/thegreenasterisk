@@ -82,10 +82,9 @@ class OrganizationController extends Controller
             'summary' => $request->summary,
             'description' => $request->description,
             'world_id' => $world->id,
-            'location_id' => $request->location_id,
-            'leader_id' => $request->leader_id,
-            'image' => $request->file('image') != null ? $request->file('image')->store('images') : $organization->image,
-            'created_at' => now()
+            'location_id' => $request->parent_location,
+            'leader_id' => $request->leader,
+            'image' => $request->file('image') != null ? $request->file('image')->store('images') : $organization->image
         ]);
 
         return redirect()->route('many-worlds.organizations.show', [$world->short_name, $organization->id]);
