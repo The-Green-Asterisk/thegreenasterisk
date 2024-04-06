@@ -78,7 +78,7 @@ class SocialController extends Controller
             foreach ($fbRequest->error as $e) {
                 $error .= $e;
             }
-            $error .= ' - '.json_encode($fbRequest);
+            $error .= ' - '.json_encode($fbRequest).' - This probably means you should re-login using Facebook.';
             Mail::to(config('app.admin_email'))->send(new ErrorMail($error));
 
             return [];
