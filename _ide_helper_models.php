@@ -68,6 +68,7 @@ namespace App\Models{
  * @property-read int|null $leader_of_count
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Organization> $memberOf
  * @property-read int|null $member_of_count
+ * @property-read \App\Models\Organization|null $organization
  * @property-read \App\Models\Location|null $primaryLocation
  * @property-read \App\Models\World $world
  * @method static \Illuminate\Database\Eloquent\Builder|Character newModelQuery()
@@ -233,6 +234,7 @@ namespace App\Models{
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Comment> $comments
  * @property-read int|null $comments_count
  * @property-read \App\Models\Character|null $leader
+ * @property-read \App\Models\Location|null $location
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Character> $members
  * @property-read int|null $members_count
  * @property-read \App\Models\World $world
@@ -298,6 +300,10 @@ namespace App\Models{
  * @property string|null $remember_token
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property string|null $google_token
+ * @property string|null $github_token
+ * @property string|null $facebook_token
+ * @property string|null $twitter_token
  * @property-read \Illuminate\Notifications\DatabaseNotificationCollection<int, \Illuminate\Notifications\DatabaseNotification> $notifications
  * @property-read int|null $notifications_count
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \Laravel\Sanctum\PersonalAccessToken> $tokens
@@ -311,8 +317,11 @@ namespace App\Models{
  * @method static \Illuminate\Database\Eloquent\Builder|User whereCreatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|User whereEmail($value)
  * @method static \Illuminate\Database\Eloquent\Builder|User whereFacebookAccount($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|User whereFacebookToken($value)
  * @method static \Illuminate\Database\Eloquent\Builder|User whereGithubAccount($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|User whereGithubToken($value)
  * @method static \Illuminate\Database\Eloquent\Builder|User whereGoogleAccount($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|User whereGoogleToken($value)
  * @method static \Illuminate\Database\Eloquent\Builder|User whereId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|User whereLoginServiceId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|User whereLoginServiceRefreshToken($value)
@@ -321,6 +330,7 @@ namespace App\Models{
  * @method static \Illuminate\Database\Eloquent\Builder|User wherePassword($value)
  * @method static \Illuminate\Database\Eloquent\Builder|User whereRememberToken($value)
  * @method static \Illuminate\Database\Eloquent\Builder|User whereTwitterAccount($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|User whereTwitterToken($value)
  * @method static \Illuminate\Database\Eloquent\Builder|User whereUpdatedAt($value)
  */
 	class User extends \Eloquent {}

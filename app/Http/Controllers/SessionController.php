@@ -40,7 +40,6 @@ class SessionController extends Controller
         $user = User::updateOrCreate([
             'email' => $serviceUser->email,
         ], [
-            // 'login_service_id' => $serviceUser->id,
             'name' => User::where('email', $serviceUser->email)?->first()->name ?? $serviceUser->name,
             'login_service_token' => $serviceUser->token,
             'login_service_refresh_token' => $serviceUser->refreshToken,
@@ -50,15 +49,19 @@ class SessionController extends Controller
         switch ($service) {
             case 'google':
                 $user->google_account = $serviceUser->id;
+                $user->google_token = $serviceUser->token;
                 break;
             case 'github':
                 $user->github_account = $serviceUser->id;
+                $user->github_token = $serviceUser->token;
                 break;
             case 'facebook':
                 $user->facebook_account = $serviceUser->id;
+                $user->facebook_token = $serviceUser->token;
                 break;
             case 'twitter-oauth-2':
                 $user->twitter_account = $serviceUser->id;
+                $user->twitter_token = $serviceUser->token;
                 break;
         }
         $user->save();

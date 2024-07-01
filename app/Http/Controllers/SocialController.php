@@ -71,7 +71,7 @@ class SocialController extends Controller
         //get new access token from here: https://developers.facebook.com/tools/explorer/
         $user = User::where('name', 'Steve Beaudry')->whereNotNull('facebook_account')->first();
 
-        $fbRequest = json_decode(Http::get('https://graph.facebook.com/oauth/access_token?grant_type=fb_exchange_token&client_id='.config('services.facebook.client_id').'&client_secret='.config('services.facebook.client_secret').'&fb_exchange_token='.$user->login_service_token));
+        $fbRequest = json_decode(Http::get('https://graph.facebook.com/oauth/access_token?grant_type=fb_exchange_token&client_id='.config('services.facebook.client_id').'&client_secret='.config('services.facebook.client_secret').'&fb_exchange_token='.$user->facebook_token));
 
         if (isset($fbRequest->error)) {
             $error = '';
