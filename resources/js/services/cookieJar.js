@@ -8,7 +8,7 @@ export default class CookieJar {
     /**
     * Returns all cookies as an object or the value of a specific cookie
     * @param {string?} cookie
-    * @return {object | string | boolean | number}
+    * @return {object | string | boolean | number | null | undefined}
     */
     static get = (cookie) => {
         
@@ -23,7 +23,7 @@ export default class CookieJar {
         });
         return cookie
             ? cookieObj[this.#kebabToCamelCase(cookie)]
-            : cookieObj;
+            : Object.keys(cookieObj).length === 0 ? null : cookieObj;
     };
 
     /**
