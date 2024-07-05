@@ -105,13 +105,14 @@ class SocialController extends Controller
                 foreach ($fbPosts->error as $e) {
                     $error .= $e;
                 }
+                $error .= ' - '.json_encode($fbPosts);
             }
             if (isset($pagePosts->error)) {
                 foreach ($pagePosts->error as $e) {
                     $error .= $e;
                 }
+                $error .= ' - '.json_encode($pagePosts);
             }
-            $error .= ' - '.json_encode($fbPosts).json_encode($pagePosts);
             Mail::to(config('app.admin_email'))->send(new ErrorMail($error));
 
             if (isset($fbPosts->error) && isset($pagePosts->error)) return [];
