@@ -2,6 +2,7 @@ import components from "../components";
 import constants from "../const";
 import { del, getHtml } from "../services/request";
 import ColorThief from '/node_modules/colorthief/dist/color-thief.mjs';
+import { buildModal } from "../components/modal";
 
 export default function manyWorlds(el) {
     components.navbar(el);
@@ -60,9 +61,7 @@ export default function manyWorlds(el) {
 
             getHtml(`${constants.PathNames.MANY_WORLDS}/${worldName}${isAsset()}/comment/${commentId}/delete-confirm`)
                 .then(html => {
-                    const modal = document.createElement('div');
-                    modal.innerHTML = html;
-                    el.body.appendChild(modal);
+                    const modal = buildModal(el, html);
                     components.modal(el);
                     modal.querySelector('#submit-modal').onclick = function () {
                         del(`${constants.PathNames.MANY_WORLDS}/${worldName}${isAsset()}/comment/${commentId}`)

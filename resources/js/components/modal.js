@@ -13,3 +13,10 @@ export default function modal(el) {
         }
     };
 }
+
+export function buildModal(el, html) {
+    const modal = document.createElement('div');
+    modal.innerHTML = html;
+    el.body.appendChild(modal);
+    return modal;
+}

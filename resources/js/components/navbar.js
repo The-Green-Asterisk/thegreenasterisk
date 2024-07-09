@@ -1,15 +1,14 @@
 import constants from "../const";
 import { getHtml } from "../services/request";
 import initModal from "./modal.js";
+import { buildModal } from "./modal.js";
 
 export default function navbar(el) {
     if (el.logInButton) {
         function doLogIn() {
             getHtml(constants.PathNames.LOGIN)
             .then(html => {
-                const modal = document.createElement('div');
-                modal.innerHTML = html;
-                el.body.appendChild(modal);
+                buildModal(el, html);
                 initModal(el);
             });
         }

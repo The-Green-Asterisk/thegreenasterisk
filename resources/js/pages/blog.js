@@ -1,6 +1,7 @@
 import components from "../components";
 import constants from "../const";
 import { del, getHtml } from "../services/request";
+import { buildModal } from "../components/modal";
 
 export default function blog(el) {
     components.navbar(el);
@@ -24,9 +25,7 @@ export default function blog(el) {
     if (el.deleteButton) el.deleteButton.onclick = function () {
         getHtml(`${constants.PathNames.BLOG}/${el.deleteButton.value}/delete-confirm`)
             .then(html => {
-                const modal = document.createElement('div');
-                modal.innerHTML = html;
-                el.body.appendChild(modal);
+                const modal = buildModal(el, html);
                 modal.querySelector('#submit-modal').onclick = function () {
                     del(`${constants.PathNames.BLOG}/${el.deleteButton.value}`)
                         .then(window.location.href = constants.PathNames.BLOG);
@@ -56,9 +55,7 @@ export default function blog(el) {
         function deleteConfirm(id) {
             getHtml(`${constants.PathNames.BLOG}/comment/${id}/delete-confirm`)
                 .then(html => {
-                    const modal = document.createElement('div');
-                    modal.innerHTML = html;
-                    el.body.appendChild(modal);
+                    const modal = buildModal(el, html);
                     components.modal(el);
                     modal.querySelector('#submit-modal').onclick = function () {
                         del(`${constants.PathNames.BLOG}/comment/${id}`)
