@@ -64,7 +64,7 @@
         });
     </script>
 
-    @vite(['resources/css/app.css', 'resources/js/app.js'])
+    @vite(['resources/css/app.css', 'resources/js/app.ts'])
 </head>
 
 <body bg="{{ isset($bg) ? $bg : asset('/bg.jpg') }}">

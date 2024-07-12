@@ -3,8 +3,9 @@ export default class StorageBox {
         //
     }
 
-    static get(key) {
+    static get(key: string) {
         let result = localStorage.getItem(key);
+        if (result === null) return null;
         if (result === 'true' || result === 'false') {
             return Boolean(result);
         } else if (!isNaN(Number(result))) {
@@ -18,15 +19,15 @@ export default class StorageBox {
         }
     }
 
-    static set(key, value) {
+    static set(key: string, value: string | object | number | boolean) {
         if (typeof value === 'object'){
             localStorage.setItem(key, JSON.stringify(value));
         } else {
-            localStorage.setItem(key, value);
+            localStorage.setItem(key, value.toString());
         };
     }
 
-    static remove(key) {
+    static remove(key: string) {
         localStorage.removeItem(key);
     }
 

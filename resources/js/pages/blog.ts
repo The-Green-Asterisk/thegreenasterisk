@@ -2,8 +2,9 @@ import components from "../components";
 import constants from "../const";
 import { del, getHtml } from "../services/request";
 import { buildModal } from "../components/modal";
+import Elements from "../const/elements";
 
-export default function blog(el) {
+export default function blog(el: Elements) {
     components.navbar(el);
     components.modal(el);
     components.tags(el);
@@ -12,7 +13,7 @@ export default function blog(el) {
         window.location.href = constants.PathNames.BLOG;
     }
     if (el.cancelEditButton) el.cancelEditButton.onclick = function () {
-        if (history.back()) {
+        if (history.back() !== undefined) {
             history.back();
         } else {
             window.location.href = constants.PathNames.BLOG;
@@ -26,9 +27,9 @@ export default function blog(el) {
         getHtml(`${constants.PathNames.BLOG}/${el.deleteButton.value}/delete-confirm`)
             .then(html => {
                 const modal = buildModal(el, html);
-                modal.querySelector('#submit-modal').onclick = function () {
+                (modal.querySelector('#submit-modal') as HTMLButtonElement).onclick = function () {
                     del(`${constants.PathNames.BLOG}/${el.deleteButton.value}`)
-                        .then(window.location.href = constants.PathNames.BLOG);
+                        .then(() => window.location.href = constants.PathNames.BLOG);
                 }
                 components.modal(el);
             });
@@ -52,12 +53,12 @@ export default function blog(el) {
     };
     
     if (el.deleteCommentButtons) {
-        function deleteConfirm(id) {
+        function deleteConfirm(id: Number | string) {
             getHtml(`${constants.PathNames.BLOG}/comment/${id}/delete-confirm`)
                 .then(html => {
                     const modal = buildModal(el, html);
                     components.modal(el);
-                    modal.querySelector('#submit-modal').onclick = function () {
+                    (modal.querySelector('#submit-modal') as HTMLButtonElement).onclick = function () {
                         del(`${constants.PathNames.BLOG}/comment/${id}`)
                             .then(res => {
                                 window.location.href = res.url
@@ -78,7 +79,7 @@ export default function blog(el) {
             var reader = new FileReader();
 
             reader.onload = function (e) {
-                el.imagePreview.setAttribute('src', e.target.result);
+                el.imagePreview.setAttribute('src', e.target?.result?.toString() ?? '');
             }
 
             reader.readAsDataURL(el.image.files[0]);
@@ -97,12 +98,12 @@ export default function blog(el) {
         let page = 1;
         let loading = false;
         el.blogPane.onscroll = function () {
-            if ((this.scrollTop + this.clientHeight >= this.scrollHeight - 100) && !loading) {
+            if ((el.blogPane.scrollTop + el.blogPane.clientHeight >= el.blogPane.scrollHeight - 100) && !loading) {
                 loading = true;
                 getHtml(constants.PathNames.INFINITE_SCROLL, {page: page})
                     .then(html => {
                         if (html === '') return;
-                        this.innerHTML += html;
+                        el.blogPane.innerHTML += html;
                         page++;
                         loading = false;
                     });

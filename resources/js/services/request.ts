@@ -1,7 +1,11 @@
-export function initLoader(el) {
-    window.fetch=((oldFetch, input, init) =>{
-        return async (url = input, options = init | undefined) => {
+import El from '../const/elements';
+
+export function initLoader(el: El) {
+    window.fetch = ((oldFetch: ((input: RequestInfo | URL, init?: RequestInit | undefined) => Promise<Response>), input: RequestInfo | URL = '', init?: RequestInit | undefined) => {
+        return async (url: RequestInfo | URL = input, options: RequestInit | undefined = init) => {
             el.loader.style.display = 'flex';
+            if (!options) options = {} as RequestInit;
+            options.headers = {} as { [key: string]: string };
             options.headers
                 ? options.headers['X-CSRF-TOKEN'] = el.crfToken
                 : options = {
@@ -14,20 +18,20 @@ export function initLoader(el) {
             el.loader.style.display = 'none';
             return response;
         }
-    })(window.fetch);
+    })(window.fetch.bind(window));
 
     window.onload=((oldLoad) => {
-        return () => {
-            oldLoad && oldLoad();
+        return (e) => {
+            oldLoad && oldLoad(e);
             el.loader.style.display = 'none';
         }
-    })(window.onload);
+    })(window.onload?.bind(window));
 }
 
 export default async function request(
-    method,
-    path,
-    data,
+    method: string,
+    path: string,
+    data: { [key: string]: string | Boolean | Number } | null = null,
     evalResult = true,
 ) {
     let payLoad;
@@ -51,36 +55,36 @@ export default async function request(
     return evalResult ? result : response;
 }
 
-async function getPostfix(method, data) {
+async function getPostfix(method: string, data: { [key: string]: string | Boolean | Number } | null = null) {
     let postfix = '';
     if (data && method === 'GET') {
         const params = new URLSearchParams();
         Object.keys(data).forEach(key => {
-            params.append(key, data[key]);
+            params.append(key, data[key].toString());
         });
         postfix = `?${params.toString()}`;
     }
     return postfix;
 }
 
-export async function get(path, data) {
+export async function get(path: string, data: { [key: string]: string | Boolean | Number } | null = null) {
     return await request('GET', path, data);
 }
 
-export async function getHtml(path, data) {
+export async function getHtml(path: string, data: { [key: string]: string | Boolean | Number } | null = null) {
     return await request('GET', path, data, false)
         .then(response => response.text());
 }
 
-export async function post(path, data) {
+export async function post(path: string, data: { [key: string]: string | Boolean | Number } | null = null) {
     return await request('POST', path, data);
 }
 
-export async function put(path, data) {
+export async function put(path: string, data: { [key: string]: string | Boolean | Number } | null = null) {
     return await request('PUT', path, data);
 }
 
-export async function del(path, data) {
+export async function del(path: string, data: { [key: string]: string | Boolean | Number } | null = null) {
     if (data?._method){
         data._method = 'DELETE';
     } else {

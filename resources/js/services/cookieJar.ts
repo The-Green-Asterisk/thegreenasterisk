@@ -1,5 +1,5 @@
 export default class CookieJar {
-    static #kebabToCamelCase = (str) => {
+    static #kebabToCamelCase = (str: string) => {
         return str.replace(/-([a-z])/g, function (match, letter) {
             return letter.toUpperCase();
         });
@@ -10,9 +10,9 @@ export default class CookieJar {
     * @param {string?} cookie
     * @return {object | string | boolean | number | null | undefined}
     */
-    static get = (cookie) => {
+    static get = (cookie: string): object | string | boolean | number | null | undefined => {
         
-        const cookieObj = {};
+        const cookieObj: {[key: string]: object | string | boolean | number | null | undefined } = {};
         document.cookie.split(';').forEach(cookie => {
             cookieObj[this.#kebabToCamelCase(cookie.split('=')[0].trim())] = 
                 cookie.split('=')[1] === "true" || cookie.split('=')[1] === "false"
@@ -34,7 +34,7 @@ export default class CookieJar {
      * @param {string} expires
      * @return {void}
      */
-    static set = (cookie, value, expires) => {
+    static set = (cookie: string, value: string | boolean | number, expires: string): void => {
         if (this.get(cookie)) {
             this.delete(cookie);
         }
@@ -46,7 +46,7 @@ export default class CookieJar {
      * @param {string} cookie
      * @return {void}
      */
-    static delete = (cookie) => {
+    static delete = (cookie: string): void => {
         if (this.get(cookie)) {
             document.cookie = `${cookie}=; expires=Thu, 01 Jan 1970 00:00:00 GMT;`;
         } else {
@@ -62,7 +62,7 @@ export default class CookieJar {
      * @param {string} expires 
      * @return {void}
      */
-    static edit = (cookie, value, expires) => {
+    static edit = (cookie: string, value: string | boolean | number, expires: string): void => {
         if (this.get(cookie)) {
             this.delete(cookie);
             this.set(cookie, value, expires);

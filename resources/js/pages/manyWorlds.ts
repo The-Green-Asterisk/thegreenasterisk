@@ -1,23 +1,25 @@
+import ColorThief from 'colorthief';
 import components from "../components";
-import constants from "../const";
-import { del, getHtml } from "../services/request";
-import ColorThief from '/node_modules/colorthief/dist/color-thief.mjs';
 import { buildModal } from "../components/modal";
+import constants from "../const";
+import El from "../const/elements";
+import { del, getHtml } from "../services/request";
 
-export default function manyWorlds(el) {
+export default function manyWorlds(el: El) {
     components.navbar(el);
     components.modal(el);
     components.tabs(el);
     
     const colorThief = new ColorThief();
 
-    const activeWorld = document.querySelector('#active-tab');
+    const activeWorld = document.querySelector('#active-tab') as HTMLDivElement | null | undefined;
     if (activeWorld) {
         const bg = activeWorld.style.backgroundImage;
         const img = new Image();
         img.src = bg.slice(5, -2);
         img.onload = () => {
             const colors = colorThief.getPalette(img, 2);
+            if (!colors) return;
             const color = colors[0];
             const secondaryColor = colors[1];
             el.root.style.setProperty(`--world-color`, `rgb(${color[0]}, ${color[1]}, ${color[2]})`);
@@ -54,7 +56,7 @@ export default function manyWorlds(el) {
     // }
 
     if (el.deleteCommentButtons) {
-        function deleteConfirm(worldName, commentId, assetId = null, assetType = null) {
+        function deleteConfirm(worldName: string, commentId: string, assetId: string | null = null, assetType: string | null = null) {
             function isAsset() {
                 return assetId ? `/${assetType}/${assetId}` : '';
             }
@@ -63,7 +65,7 @@ export default function manyWorlds(el) {
                 .then(html => {
                     const modal = buildModal(el, html);
                     components.modal(el);
-                    modal.querySelector('#submit-modal').onclick = function () {
+                    (modal.querySelector('#submit-modal') as HTMLButtonElement).onclick = function () {
                         del(`${constants.PathNames.MANY_WORLDS}/${worldName}${isAsset()}/comment/${commentId}`)
                             .then(res => {
                                 window.location.reload();
@@ -75,7 +77,7 @@ export default function manyWorlds(el) {
             button.onclick = function (e) {
                 e.preventDefault();
                 el.assetType
-                    ? deleteConfirm(el.worldId, button.value, el.assetId, el.assetType)
+                    ? deleteConfirm(el.worldId, button.value, button.name, el.assetType)
                     : deleteConfirm(button.name, button.value);
             }
         });
