@@ -13,7 +13,6 @@ export function initLoader(el: El) {
                         'X-CSRF-TOKEN': el.crfToken
                     }
                 };
-            console.log(options);
             const response = await oldFetch(url, options);
             el.loader.style.display = 'none';
             return response;
