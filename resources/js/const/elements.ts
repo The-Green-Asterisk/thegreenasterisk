@@ -1,10 +1,7 @@
 import CookieJar from "../services/cookieJar";
 import StorageBox from "../services/storageBox";
 
-interface IEl {
-    [index: string]: HTMLElement | NodeListOf<HTMLElement> | HTMLCollectionOf<HTMLElement> | (() => HTMLElement) | ((element: HTMLElement, elName: string) => void) |string | boolean | null;
-  }
-export default class El implements IEl {
+export default class El {
     root = document.querySelector(':root') as HTMLElement;
     crfToken = document.querySelector('meta[name="csrf-token"]')?.getAttribute('content') ?? '';
 
