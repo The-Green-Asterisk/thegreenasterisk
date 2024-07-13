@@ -5,7 +5,6 @@ export function initLoader(el: El) {
         return async (url: RequestInfo | URL = input, options: RequestInit | undefined = init) => {
             el.loader.style.display = 'flex';
             if (!options) options = {} as RequestInit;
-            options.headers = {} as { [key: string]: string };
             options.headers
                 ? options.headers['X-CSRF-TOKEN'] = el.crfToken
                 : options = {
@@ -18,7 +17,7 @@ export function initLoader(el: El) {
             el.loader.style.display = 'none';
             return response;
         }
-    })(window.fetch.bind(window));
+    })(window.fetch);
 
     window.onload=((oldLoad) => {
         return (e) => {

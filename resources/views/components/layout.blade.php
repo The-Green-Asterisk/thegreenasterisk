@@ -19,7 +19,7 @@
 
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <link rel="icon" href="{{ asset('asterisk.png') }}" type="image/x-icon" />
-    <script src="https://cdn.tiny.cloud/1/o51weqkkyqtt9zegndzt9c8khol7waxhxpcmbfmjg8o5nr82/tinymce/5/tinymce.min.js"
+    <script src="https://cdn.tiny.cloud/1/o51weqkkyqtt9zegndzt9c8khol7waxhxpcmbfmjg8o5nr82/tinymce/7/tinymce.min.js"
         referrerpolicy="origin"></script>
     <script>
         tinymce.init({
