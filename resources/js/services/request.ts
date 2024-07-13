@@ -6,13 +6,14 @@ export function initLoader(el: El) {
             el.loader.style.display = 'flex';
             if (!options) options = {} as RequestInit;
             options.headers
-                ? options.headers['X-CSRF-TOKEN'] = el.crfToken
+                ? options.headers['X-CSRF-TOKEN' as keyof HeadersInit] = el.crfToken
                 : options = {
                     ...options,
                     headers: {
                         'X-CSRF-TOKEN': el.crfToken
                     }
                 };
+            console.log(options);
             const response = await oldFetch(url, options);
             el.loader.style.display = 'none';
             return response;
