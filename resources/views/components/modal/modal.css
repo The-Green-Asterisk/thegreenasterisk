@@ -14,8 +14,8 @@
 }
 .modal .body {
     background-color: white;
-    width: 50%;
-    height: 50%;
+    min-width: 40%;
+    min-height: max-content;
     border-radius: 0.5rem;
     box-shadow: var(--shadow);
     display: flex;
@@ -23,6 +23,7 @@
     align-items: center;
     justify-content: space-between;
     position: relative;
+    padding-bottom: 1rem;
 }
 .modal .header > button.close {
     position: absolute;
