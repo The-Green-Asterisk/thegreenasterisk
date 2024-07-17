@@ -24,11 +24,11 @@ export default function blog(el: Elements) {
     }
 
     if (el.deleteButton) el.deleteButton.onclick = function () {
-        getHtml(`${constants.PathNames.BLOG}/${el.deleteButton.value}/delete-confirm`)
+        getHtml(`${constants.PathNames.BLOG}/${el.deleteButton?.value}/delete-confirm`)
             .then(html => {
                 const modal = buildModal(el, html);
                 (modal.querySelector('#submit-modal') as HTMLButtonElement).onclick = function () {
-                    del(`${constants.PathNames.BLOG}/${el.deleteButton.value}`)
+                    del(`${constants.PathNames.BLOG}/${el.deleteButton?.value}`)
                         .then(() => window.location.href = constants.PathNames.BLOG);
                 }
                 components.modal(el);
@@ -75,11 +75,12 @@ export default function blog(el: Elements) {
     }
 
     if (el.image) el.image.onchange = () => {
-        if (el.image.files && el.image.files[0]) {
+        if (el.image && el.image.files && el.image.files[0]) {
             var reader = new FileReader();
 
             reader.onload = function (e) {
-                el.imagePreview.setAttribute('src', e.target?.result?.toString() ?? '');
+                if (el.imagePreview)
+                    el.imagePreview.setAttribute('src', e.target?.result?.toString() ?? '');
             }
 
             reader.readAsDataURL(el.image.files[0]);
@@ -89,7 +90,7 @@ export default function blog(el: Elements) {
 
     if (el.editBlogPostButton) el.editBlogPostButton.onclick = function () {
         localStorage.clear();
-        if (el.editBlogPostButton.type === 'button') {
+        if (el.editBlogPostButton?.type === 'button') {
             window.location.href = `${constants.PathNames.BLOG}/${el.editBlogPostButton.value}/edit`;
         }
     }
@@ -98,12 +99,13 @@ export default function blog(el: Elements) {
         let page = 1;
         let loading = false;
         el.blogPane.onscroll = function () {
-            if ((el.blogPane.scrollTop + el.blogPane.clientHeight >= el.blogPane.scrollHeight - 100) && !loading) {
+            if (el.blogPane && (el.blogPane.scrollTop + el.blogPane.clientHeight >= el.blogPane.scrollHeight - 100) && !loading) {
                 loading = true;
                 getHtml(constants.PathNames.INFINITE_SCROLL, {page: page})
                     .then(html => {
                         if (html === '') return;
-                        el.blogPane.innerHTML += html;
+                        if (el.blogPane)
+                            el.blogPane.innerHTML += html;
                         page++;
                         loading = false;
                     });

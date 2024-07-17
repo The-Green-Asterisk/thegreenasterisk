@@ -3,7 +3,7 @@ import El from '../const/elements';
 export function initLoader(el: El) {
     window.fetch = ((oldFetch: ((input: RequestInfo | URL, init?: RequestInit | undefined) => Promise<Response>), input: RequestInfo | URL = '', init?: RequestInit | undefined) => {
         return async (url: RequestInfo | URL = input, options: RequestInit | undefined = init) => {
-            el.loader.style.display = 'flex';
+            if (el.loader) el.loader.style.display = 'flex';
             if (!options) options = {} as RequestInit;
             options.headers
                 ? options.headers['X-CSRF-TOKEN' as keyof HeadersInit] = el.crfToken
@@ -14,7 +14,7 @@ export function initLoader(el: El) {
                     }
                 };
             const response = await oldFetch(url, options);
-            el.loader.style.display = 'none';
+            if (el.loader) el.loader.style.display = 'none';
             return response;
         }
     })(window.fetch);
@@ -22,7 +22,7 @@ export function initLoader(el: El) {
     window.onload=((oldLoad) => {
         return (e) => {
             oldLoad && oldLoad(e);
-            el.loader.style.display = 'none';
+            if (el.loader) el.loader.style.display = 'none';
         }
     })(window.onload?.bind(window));
 }

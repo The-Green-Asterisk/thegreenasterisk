@@ -6,11 +6,12 @@ export default function modal(el: El) {
 
     (el.modal.querySelectorAll('#close-modal') as NodeListOf<HTMLButtonElement>).forEach(button => {
         button.onclick = function () {
-            el.modal.remove();
+            if (el.modal)
+                el.modal.remove();
         }
     });
     el.modal.onclick = function (event) {
-        if ((event.target as HTMLElement | null | undefined)?.id === el.modal.id) {
+        if (el.modal && (event.target as HTMLElement | null | undefined)?.id === el.modal.id) {
             el.modal.remove();
         }
     };
@@ -19,6 +20,7 @@ export default function modal(el: El) {
 export function buildModal(el: El, html: string) {
     const modal = document.createElement('div');
     modal.innerHTML = html;
-    el.body.appendChild(modal);
+    if (el.body)
+        el.body.appendChild(modal);
     return modal;
 }

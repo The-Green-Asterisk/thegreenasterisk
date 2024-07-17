@@ -22,8 +22,10 @@ export default function manyWorlds(el: El) {
             if (!colors) return;
             const color = colors[0];
             const secondaryColor = colors[1];
-            el.root.style.setProperty(`--world-color`, `rgb(${color[0]}, ${color[1]}, ${color[2]})`);
-            el.root.style.setProperty(`--world-color-secondary`, `rgb(${secondaryColor[0]}, ${secondaryColor[1]}, ${secondaryColor[2]})`);
+            if (el.root) {
+                el.root.style.setProperty(`--world-color`, `rgb(${color[0]}, ${color[1]}, ${color[2]})`);
+                el.root.style.setProperty(`--world-color-secondary`, `rgb(${secondaryColor[0]}, ${secondaryColor[1]}, ${secondaryColor[2]})`);
+            }
         }
     } else {
         //
@@ -35,9 +37,10 @@ export default function manyWorlds(el: El) {
         }
     }
 
-    if (el.shortNameInput) {
+    if (el.shortNameInput && el.worldNameInput) {
         el.worldNameInput.onkeyup = function () {
-            el.shortNameInput.value = el.worldNameInput.value.replace(/\s+/g, '-').toLowerCase();
+            if (el.shortNameInput && el.worldNameInput)
+                el.shortNameInput.value = el.worldNameInput.value.replace(/\s+/g, '-').toLowerCase();
         }
     }
 

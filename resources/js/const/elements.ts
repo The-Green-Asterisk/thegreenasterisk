@@ -2,49 +2,49 @@ import CookieJar from "../services/cookieJar";
 import StorageBox from "../services/storageBox";
 
 export default class El {
-    root = document.querySelector(':root') as HTMLElement;
-    crfToken = document.querySelector('meta[name="csrf-token"]')?.getAttribute('content') ?? '';
+    root = document.querySelector<HTMLElement>(':root');
+    crfToken = document.querySelector<HTMLMetaElement>('meta[name="csrf-token"]')?.getAttribute('content') ?? '';
 
-    cookieBanner = document.querySelector('#cookie-banner') as HTMLElement;
-    cookieBannerButton = document.querySelector('#cookie-banner-button') as HTMLElement;
+    cookieBanner = document.querySelector<HTMLDivElement>('#cookie-banner');
+    cookieBannerButton = document.querySelector<HTMLButtonElement>('#cookie-banner-button');
 
-    body = document.querySelector('body') as HTMLBodyElement;
-    loader = document.querySelector('#loader') as HTMLElement;
-    navbar = document.querySelector('navbar') as HTMLElement;
-    logInButton = document.querySelectorAll('#log-in-button') as NodeListOf<HTMLAnchorElement>;
-    logOutButton = document.querySelector('#log-out-button') as HTMLElement;
+    body = document.querySelector<HTMLBodyElement>('body');
+    loader = document.querySelector<HTMLDivElement>('#loader');
+    navbar = document.querySelector<HTMLElement>('navbar');
+    logInButton = document.querySelectorAll<HTMLAnchorElement>('#log-in-button');
+    logOutButton = document.querySelector<HTMLAnchorElement>('#log-out-button');
 
-    forms = document.querySelectorAll('form') as NodeListOf<HTMLFormElement>;
-    inputs = document.getElementsByTagName('input') as HTMLCollectionOf<HTMLInputElement>;
-    formInputs = document.querySelectorAll('input, textarea') as NodeListOf<HTMLInputElement | HTMLTextAreaElement>;
-    submitButton = document.querySelector('button[type="submit"]') as HTMLButtonElement;
+    forms = document.querySelectorAll<HTMLFormElement>('form');
+    inputs = document.querySelector<HTMLInputElement>('input');
+    formInputs = document.querySelectorAll<HTMLInputElement | HTMLTextAreaElement>('input, textarea');
+    submitButton = document.querySelector<HTMLButtonElement>('button[type="submit"]');
 
-    selectors = document.querySelectorAll('select') as NodeListOf<HTMLSelectElement>;
+    selectors = document.querySelectorAll<HTMLSelectElement>('select');
 
-    modal = document.querySelector('#modal') as HTMLElement;
-    grabModal = () => this.modal = document.querySelector('#modal') as HTMLElement;
+    modal = document.querySelector<HTMLDivElement>('#modal');
+    grabModal = () => this.modal = document.querySelector<HTMLDivElement>('#modal');
 
-    blogPane = document.querySelector('#blog-pane') as HTMLDivElement;
-    imagePreview = document.querySelector('#image-preview') as HTMLImageElement;
-    image = document.querySelector('#image') as HTMLInputElement;
-    cancelCreateButton = document.querySelector('#cancel-create-button') as HTMLButtonElement;
-    cancelEditButton = document.querySelector('#cancel-edit-button') as HTMLButtonElement;
-    deleteButton = document.querySelector('#delete-button') as HTMLButtonElement;
-    viewButtons = document.querySelectorAll('.view-button')as NodeListOf<HTMLButtonElement>;
-    createPostButton = document.querySelector('#create-post-button') as HTMLButtonElement;
-    editBlogPostButton = document.querySelector('#edit-blog-post-button') as HTMLButtonElement;
-    deleteCommentButtons = document.querySelectorAll('.delete-comment-button') as NodeListOf<HTMLButtonElement>;
-    backToBlogButton = document.querySelector('#back-to-blog-button') as HTMLButtonElement;
+    blogPane = document.querySelector<HTMLDivElement>('#blog-pane');
+    imagePreview = document.querySelector<HTMLImageElement>('#image-preview');
+    image = document.querySelector<HTMLInputElement>('#image');
+    cancelCreateButton = document.querySelector<HTMLButtonElement>('#cancel-create-button');
+    cancelEditButton = document.querySelector<HTMLButtonElement>('#cancel-edit-button');
+    deleteButton = document.querySelector<HTMLButtonElement>('#delete-button');
+    viewButtons = document.querySelectorAll<HTMLButtonElement>('.view-button');
+    createPostButton = document.querySelector<HTMLButtonElement>('#create-post-button');
+    editBlogPostButton = document.querySelector<HTMLButtonElement>('#edit-blog-post-button');
+    deleteCommentButtons = document.querySelectorAll<HTMLButtonElement>('.delete-comment-button');
+    backToBlogButton = document.querySelector<HTMLButtonElement>('#back-to-blog-button');
 
-    newTagButton = document.querySelector('#new-tag-button') as HTMLElement;
-    clearTagButton = document.querySelector('#clear-tag-button') as HTMLElement;
+    newTagButton = document.querySelector<HTMLButtonElement>('#new-tag-button');
+    clearTagButton = document.querySelector<HTMLButtonElement>('#clear-tag-button');
 
-    tabs = document.querySelectorAll('.tab') as NodeListOf<HTMLElement>;
+    tabs = document.querySelectorAll<HTMLDivElement>('.tab');
 
-    worldNameInput = document.querySelector('#world-name') as HTMLInputElement;
-    shortNameInput = document.querySelector('#short-name') as HTMLInputElement;
-    worldId = (document.querySelector('#world_id') as HTMLInputElement)?.value;
-    assetType = (document.querySelector('#asset_type') as HTMLInputElement)?.value;
+    worldNameInput = document.querySelector<HTMLInputElement>('#world-name');
+    shortNameInput = document.querySelector<HTMLInputElement>('#short-name');
+    worldId = document.querySelector<HTMLInputElement>('#world_id')?.value ?? '';
+    assetType = document.querySelector<HTMLInputElement>('#asset_type')?.value ?? '';
 
     addNewElement = (element: HTMLElement, elName: string) => {
         this[elName] = element;
@@ -72,7 +72,8 @@ export default class El {
         if (this.formInputs && this.submitButton) {
             let requiredInputs = [...this.formInputs].filter(input => input.required);
             let disableSubmitButton = () => {
-                this.submitButton.disabled = !requiredInputs.every(input => input.value.trim().length > 0);
+                if (this.submitButton)
+                    this.submitButton.disabled = !requiredInputs.every(input => input.value.trim().length > 0);
             };
             setTimeout(disableSubmitButton, 1000);
             requiredInputs.forEach(input => {
@@ -147,16 +148,19 @@ export default class El {
             }
         })(window.onload?.bind(window));
 
-        if (CookieJar.get('cookies-are-cool')) {
-            this.cookieBanner.style.display = 'none';
-        } else {
-            this.cookieBanner.style.display = 'flex';
+        if (this.cookieBanner) {
+            if (CookieJar.get('cookies-are-cool')) {
+                this.cookieBanner.style.display = 'none';
+            } else {
+                this.cookieBanner.style.display = 'flex';
+            }
         };
 
         if (this.cookieBannerButton) {
             this.cookieBannerButton.onclick = () => {
                 CookieJar.set('cookies-are-cool', true, new Date(new Date().getFullYear() + 999, 0).toUTCString());
-                this.cookieBanner.style.display = 'none';
+                if (this.cookieBanner)
+                    this.cookieBanner.style.display = 'none';
             };
         }
 
