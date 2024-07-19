@@ -9,10 +9,17 @@ export default function tags(el: El) {
             .then(html => {
                 buildModal(el, html);
                 initModal(el);
-                (el.modal?.querySelector('#submit-modal') as HTMLButtonElement).onclick = function () {
-                    let name = (el.modal?.querySelector('#new-tag') as HTMLInputElement).value;
-                    post(PathNames.TAG, {name: name})
-                        .then(() => window.location.reload());
+                if (el.modal) {
+                    let submit = el.modal.querySelector<HTMLButtonElement>('#submit-modal');
+                    if (submit)
+                        submit.onclick = function () {
+                        if (el.modal) {
+                            let name = el.modal.querySelector<HTMLInputElement>('#new-tag');
+                            if (name)
+                                post(PathNames.TAG, {name: name.value})
+                                    .then(() => window.location.reload());
+                        }
+                    }
                 }
             });
     }

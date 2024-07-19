@@ -1,8 +1,8 @@
 import components from "../components";
-import constants from "../const";
-import { del, getHtml } from "../services/request";
 import { buildModal } from "../components/modal";
+import constants from "../const";
 import Elements from "../const/elements";
+import { del, getHtml } from "../services/request";
 
 export default function blog(el: Elements) {
     components.navbar(el);
@@ -27,10 +27,12 @@ export default function blog(el: Elements) {
         getHtml(`${constants.PathNames.BLOG}/${el.deleteButton?.value}/delete-confirm`)
             .then(html => {
                 const modal = buildModal(el, html);
-                (modal.querySelector('#submit-modal') as HTMLButtonElement).onclick = function () {
-                    del(`${constants.PathNames.BLOG}/${el.deleteButton?.value}`)
-                        .then(() => window.location.href = constants.PathNames.BLOG);
-                }
+                let submit = modal.querySelector<HTMLButtonElement>('#submit-modal')
+                if (submit)
+                    submit.onclick = function () {
+                        del(`${constants.PathNames.BLOG}/${el.deleteButton?.value}`)
+                            .then(() => window.location.href = constants.PathNames.BLOG);
+                    }
                 components.modal(el);
             });
     }
@@ -58,12 +60,14 @@ export default function blog(el: Elements) {
                 .then(html => {
                     const modal = buildModal(el, html);
                     components.modal(el);
-                    (modal.querySelector('#submit-modal') as HTMLButtonElement).onclick = function () {
-                        del(`${constants.PathNames.BLOG}/comment/${id}`)
-                            .then(res => {
-                                window.location.href = res.url
-                            });
-                    };
+                    let submit = modal.querySelector<HTMLButtonElement>('#submit-modal')
+                    if (submit)
+                        submit.onclick = function () {
+                            del<Response>(`${constants.PathNames.BLOG}/comment/${id}`)
+                                .then(res => {
+                                    window.location.href = res.url
+                                });
+                        };
                 });
         };
         el.deleteCommentButtons.forEach(button => {

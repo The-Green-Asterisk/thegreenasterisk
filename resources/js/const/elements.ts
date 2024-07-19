@@ -2,24 +2,25 @@ import CookieJar from "../services/cookieJar";
 import StorageBox from "../services/storageBox";
 
 export default class El {
+    // Type Parameter (<Type> inside angle brackets) is only necessary when the element type is ambiguous
     root = document.querySelector<HTMLElement>(':root');
     crfToken = document.querySelector<HTMLMetaElement>('meta[name="csrf-token"]')?.getAttribute('content') ?? '';
 
     cookieBanner = document.querySelector<HTMLDivElement>('#cookie-banner');
     cookieBannerButton = document.querySelector<HTMLButtonElement>('#cookie-banner-button');
 
-    body = document.querySelector<HTMLBodyElement>('body');
+    body = document.querySelector('body');
     loader = document.querySelector<HTMLDivElement>('#loader');
     navbar = document.querySelector<HTMLElement>('navbar');
     logInButton = document.querySelectorAll<HTMLAnchorElement>('#log-in-button');
     logOutButton = document.querySelector<HTMLAnchorElement>('#log-out-button');
 
-    forms = document.querySelectorAll<HTMLFormElement>('form');
-    inputs = document.querySelector<HTMLInputElement>('input');
+    forms = document.querySelectorAll('form');
+    inputs = document.querySelector('input');
     formInputs = document.querySelectorAll<HTMLInputElement | HTMLTextAreaElement>('input, textarea');
     submitButton = document.querySelector<HTMLButtonElement>('button[type="submit"]');
 
-    selectors = document.querySelectorAll<HTMLSelectElement>('select');
+    selectors = document.querySelectorAll('select');
 
     modal = document.querySelector<HTMLDivElement>('#modal');
     grabModal = () => this.modal = document.querySelector<HTMLDivElement>('#modal');
@@ -87,7 +88,7 @@ export default class El {
 
             this.forms.forEach(form => {
                 form.onsubmit = ((oldOnSubmit) => {
-                    form.submitButton = form.querySelector('button[type="submit"]');
+                    form.submitButton = form.querySelector<HTMLButtonElement>('button[type="submit"]');
                     return (e) =>{
                         oldOnSubmit && oldOnSubmit(e);
                         form.submitButton.disabled = true;

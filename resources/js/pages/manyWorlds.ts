@@ -12,7 +12,7 @@ export default function manyWorlds(el: El) {
     
     const colorThief = new ColorThief();
 
-    const activeWorld = document.querySelector('#active-tab') as HTMLDivElement | null | undefined;
+    const activeWorld = document.querySelector<HTMLDivElement>('#active-tab');
     if (activeWorld) {
         const bg = activeWorld.style.backgroundImage;
         const img = new Image();
@@ -51,7 +51,7 @@ export default function manyWorlds(el: El) {
     //             modal.innerHTML = html;
     //             el.body.appendChild(modal);
     //             components.modal(el);
-    //             modal.querySelector('#submit-modal').onclick = function () {
+    //             modal.querySelector<HTMLButtonElement>('#submit-modal').onclick = function () {
     //                 del(`${constants.PathNames.MANY_WORLDS}/${el.deleteButton.value}`)
     //                     .then(window.location.href = constants.PathNames.MANY_WORLDS);
     //             }
@@ -68,12 +68,14 @@ export default function manyWorlds(el: El) {
                 .then(html => {
                     const modal = buildModal(el, html);
                     components.modal(el);
-                    (modal.querySelector('#submit-modal') as HTMLButtonElement).onclick = function () {
-                        del(`${constants.PathNames.MANY_WORLDS}/${worldName}${isAsset()}/comment/${commentId}`)
-                            .then(res => {
-                                window.location.reload();
-                            });
-                    };
+                    let submit = modal.querySelector<HTMLButtonElement>('#submit-modal')
+                    if (submit)
+                        submit.onclick = function () {
+                            del(`${constants.PathNames.MANY_WORLDS}/${worldName}${isAsset()}/comment/${commentId}`)
+                                .then(res => {
+                                    window.location.reload();
+                                });
+                        };
                 });
         };
         el.deleteCommentButtons.forEach(button => {

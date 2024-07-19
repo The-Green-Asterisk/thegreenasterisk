@@ -27,12 +27,12 @@ export function initLoader(el: El) {
     })(window.onload?.bind(window));
 }
 
-export default async function request(
+export default async function request<T>(
     method: string,
     path: string,
     data: { [key: string]: string | Boolean | Number } | null = null,
     evalResult = true,
-) {
+): Promise<Response | T> {
     let payLoad;
     
     if (method !== 'GET') payLoad = {
@@ -48,10 +48,9 @@ export default async function request(
 
     const response = await fetch(`${path}${routePostfix}`, payLoad);
 
-    let result;
-    if (evalResult) result = await response.json();
-
-    return evalResult ? result : response;
+    return evalResult
+        ? await response.json().then((data) => data as T)
+        : response;
 }
 
 async function getPostfix(method: string, data: { [key: string]: string | Boolean | Number } | null = null) {
@@ -66,24 +65,24 @@ async function getPostfix(method: string, data: { [key: string]: string | Boolea
     return postfix;
 }
 
-export async function get(path: string, data: { [key: string]: string | Boolean | Number } | null = null) {
-    return await request('GET', path, data);
+export async function get<T>(path: string, data: { [key: string]: string | Boolean | Number } | null = null) {
+    return await request<T>('GET', path, data);
 }
 
 export async function getHtml(path: string, data: { [key: string]: string | Boolean | Number } | null = null) {
-    return await request('GET', path, data, false)
+    return await request<Response>('GET', path, data, false)
         .then(response => response.text());
 }
 
-export async function post(path: string, data: { [key: string]: string | Boolean | Number } | null = null) {
-    return await request('POST', path, data);
+export async function post<T>(path: string, data: { [key: string]: string | Boolean | Number } | null = null) {
+    return await request<T>('POST', path, data);
 }
 
-export async function put(path: string, data: { [key: string]: string | Boolean | Number } | null = null) {
-    return await request('PUT', path, data);
+export async function put<T>(path: string, data: { [key: string]: string | Boolean | Number } | null = null) {
+    return await request<T>('PUT', path, data);
 }
 
-export async function del(path: string, data: { [key: string]: string | Boolean | Number } | null = null) {
+export async function del<T>(path: string, data: { [key: string]: string | Boolean | Number } | null = null) {
     if (data?._method){
         data._method = 'DELETE';
     } else {
@@ -92,5 +91,5 @@ export async function del(path: string, data: { [key: string]: string | Boolean 
             _method: 'DELETE'
         };
     }
-    return await request('POST', path, data, false);
+    return await request<T>('POST', path, data, false);
 }
