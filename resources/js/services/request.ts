@@ -49,7 +49,7 @@ export default async function request<T>(
     const response = await fetch(`${path}${routePostfix}`, payLoad);
 
     return evalResult
-        ? await response.json().then((data) => data as T)
+        ? await response.json().then(obj => obj as T)
         : response;
 }
 
