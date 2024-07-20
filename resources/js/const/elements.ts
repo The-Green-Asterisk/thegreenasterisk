@@ -131,10 +131,10 @@ export default class El {
                 if (oldLoad) oldLoad.call(window, e);
                 if (this.formInputs.length == 0) return;
 
-                let values = StorageBox.get('formValues');
-                let content = StorageBox.get('content');
-                let message = StorageBox.get('message');
-                let description = StorageBox.get('description');
+                let values = StorageBox.get<{ [key: string]: string }>('formValues') as { [key: string]: string };
+                let content = StorageBox.get<string>('content') as string;
+                let message = StorageBox.get<string>('message') as string;
+                let description = StorageBox.get<string>('description') as string;
 
                 this.formInputs.forEach(input => {
                     if (input && input.name && !input.name.startsWith('_') && values && values[input.name] && input.type !== 'file')
