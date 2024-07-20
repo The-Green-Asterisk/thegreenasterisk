@@ -1,7 +1,7 @@
 import El from '../const/elements';
 
 export function initLoader(el: El) {
-    window.fetch = ((oldFetch: ((input: RequestInfo | URL, init?: RequestInit | undefined) => Promise<Response>), input: RequestInfo | URL = '', init?: RequestInit | undefined) => {
+    window.fetch = ((oldFetch: typeof window.fetch, input: RequestInfo | URL = '', init?: RequestInit | undefined) => {
         return async (url: RequestInfo | URL = input, options: RequestInit | undefined = init) => {
             if (el.loader) el.loader.style.display = 'flex';
             if (!options) options = {} as RequestInit;
@@ -19,9 +19,9 @@ export function initLoader(el: El) {
         }
     })(window.fetch);
 
-    window.onload=((oldLoad) => {
+    window.onload=((oldLoad: typeof window.onload | undefined) => {
         return (e) => {
-            oldLoad && oldLoad(e);
+            if (!!oldLoad) oldLoad.call(window, e);
             if (el.loader) el.loader.style.display = 'none';
         }
     })(window.onload?.bind(window));
@@ -34,10 +34,10 @@ export default async function request<T>(
     evalResult = true,
 ): Promise<Response | T> {
     let payLoad;
-    
+
     if (method !== 'GET') payLoad = {
         method,
-        headers: { 
+        headers: {
             'Content-Type': 'application/json',
             'Accept': 'application/json'
         },
@@ -83,7 +83,7 @@ export async function put<T>(path: string, data: { [key: string]: string | Boole
 }
 
 export async function del<T>(path: string, data: { [key: string]: string | Boolean | Number } | null = null) {
-    if (data?._method){
+    if (data?._method) {
         data._method = 'DELETE';
     } else {
         data = {

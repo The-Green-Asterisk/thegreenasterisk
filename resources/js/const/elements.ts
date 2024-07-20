@@ -78,19 +78,19 @@ export default class El {
             };
             setTimeout(disableSubmitButton, 1000);
             requiredInputs.forEach(input => {
-                input.oninput = ((oldOnInput) => {
+                input.oninput = ((oldOnInput: typeof input.oninput | undefined) => {
                     return (e) => {
-                        oldOnInput && oldOnInput(e);
+                        if (oldOnInput) oldOnInput.call(input, e);
                         disableSubmitButton();
                     };
                 })(input.oninput?.bind(input));
             });
 
             this.forms.forEach(form => {
-                form.onsubmit = ((oldOnSubmit) => {
+                form.onsubmit = ((oldOnSubmit: typeof form.onsubmit | undefined) => {
                     form.submitButton = form.querySelector<HTMLButtonElement>('button[type="submit"]');
                     return (e) =>{
-                        oldOnSubmit && oldOnSubmit(e);
+                        if (oldOnSubmit) oldOnSubmit.call(form, e);
                         form.submitButton.disabled = true;
                         form.submitButton.innerHTML = '<i class="fas fa-spinner fa-spin"></i>';
                         this.submitted = true;
@@ -99,9 +99,9 @@ export default class El {
             });
         }
 
-        window.onbeforeunload=((oldBeforeUnload) => {
+        window.onbeforeunload=((oldBeforeUnload: typeof window.onbeforeunload | undefined) => {
             return (e) => {
-                oldBeforeUnload && oldBeforeUnload(e);
+                if (oldBeforeUnload) oldBeforeUnload.call(window, e);
                 if (this.formInputs.length == 0) return;
                 if (this.submitted) {
                     StorageBox.clear();
@@ -126,9 +126,9 @@ export default class El {
                 StorageBox.set('description', description);
             }
         })(window.onbeforeunload?.bind(window));
-        window.onload=((oldLoad) => {
+        window.onload=((oldLoad: typeof window.onload | undefined) => {
             return (e) => {
-                oldLoad && oldLoad(e);
+                if (oldLoad) oldLoad.call(window, e);
                 if (this.formInputs.length == 0) return;
 
                 let values = StorageBox.get('formValues');
