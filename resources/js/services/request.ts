@@ -19,7 +19,7 @@ export function initLoader(el: El) {
         }
     })(window.fetch);
 
-    window.onload=((oldLoad: typeof window.onload | undefined) => {
+    window.onload = ((oldLoad: typeof window.onload | undefined) => {
         return (e) => {
             if (!!oldLoad) oldLoad.call(window, e);
             if (el.loader) el.loader.style.display = 'none';

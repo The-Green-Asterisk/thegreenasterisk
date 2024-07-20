@@ -53,7 +53,7 @@ export default function blog(el: Elements) {
         localStorage.clear();
         window.location.href = constants.PathNames.BLOG_CREATE;
     };
-    
+
     if (el.deleteCommentButtons) {
         function deleteConfirm(id: Number | string) {
             getHtml(`${constants.PathNames.BLOG}/comment/${id}/delete-confirm`)
@@ -90,7 +90,6 @@ export default function blog(el: Elements) {
             reader.readAsDataURL(el.image.files[0]);
         }
     }
-    
 
     if (el.editBlogPostButton) el.editBlogPostButton.onclick = function () {
         localStorage.clear();
@@ -105,7 +104,7 @@ export default function blog(el: Elements) {
         el.blogPane.onscroll = function () {
             if (el.blogPane && (el.blogPane.scrollTop + el.blogPane.clientHeight >= el.blogPane.scrollHeight - 100) && !loading) {
                 loading = true;
-                getHtml(constants.PathNames.INFINITE_SCROLL, {page: page})
+                getHtml(constants.PathNames.INFINITE_SCROLL, { page: page })
                     .then(html => {
                         if (html === '') return;
                         if (el.blogPane)

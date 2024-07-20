@@ -13,13 +13,13 @@ export default function tags(el: El) {
                     let submit = el.modal.querySelector<HTMLButtonElement>('#submit-modal');
                     if (submit)
                         submit.onclick = function () {
-                        if (el.modal) {
-                            let name = el.modal.querySelector<HTMLInputElement>('#new-tag');
-                            if (name)
-                                post(PathNames.TAG, {name: name.value})
-                                    .then(() => window.location.reload());
+                            if (el.modal) {
+                                let name = el.modal.querySelector<HTMLInputElement>('#new-tag');
+                                if (name)
+                                    post(PathNames.TAG, { name: name.value })
+                                        .then(() => window.location.reload());
+                            }
                         }
-                    }
                 }
             });
     }

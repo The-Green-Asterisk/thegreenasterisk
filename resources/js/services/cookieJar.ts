@@ -1,3 +1,4 @@
+type CookieObj = { [key: string]: object | string | boolean | number | null | undefined };
 export default class CookieJar {
     static #kebabToCamelCase = (str: string) => {
         return str.replace(/-([a-z])/g, function (match, letter) {
@@ -7,67 +8,71 @@ export default class CookieJar {
 
     /**
     * Returns all cookies as an object or the value of a specific cookie
-    * @param {string?} cookie
+    * @param {string?} cookieName
     * @return {object | string | boolean | number | null | undefined}
     */
-    static get = (cookie: string): object | string | boolean | number | null | undefined => {
-        
-        const cookieObj: {[key: string]: object | string | boolean | number | null | undefined } = {};
+    static get = <T>(cookieName?: string | undefined): T | CookieObj | null => {
+        const cookieObj: CookieObj = {};
         document.cookie.split(';').forEach(cookie => {
-            cookieObj[this.#kebabToCamelCase(cookie.split('=')[0].trim())] = 
-                cookie.split('=')[1] === "true" || cookie.split('=')[1] === "false"
-                    ? Boolean(cookie.split('=')[1])
-                    : isNaN(Number(cookie.split('=')[1]))
-                        ? cookie.split('=')[1]
-                        : Number(cookie.split('=')[1]);
+            cookieObj[this.#kebabToCamelCase(cookie.split('=')[0].trim())] =
+                typeof cookie.split('=')[1] === 'string' && cookie.split('=')[1].startsWith('{')
+                    ? JSON.parse(cookie.split('=')[1])
+                    : typeof cookie.split('=')[1] === 'string' && (cookie.split('=')[1] === 'true' || cookie.split('=')[1] === 'false')
+                        ? Boolean(cookie.split('=')[1])
+                        : !isNaN(Number(cookie.split('=')[1]))
+                            ? Number(cookie.split('=')[1])
+                            : cookie.split('=')[1];
         });
-        return cookie
-            ? cookieObj[this.#kebabToCamelCase(cookie)]
+        return cookieName
+            ? cookieObj[this.#kebabToCamelCase(cookieName)] as T
             : Object.keys(cookieObj).length === 0 ? null : cookieObj;
     };
 
     /**
      * Sets a cookie
      * Use Date.ToUTCString() for expires
-     * @param {string} cookie 
-     * @param {string | boolean | Number} value 
+     * @param {string} cookieName 
+     * @param {string | boolean | number | object} value 
      * @param {string} expires
      * @return {void}
      */
-    static set = (cookie: string, value: string | boolean | number, expires: string): void => {
-        if (this.get(cookie)) {
-            this.delete(cookie);
+    static set = (cookieName: string, value: string | boolean | number | object, expires: string): void => {
+        if (this.get(cookieName)) {
+            this.delete(cookieName);
         }
-        document.cookie = `${cookie}=${value}; expires=${expires};`;
+        if (typeof value === 'object') {
+            value = JSON.stringify(value);
+        }
+        document.cookie = `${cookieName}=${value}; expires=${expires};`;
     };
 
     /**
      * Deletes a cookie
-     * @param {string} cookie
+     * @param {string} cookieName
      * @return {void}
      */
-    static delete = (cookie: string): void => {
-        if (this.get(cookie)) {
-            document.cookie = `${cookie}=; expires=Thu, 01 Jan 1970 00:00:00 GMT;`;
+    static delete = (cookieName: string): void => {
+        if (this.get(cookieName)) {
+            document.cookie = `${cookieName}=; expires=Thu, 01 Jan 1970 00:00:00 GMT;`;
         } else {
-            console.error(`Cookie ${cookie} does not exist.`);
+            console.error(`Cookie ${cookieName} does not exist.`);
         }
     };
 
     /**
      * Edits an existing cookie
      * Use Date.ToUTCString() for expires
-     * @param {string} cookie 
-     * @param {string | boolean | Number} value 
+     * @param {string} cookieName 
+     * @param {string | boolean | number | object} value 
      * @param {string} expires 
      * @return {void}
      */
-    static edit = (cookie: string, value: string | boolean | number, expires: string): void => {
-        if (this.get(cookie)) {
-            this.delete(cookie);
-            this.set(cookie, value, expires);
+    static edit = (cookieName: string, value: string | boolean | number | object, expires: string): void => {
+        if (this.get(cookieName)) {
+            this.delete(cookieName);
+            this.set(cookieName, value, expires);
         } else {
-            console.error(`Cookie ${cookie} does not exist.`);
+            console.error(`Cookie ${cookieName} does not exist.`);
         }
     };
 }

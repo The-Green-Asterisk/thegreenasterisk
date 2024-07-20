@@ -8,12 +8,12 @@ export default function navbar(el: El) {
     if (el.logInButton) {
         function doLogIn() {
             getHtml(constants.PathNames.LOGIN)
-            .then(html => {
-                buildModal(el, html);
-                initModal(el);
-            });
+                .then(html => {
+                    buildModal(el, html);
+                    initModal(el);
+                });
         }
-        
+
         el.logInButton.forEach(button => {
             button.onclick = doLogIn;
         });

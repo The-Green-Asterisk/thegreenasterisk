@@ -89,7 +89,7 @@ export default class El {
             this.forms.forEach(form => {
                 form.onsubmit = ((oldOnSubmit: typeof form.onsubmit | undefined) => {
                     form.submitButton = form.querySelector<HTMLButtonElement>('button[type="submit"]');
-                    return (e) =>{
+                    return (e) => {
                         if (oldOnSubmit) oldOnSubmit.call(form, e);
                         form.submitButton.disabled = true;
                         form.submitButton.innerHTML = '<i class="fas fa-spinner fa-spin"></i>';
@@ -99,7 +99,7 @@ export default class El {
             });
         }
 
-        window.onbeforeunload=((oldBeforeUnload: typeof window.onbeforeunload | undefined) => {
+        window.onbeforeunload = ((oldBeforeUnload: typeof window.onbeforeunload | undefined) => {
             return (e) => {
                 if (oldBeforeUnload) oldBeforeUnload.call(window, e);
                 if (this.formInputs.length == 0) return;
@@ -126,7 +126,7 @@ export default class El {
                 StorageBox.set('description', description);
             }
         })(window.onbeforeunload?.bind(window));
-        window.onload=((oldLoad: typeof window.onload | undefined) => {
+        window.onload = ((oldLoad: typeof window.onload | undefined) => {
             return (e) => {
                 if (oldLoad) oldLoad.call(window, e);
                 if (this.formInputs.length == 0) return;

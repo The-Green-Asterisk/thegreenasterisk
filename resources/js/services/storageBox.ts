@@ -20,7 +20,7 @@ export default class StorageBox {
     }
 
     static set(key: string, value: string | object | number | boolean) {
-        if (typeof value === 'object'){
+        if (typeof value === 'object') {
             localStorage.setItem(key, JSON.stringify(value));
         } else {
             localStorage.setItem(key, value.toString());
