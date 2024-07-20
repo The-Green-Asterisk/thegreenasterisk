@@ -3,8 +3,8 @@ export default class StorageBox {
         //
     }
 
-    static get(key: string) {
-        let result = localStorage.getItem(key);
+    static get<T>(key: string): string | number | boolean | T | null {
+        const result = localStorage.getItem(key);
         if (result === null) return null;
         if (result === 'true' || result === 'false') {
             return Boolean(result);
@@ -12,14 +12,14 @@ export default class StorageBox {
             return Number(result);
         } else {
             try {
-                return JSON.parse(result);
+                return JSON.parse(result) as T;
             } catch (e) {
                 return result;
             };
         }
     }
 
-    static set(key: string, value: string | object | number | boolean) {
+    static set(key: string, value: string | object | number | boolean): void {
         if (typeof value === 'object') {
             localStorage.setItem(key, JSON.stringify(value));
         } else {
@@ -27,11 +27,11 @@ export default class StorageBox {
         };
     }
 
-    static remove(key: string) {
+    static remove(key: string): void {
         localStorage.removeItem(key);
     }
 
-    static clear() {
+    static clear(): void {
         localStorage.clear();
     }
 }
