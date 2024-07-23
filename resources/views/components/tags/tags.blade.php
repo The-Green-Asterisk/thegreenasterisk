@@ -6,9 +6,9 @@
                     <option value="{{ $tag->id }}">{{ $tag->name }}</option>
                 @endforeach
             </select>
+            <button class="btn btn-info" type="button" id="new-tag-button">
+                + New Tag
+            </button>
         </label>
     @endif
-    <button class="btn btn-info" type="button" id="new-tag-button">
-        + New Tag
-    </button>
 </div>
