@@ -131,19 +131,25 @@ export default class El {
                 if (oldLoad) oldLoad.call(window, e);
                 if (this.formInputs.length == 0) return;
 
-                let values = StorageBox.get<{ [key: string]: string }>('formValues') as { [key: string]: string };
-                let content = StorageBox.get<string>('content') as string;
-                let message = StorageBox.get<string>('message') as string;
-                let description = StorageBox.get<string>('description') as string;
+                let values = StorageBox.get<{ [key: string]: string }>('formValues');
+                let content = StorageBox.get<string>('content');
+                let message = StorageBox.get<string>('message');
+                let description = StorageBox.get<string>('description');
 
                 this.formInputs.forEach(input => {
-                    if (input && input.name && !input.name.startsWith('_') && values && values[input.name] && input.type !== 'file')
-                        input.value = values[input.name];
+                    if (input && input.name
+                        && !input.name.startsWith('_')
+                        && input.type !== 'file'
+                        && values && values[input.name]
+                    ) input.value = values[input.name];
                 });
 
-                if (content && content !== undefined && content !== '') window.tinymce.get('content')?.setContent(content);
-                if (message && message !== undefined && message !== '') window.tinymce.get('message')?.setContent(message);
-                if (description && description !== undefined && description !== '') window.tinymce.get('description')?.setContent(description);
+                if (content && typeof content === 'string' && content !== '')
+                    window.tinymce.get('content')?.setContent(content);
+                if (message && typeof message === 'string' && message !== '')
+                    window.tinymce.get('message')?.setContent(message);
+                if (description && typeof description === 'string' && description !== '')
+                    window.tinymce.get('description')?.setContent(description);
 
                 localStorage.clear();
             }

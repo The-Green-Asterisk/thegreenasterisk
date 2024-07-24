@@ -3,7 +3,8 @@ export default class StorageBox {
         //
     }
 
-    static get<T>(key: string): string | number | boolean | T | null {
+    static get<T>(key: string): T;
+    static get(key: string): string | number | boolean | object | null {
         const result = localStorage.getItem(key);
         if (result === null) return null;
         if (result === 'true' || result === 'false') {
@@ -12,7 +13,7 @@ export default class StorageBox {
             return Number(result);
         } else {
             try {
-                return JSON.parse(result) as T;
+                return JSON.parse(result);
             } catch (e) {
                 return result;
             };
