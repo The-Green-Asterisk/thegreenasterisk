@@ -27,12 +27,12 @@ export function initLoader(el: El) {
     })(window.onload?.bind(window));
 }
 
-export default async function request<T>(
+export default async function request<T = Response>(
     method: string,
     path: string,
     data: { [key: string]: string | Boolean | Number } | null = null,
     evalResult = true,
-): Promise<Response | T> {
+ ): Promise<T extends Response ? Response : T> {
     let payLoad;
 
     if (method !== 'GET') payLoad = {
@@ -48,9 +48,11 @@ export default async function request<T>(
 
     const response = await fetch(`${path}${routePostfix}`, payLoad);
 
-    return evalResult
-        ? await response.json().then(obj => obj as T)
-        : response;
+    if (evalResult) {
+        return response.json().then(obj => obj as T extends Response ? Response : T);
+    } else {
+        return response as T extends Response ? Response : T;
+    }
 }
 
 async function getPostfix(method: string, data: { [key: string]: string | Boolean | Number } | null = null) {
@@ -65,24 +67,24 @@ async function getPostfix(method: string, data: { [key: string]: string | Boolea
     return postfix;
 }
 
-export async function get<T>(path: string, data: { [key: string]: string | Boolean | Number } | null = null) {
+export async function get<T = Response>(path: string, data: { [key: string]: string | Boolean | Number } | null = null) {
     return await request<T>('GET', path, data);
 }
 
 export async function getHtml(path: string, data: { [key: string]: string | Boolean | Number } | null = null) {
-    return await request<Response>('GET', path, data, false)
+    return await request('GET', path, data, false)
         .then(response => response.text());
 }
 
-export async function post<T>(path: string, data: { [key: string]: string | Boolean | Number } | null = null) {
+export async function post<T = Response>(path: string, data: { [key: string]: string | Boolean | Number } | null = null) {
     return await request<T>('POST', path, data);
 }
 
-export async function put<T>(path: string, data: { [key: string]: string | Boolean | Number } | null = null) {
+export async function put<T = Response>(path: string, data: { [key: string]: string | Boolean | Number } | null = null) {
     return await request<T>('PUT', path, data);
 }
 
-export async function del<T>(path: string, data: { [key: string]: string | Boolean | Number } | null = null) {
+export async function del<T = Response>(path: string, data: { [key: string]: string | Boolean | Number } | null = null) {
     if (data?._method) {
         data._method = 'DELETE';
     } else {
