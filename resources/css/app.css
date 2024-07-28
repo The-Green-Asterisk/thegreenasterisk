@@ -152,8 +152,8 @@ section .end-section {
     clear: both;
 }
 
-/* on screen sizes 400px or lower, left and right margins 0 */
-@media screen and (max-width: 400px) {
+/* on screen sizes 768px or lower, left and right margins 0 */
+@media screen and (max-width: 768px) {
     section,
     .main-content,
     .heroImg {
@@ -161,6 +161,16 @@ section .end-section {
         margin-left: 0 !important;
         padding-left: 0 !important;
         padding-right: 0 !important;
+    }
+    .section-wrapper {
+        flex-direction: column;
+    }
+    nav ul {
+        padding: 0 !important;
+        margin: 0 !important;
+    }
+    nav li {
+        margin: 0 !important;
     }
     .main-content {
         width: 100% !important;
