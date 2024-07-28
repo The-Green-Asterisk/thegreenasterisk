@@ -158,7 +158,7 @@ export default class El {
         })(window.onload?.bind(window));
 
         if (this.cookieBanner) {
-            if (CookieJar.get('cookies-are-cool')) {
+            if (CookieJar.get<boolean>('cookies-are-cool')) {
                 this.cookieBanner.style.display = 'none';
             } else {
                 this.cookieBanner.style.display = 'flex';

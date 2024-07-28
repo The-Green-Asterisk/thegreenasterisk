@@ -4,7 +4,7 @@ export default function modal(el: El) {
     el.grabModal();
     if (!el.modal) return;
 
-    (el.modal.querySelectorAll('#close-modal') as NodeListOf<HTMLButtonElement>).forEach(button => {
+    el.modal.querySelectorAll<HTMLButtonElement>('#close-modal').forEach(button => {
         button.onclick = function () {
             if (el.modal)
                 el.modal.remove();
