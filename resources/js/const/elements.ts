@@ -1,6 +1,8 @@
 import CookieJar from "../services/cookieJar";
 import StorageBox from "../services/storageBox";
 
+type FormValues = { [key: string]: string };
+
 export default class El {
     // Type Parameter (<Type> inside angle brackets) is only necessary when the element type is ambiguous
     root = document.querySelector<HTMLElement>(':root');
@@ -47,7 +49,7 @@ export default class El {
     worldId = document.querySelector<HTMLInputElement>('#world_id')?.value ?? '';
     assetType = document.querySelector<HTMLInputElement>('#asset_type')?.value ?? '';
 
-    addNewElement = (element: HTMLElement, elName: string) => {
+    addNewElement = <T extends HTMLElement = HTMLElement>(element: T, elName: string) => {
         this[elName] = element;
         console.info(`${elName} has been added to elements temporarily. Be sure to add it to the class before pushing to production!`);
     };
@@ -131,7 +133,7 @@ export default class El {
                 if (oldLoad) oldLoad.call(window, e);
                 if (this.formInputs.length == 0) return;
 
-                let values = StorageBox.get<{ [key: string]: string }>('formValues');
+                let values = StorageBox.get<FormValues>('formValues');
                 let content = StorageBox.get<string>('content');
                 let message = StorageBox.get<string>('message');
                 let description = StorageBox.get<string>('description');

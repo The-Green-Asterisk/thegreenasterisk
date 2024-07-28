@@ -3,19 +3,18 @@ export default class StorageBox {
         //
     }
 
-    static get<T>(key: string): T;
-    static get(key: string): string | number | boolean | object | null {
+    static get<T = null | string | boolean | number | object>(key: string): T {
         const result = localStorage.getItem(key);
-        if (result === null) return null;
+        if (result === null) return null as T;
         if (result === 'true' || result === 'false') {
-            return Boolean(result);
+            return Boolean(result) as T;
         } else if (!isNaN(Number(result))) {
-            return Number(result);
+            return Number(result) as T;
         } else {
             try {
-                return JSON.parse(result);
+                return JSON.parse(result) as T;
             } catch (e) {
-                return result;
+                return result as T;
             };
         }
     }
