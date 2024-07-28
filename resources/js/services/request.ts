@@ -1,4 +1,7 @@
+import { Method } from 'axios';
 import El from '../const/elements';
+
+type RequestData = { [key: string]: string | boolean | number };
 
 export function initLoader(el: El) {
     window.fetch = ((oldFetch: typeof window.fetch, input: RequestInfo | URL = '', init?: RequestInit | undefined) => {
@@ -28,34 +31,32 @@ export function initLoader(el: El) {
 }
 
 export default async function request<T = Response>(
-    method: string,
+    method: Method,
     path: string,
-    data: { [key: string]: string | Boolean | Number } | null = null,
+    data: RequestData | null = null,
     evalResult = true,
  ): Promise<T extends Response ? Response : T> {
-    let payLoad;
+    let payLoad: RequestInit | undefined = undefined;
 
     if (method !== 'GET') payLoad = {
         method,
         headers: {
             'Content-Type': 'application/json',
             'Accept': 'application/json'
-        },
-        body: JSON.stringify(data),
+        } as HeadersInit,
+        body: JSON.stringify(data) as BodyInit,
     };
 
     const routePostfix = await getPostfix(method, data);
 
     const response = await fetch(`${path}${routePostfix}`, payLoad);
 
-    if (evalResult) {
-        return response.json().then(obj => obj as T extends Response ? Response : T);
-    } else {
-        return response as T extends Response ? Response : T;
-    }
+    return evalResult
+        ? response.json().then(obj => obj as T extends Response ? Response : T)
+        : response as T extends Response ? Response : T;
 }
 
-async function getPostfix(method: string, data: { [key: string]: string | Boolean | Number } | null = null) {
+async function getPostfix(method: string, data: RequestData | null = null) {
     let postfix = '';
     if (data && method === 'GET') {
         const params = new URLSearchParams();
@@ -67,24 +68,24 @@ async function getPostfix(method: string, data: { [key: string]: string | Boolea
     return postfix;
 }
 
-export async function get<T = Response>(path: string, data: { [key: string]: string | Boolean | Number } | null = null) {
+export async function get<T = Response>(path: string, data: RequestData | null = null) {
     return await request<T>('GET', path, data);
 }
 
-export async function getHtml(path: string, data: { [key: string]: string | Boolean | Number } | null = null) {
+export async function getHtml(path: string, data: RequestData | null = null) {
     return await request('GET', path, data, false)
         .then(response => response.text());
 }
 
-export async function post<T = Response>(path: string, data: { [key: string]: string | Boolean | Number } | null = null) {
+export async function post<T = Response>(path: string, data: RequestData | null = null) {
     return await request<T>('POST', path, data);
 }
 
-export async function put<T = Response>(path: string, data: { [key: string]: string | Boolean | Number } | null = null) {
+export async function put<T = Response>(path: string, data: RequestData | null = null) {
     return await request<T>('PUT', path, data);
 }
 
-export async function del<T = Response>(path: string, data: { [key: string]: string | Boolean | Number } | null = null) {
+export async function del<T = Response>(path: string, data: RequestData | null = null) {
     if (data?._method) {
         data._method = 'DELETE';
     } else {
