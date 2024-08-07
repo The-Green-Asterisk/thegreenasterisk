@@ -13,7 +13,7 @@
         @endadmin
             <h1>{{  $asset->name  }}</h1>
         </section>
-        <section class="smaller-section">
+        <section class="asset-view">
             @if(isset($asset->image))
                 <img src="{{ asset('/storage/'.$asset->image) }}" alt="{{ $asset->name }}" class="asset-article-img">
             @endif
