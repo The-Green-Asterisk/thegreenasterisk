@@ -10,6 +10,10 @@
     background-color: var(--world-color);
 }
 
+section.asset-view {
+    max-height: none;
+}
+
 .world-hero {
     border: 1px solid black;
     margin: 5px;

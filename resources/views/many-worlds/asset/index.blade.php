@@ -1,5 +1,5 @@
 <x-many-worlds :tabs="$tabs" :bg="$bg" :world="$world">
-    <section>
+    <section class="asset-view">
         <section class="section-header">
         @admin
             <div class="edit-link">
