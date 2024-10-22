@@ -1,5 +1,6 @@
 import CookieJar from "../services/cookieJar";
 import StorageBox from "../services/storageBox";
+import PathNames from "./pathNames";
 
 type FormValues = { [key: string]: string };
 
@@ -7,54 +8,91 @@ export default class El {
     // Type Parameter (<Type> inside angle brackets) is only necessary when the element type is ambiguous
     root = document.querySelector<HTMLElement>(':root');
     crfToken = document.querySelector<HTMLMetaElement>('meta[name="csrf-token"]')?.getAttribute('content') ?? '';
-
     cookieBanner = document.querySelector<HTMLDivElement>('#cookie-banner');
     cookieBannerButton = document.querySelector<HTMLButtonElement>('#cookie-banner-button');
-
     body = document.querySelector('body');
     loader = document.querySelector<HTMLDivElement>('#loader');
     navbar = document.querySelector<HTMLElement>('navbar');
     logInButton = document.querySelectorAll<HTMLAnchorElement>('#log-in-button');
     logOutButton = document.querySelector<HTMLAnchorElement>('#log-out-button');
-
     forms = document.querySelectorAll('form');
     inputs = document.querySelector('input');
     formInputs = document.querySelectorAll<HTMLInputElement | HTMLTextAreaElement>('input, textarea');
     submitButton = document.querySelector<HTMLButtonElement>('button[type="submit"]');
-
     selectors = document.querySelectorAll('select');
 
     modal = document.querySelector<HTMLDivElement>('#modal');
     grabModal = () => this.modal = document.querySelector<HTMLDivElement>('#modal');
 
-    blogPane = document.querySelector<HTMLDivElement>('#blog-pane');
-    imagePreview = document.querySelector<HTMLImageElement>('#image-preview');
-    image = document.querySelector<HTMLInputElement>('#image');
-    cancelCreateButton = document.querySelector<HTMLButtonElement>('#cancel-create-button');
-    cancelEditButton = document.querySelector<HTMLButtonElement>('#cancel-edit-button');
-    deleteButton = document.querySelector<HTMLButtonElement>('#delete-button');
-    viewButtons = document.querySelectorAll<HTMLButtonElement>('.view-button');
-    createPostButton = document.querySelector<HTMLButtonElement>('#create-post-button');
-    editBlogPostButton = document.querySelector<HTMLButtonElement>('#edit-blog-post-button');
-    deleteCommentButtons = document.querySelectorAll<HTMLButtonElement>('.delete-comment-button');
-    backToBlogButton = document.querySelector<HTMLButtonElement>('#back-to-blog-button');
+    //BLOG
+    blogPane!: HTMLDivElement | null;
+    imagePreview!: HTMLImageElement | null;
+    image!: HTMLInputElement | null;
+    cancelCreateButton!: HTMLButtonElement | null;
+    cancelEditButton!: HTMLButtonElement | null;
+    deleteButton!: HTMLButtonElement | null;
+    viewButtons!: NodeListOf<HTMLButtonElement> | null;
+    createPostButton!: HTMLButtonElement | null;
+    editBlogPostButton!: HTMLButtonElement | null;
+    deleteCommentButtons!: NodeListOf<HTMLButtonElement> | null;
+    backToBlogButton!: HTMLButtonElement | null;
+    newTagButton!: HTMLButtonElement | null;
+    clearTagButton!: HTMLButtonElement | null;
 
-    newTagButton = document.querySelector<HTMLButtonElement>('#new-tag-button');
-    clearTagButton = document.querySelector<HTMLButtonElement>('#clear-tag-button');
-
-    tabs = document.querySelectorAll<HTMLDivElement>('.tab');
-
-    worldNameInput = document.querySelector<HTMLInputElement>('#world-name');
-    shortNameInput = document.querySelector<HTMLInputElement>('#short-name');
-    worldId = document.querySelector<HTMLInputElement>('#world_id')?.value ?? '';
-    assetType = document.querySelector<HTMLInputElement>('#asset_type')?.value ?? '';
+    //MANY WORLDS
+    tabs!: NodeListOf<HTMLDivElement> | null;
+    worldNameInput!: HTMLInputElement | null;
+    shortNameInput!: HTMLInputElement | null;
+    worldId!: string;
+    assetType!: string;
 
     addNewElement = <T extends HTMLElement = HTMLElement>(element: T, elName: string) => {
         this[elName] = element;
         console.info(`${elName} has been added to elements temporarily. Be sure to add it to the class before pushing to production!`);
+
+        return element;
     };
 
-    constructor() {
+    constructor(path: string) {
+        switch (path) {
+            case PathNames.HOME:
+                break;
+            case PathNames.BLOG:
+                this.blogPane = document.querySelector<HTMLDivElement>('#blog-pane');
+                this.imagePreview = document.querySelector<HTMLImageElement>('#image-preview');
+                this.image = document.querySelector<HTMLInputElement>('#image');
+                this.cancelCreateButton = document.querySelector<HTMLButtonElement>('#cancel-create-button');
+                this.cancelEditButton = document.querySelector<HTMLButtonElement>('#cancel-edit-button');
+                this.deleteButton = document.querySelector<HTMLButtonElement>('#delete-button');
+                this.viewButtons = document.querySelectorAll<HTMLButtonElement>('.view-button');
+                this.createPostButton = document.querySelector<HTMLButtonElement>('#create-post-button');
+                this.editBlogPostButton = document.querySelector<HTMLButtonElement>('#edit-blog-post-button');
+                this.deleteCommentButtons = document.querySelectorAll<HTMLButtonElement>('.delete-comment-button');
+                this.backToBlogButton = document.querySelector<HTMLButtonElement>('#back-to-blog-button');
+                this.newTagButton = document.querySelector<HTMLButtonElement>('#new-tag-button');
+                this.clearTagButton = document.querySelector<HTMLButtonElement>('#clear-tag-button');
+                break;
+            case PathNames.ABOUT:
+                break;
+            case PathNames.CONTACT:
+                break;
+            case PathNames.TOS:
+                break;
+            case PathNames.PRIVACY:
+                break;
+            case PathNames.MANY_WORLDS:
+                this.tabs = document.querySelectorAll<HTMLDivElement>('.tab');
+                this.worldNameInput = document.querySelector<HTMLInputElement>('#world-name');
+                this.shortNameInput = document.querySelector<HTMLInputElement>('#short-name');
+                this.worldId = document.querySelector<HTMLInputElement>('#world_id')?.value ?? '';
+                this.assetType = document.querySelector<HTMLInputElement>('#asset_type')?.value ?? '';
+                this.cancelCreateButton = document.querySelector<HTMLButtonElement>('#cancel-create-button');
+                this.deleteCommentButtons = document.querySelectorAll<HTMLButtonElement>('.delete-comment-button');
+                break;
+            default:
+                break;
+        }
+
         if (this.selectors && this.selectors.length > 0) {
             this.selectors.forEach(selector => {
                 selector.onclick = (e) => {

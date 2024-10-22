@@ -5,7 +5,7 @@ import constants from './const';
 
 import { initLoader } from './services/request';
 
-const elements = new constants.El();
+const elements = new constants.El(constants.PathNames.basePath());
 initLoader(elements);
 
 switch (constants.PathNames.basePath()) {
